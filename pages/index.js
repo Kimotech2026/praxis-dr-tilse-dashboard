@@ -89,4 +89,4 @@ const callTop = {  display: "grid",  gridTemplateColumns: "90px 1fr 1fr 120px", 
 const badge = { background: "#e0f2fe", color: "#0369a1", padding: "6px 10px", borderRadius: 999, textAlign: "center" };
 const details = { marginTop: 14, background: "#f8fafc", padding: 16, borderRadius: 12 };
 const highlightCard = {  background: "linear-gradient(135deg, #2563eb, #1e40af)",  color: "white",  padding: 24,  borderRadius: 16,  boxShadow: "0 12px 30px rgba(37,99,235,0.30)"};
-const headerRow = {  display: "grid",  gridTemplateColumns: "90px 1fr 1fr 120px",  gap: 12,  fontSize: 13,  color: "#667085",  marginBottom: 10,  padding: "0 4px"};
+const headerRow = {  display: "grid",  gridTemplateColumns: "90px 1fr 1fr 120px",  gap: 12,  fontSize: 13,  color: "#667085",  marginBottom: 10,  padding: "0 16px"};
