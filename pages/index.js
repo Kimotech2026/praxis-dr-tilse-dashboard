@@ -27,8 +27,12 @@ export default function Home() {
         <tbody>
           {data.map((row, i) => (
             <tr key={i}>
-              <td>{row.Datum}</td>
-              <td>{row.Uhrzeit}</td>
+              <td>{new Date(row.Datum).toLocaleDateString("de-DE")}</td>
+              <td>{new Date(row.Uhrzeit).toLocaleTimeString("de-DE", {
+                hour: "2-digit",
+                minute: "2-digit",
+                timeZone: "Europe/Berlin"
+              })}</td>
               <td>{row.Name}</td>
               <td>{row.Anliegen}</td>
               <td>{row.Arzt}</td>
