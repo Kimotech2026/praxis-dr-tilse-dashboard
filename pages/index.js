@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [data, setData] = useState([]);
   const [openIndex, setOpenIndex] = useState(null);
+  const [statusMap, setStatusMap] = useState({});
+  const updateStatus = (i, value) => setStatusMap(prev => ({ ...prev, [i]: value }));
 
   useEffect(() => {
     fetch("https://opensheet.elk.sh/1AFGmKqR2typaxKARBprS81ArcBUqXg1RX8sXwNyO1oY/Tabellenblatt1")
@@ -57,8 +59,7 @@ export default function Home() {
               </div>
 
               {openIndex === i && (
-                <div style={details}><div style={detailCard}><span style={detailLabel}>Bestandspatient</span><strong>{row.Bestandspatient || "-"}</strong></div><div style={detailCard}><span style={detailLabel}>Geburtsdatum</span><strong>{row.Geburtsdatum || "-"}</strong></div><div style={detailCardWide}><span style={detailLabel}>Zusammenfassung</span><p>{row.Zusammenfassung || "-"}</p></div></div>
-              )}
+              <div style={details}><div style={detailCard}><span style={detailLabel}>Bestandspatient</span><strong>{row.Bestandspatient || "-"}</strong></div><div style={detailCard}><span style={detailLabel}>Geburtsdatum</span><strong>{row.Geburtsdatum || "-"}</strong></div><div style={detailCardWide}><span style={detailLabel}>Zusammenfassung</span><p>{row.Zusammenfassung || "-"}</p></div><div style={detailCardWide}><span style={detailLabel}>📁 Status</span><select value={statusMap[i] || "Neu / Ungelesen"} onChange={(e) => updateStatus(i, e.target.value)} style={selectStyle}><option>Neu / Ungelesen</option><option>In Bearbeitung</option><option>Erledigt</option><option>Gelesen</option></select><div style={deleteStyle}>löschen</div></div></div>              )}
             </div>
           ))}
         </div>
@@ -84,3 +85,5 @@ const details = { marginTop: 14, display: "grid", gridTemplateColumns: "1fr 1fr"
 const detailCard = { background: "#f8fafc", padding: 16, borderRadius: 14, border: "1px solid #e5e7eb" };
 const detailCardWide = { background: "#f8fafc", padding: 16, borderRadius: 14, border: "1px solid #e5e7eb", gridColumn: "1 / -1" };
 const detailLabel = { display: "block", color: "#667085", fontSize: 13, marginBottom: 6 };
+const selectStyle = { marginTop: 10, padding: "10px 12px", borderRadius: 10, border: "1px solid #d1d5db", background: "#f3f4f6", color: "#111827", width: "100%", cursor: "pointer", fontWeight: 600 };
+const deleteStyle = { marginTop: 12, color: "#dc2626", fontWeight: 600, cursor: "pointer" };
