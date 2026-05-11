@@ -57,7 +57,6 @@ export default function Home() {
               <div style={callTop}>
                 <strong>{row.Uhrzeit || "-"}</strong>
                 <span>{row.Name || "-"}</span>
-                <span>{row.Telefonnummer || "-"}</span>
                 <span>{row.Arzt || "-"}</span>
                 <span style={badge}>{row.Anliegen || "-"}</span>
               </div>
