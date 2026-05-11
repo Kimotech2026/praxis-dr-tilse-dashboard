@@ -75,5 +75,5 @@ const details = { marginTop: 14, display: "grid", gridTemplateColumns: "1fr 1fr"
 const detailCard = { background: "#f8fafc", padding: 16, borderRadius: 14, border: "1px solid #e5e7eb" };
 const detailCardWide = { background: "#f8fafc", padding: 16, borderRadius: 14, border: "1px solid #e5e7eb", gridColumn: "1 / -1" };
 const detailLabel = { display: "block", color: "#667085", fontSize: 13, marginBottom: 6 };
-const selectStyle = { padding: "8px 10px", borderRadius: 10, border: "1px solid #d1d5db", background: "#f3f4f6", cursor: "pointer", fontWeight: 600 };
+const selectStyle = { padding: "8px 10px", borderRadius: 10, border: "1px solid #d1d5db", background: "#f3f4f6", cursor: "pointer", fontWeight: 400 };
 const deleteStyle = { color: "#dc2626", fontWeight: 600, cursor: "pointer" };
