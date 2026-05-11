@@ -62,11 +62,7 @@ export default function Home() {
               </div>
 
               {openIndex === i && (
-                <div style={details}>
-                  <p><b>Bestandspatient:</b> {row.Bestandspatient || "-"}</p>
-                  <p><b>Geburtsdatum:</b> {row.Geburtsdatum || "-"}</p>
-                  <p><b>Zusammenfassung:</b> {row.Zusammenfassung || "-"}</p>
-                </div>
+                <div style={details}><div style={detailCard}><span style={detailLabel}>Bestandspatient</span><strong>{row.Bestandspatient || "-"}</strong></div><div style={detailCard}><span style={detailLabel}>Geburtsdatum</span><strong>{row.Geburtsdatum || "-"}</strong></div><div style={detailCardWide}><span style={detailLabel}>Zusammenfassung</span><p>{row.Zusammenfassung || "-"}</p></div></div>
               )}
             </div>
           ))}
@@ -87,6 +83,9 @@ const box = { background: "white", padding: 24, borderRadius: 16 };
 const callCard = { padding: 16, borderBottom: "1px solid #e5e7eb", cursor: "pointer" };
 const callTop = {  display: "grid",  gridTemplateColumns: "90px 1fr 1fr 120px",  gap: 12,  alignItems: "center"};
 const badge = { background: "#e0f2fe", color: "#0369a1", padding: "6px 10px", borderRadius: 999, textAlign: "center" };
-const details = { marginTop: 14, background: "#f8fafc", padding: 16, borderRadius: 12 };
 const highlightCard = {  background: "linear-gradient(135deg, #2563eb, #1e40af)",  color: "white",  padding: 24,  borderRadius: 16,  boxShadow: "0 12px 30px rgba(37,99,235,0.30)"};
 const headerRow = {  display: "grid",  gridTemplateColumns: "90px 1fr 1fr 120px",  gap: 12,  fontSize: 13,  color: "#667085",  marginBottom: 10,  padding: "0 16px"};
+const details = { marginTop: 14, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 };
+const detailCard = { background: "#f8fafc", padding: 16, borderRadius: 14, border: "1px solid #e5e7eb" };
+const detailCardWide = { background: "#f8fafc", padding: 16, borderRadius: 14, border: "1px solid #e5e7eb", gridColumn: "1 / -1" };
+const detailLabel = { display: "block", color: "#667085", fontSize: 13, marginBottom: 6 };
