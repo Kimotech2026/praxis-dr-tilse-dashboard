@@ -7,7 +7,7 @@ export default function Home() {
   useEffect(() => {
     fetch("https://opensheet.elk.sh/1AFGmKqR2typaxKARBprS81ArcBUqXg1RX8sXwNyO1oY/Tabellenblatt1")
       .then((res) => res.json())
-      .then((data) => setData(data));
+      .then((data) => setData([...data].reverse()));
   }, []);
 
   const termine = data.filter(r => r.Anliegen === "Termin").length;
@@ -31,7 +31,10 @@ export default function Home() {
         <p style={{ color: "#667085" }}>Heutige Anrufübersicht</p>
 
         <div style={cards}>
-          <div style={card}><p>Anrufe gesamt</p><h2>{data.length}</h2></div>
+          <div style={highlightCard}>
+            <p>Anrufe gesamt</p>
+            <h2>{data.length}</h2>
+          </div>
           <div style={card}><p>Termine</p><h2>{termine}</h2></div>
           <div style={card}><p>Rezepte</p><h2>{rezepte}</h2></div>
           <div style={card}><p>Atteste</p><h2>{atteste}</h2></div>
@@ -77,3 +80,4 @@ const callCard = { padding: 16, borderBottom: "1px solid #e5e7eb", cursor: "poin
 const callTop = { display: "grid", gridTemplateColumns: "90px 1fr 1fr 1fr 100px", gap: 12, alignItems: "center" };
 const badge = { background: "#e0f2fe", color: "#0369a1", padding: "6px 10px", borderRadius: 999, textAlign: "center" };
 const details = { marginTop: 14, background: "#f8fafc", padding: 16, borderRadius: 12 };
+const highlightCard = {  background: "linear-gradient(135deg, #2563eb, #1e40af)",  color: "white",  padding: 24,  borderRadius: 16,  boxShadow: "0 12px 30px rgba(37,99,235,0.30)"};
