@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [data, setData] = useState([]);
   const [openIndex, setOpenIndex] = useState(null);
+  const [sortBy, setSortBy] = useState(null); const [sortDirection, setSortDirection] = useState("asc");
 
   useEffect(() => {
     fetch("https://opensheet.elk.sh/1AFGmKqR2typaxKARBprS81ArcBUqXg1RX8sXwNyO1oY/Tabellenblatt1")
@@ -13,6 +14,7 @@ export default function Home() {
   const termine = data.filter(r => r.Anliegen === "Termin").length;
   const rezepte = data.filter(r => r.Anliegen === "Rezept").length;
   const atteste = data.filter(r => r.Anliegen === "Attest").length;
+  const sortedData = [...data].sort((a, b) => { if (!sortBy) return 0; const first = (a[sortBy] || "").localeCompare(b[sortBy] || ""); if (first !== 0) return sortDirection === "asc" ? first : -first; return (b.Uhrzeit || "").localeCompare(a.Uhrzeit || ""); });
 
   return (
     <div style={layout}>
@@ -45,14 +47,9 @@ export default function Home() {
         <div style={box}>
           <h2>Heutige Anrufe</h2>
           
-          <div style={headerRow}>
-            <span>Uhrzeit</span>
-            <span>Name</span>
-            <span>Arzt</span>
-            <span>Anliegen</span>
-          </div>
+          <div style={headerRow}><span>Uhrzeit</span><span>Name</span><span onClick={() => { setSortBy("Arzt"); setSortDirection(sortBy === "Arzt" && sortDirection === "asc" ? "desc" : "asc"); }} style={sortHeader}>Arzt ↕</span><span onClick={() => { setSortBy("Anliegen"); setSortDirection(sortBy === "Anliegen" && sortDirection === "asc" ? "desc" : "asc"); }} style={sortHeader}>Anliegen ↕</span></div>
 
-          {data.map((row, i) => (
+          {sortedData.map((row, i) => (
             <div key={i} style={callCard} onClick={() => setOpenIndex(openIndex === i ? null : i)}>
               <div style={callTop}>
                 <strong>{row.Uhrzeit || "-"}</strong>
@@ -81,10 +78,11 @@ const cards = { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20,
 const card = { background: "white", padding: 24, borderRadius: 16, boxShadow: "0 8px 24px rgba(0,0,0,0.06)" };
 const box = { background: "white", padding: 24, borderRadius: 16 };
 const callCard = { padding: 16, borderBottom: "1px solid #e5e7eb", cursor: "pointer" };
-const callTop = {  display: "grid",  gridTemplateColumns: "90px 1fr 1fr 120px",  gap: 12,  alignItems: "center"};
+const callTop = { display: "grid", gridTemplateColumns: "90px 1fr 1fr 220px", gap: 12, alignItems: "center" };
 const badge = { background: "#e0f2fe", color: "#0369a1", padding: "6px 10px", borderRadius: 999, textAlign: "center" };
 const highlightCard = {  background: "linear-gradient(135deg, #2563eb, #1e40af)",  color: "white",  padding: 24,  borderRadius: 16,  boxShadow: "0 12px 30px rgba(37,99,235,0.30)"};
-const headerRow = {  display: "grid",  gridTemplateColumns: "90px 1fr 1fr 120px",  gap: 12,  fontSize: 13,  color: "#667085",  marginBottom: 10,  padding: "0 16px"};
+const headerRow = { display: "grid", gridTemplateColumns: "90px 1fr 1fr 220px", gap: 12, fontSize: 13, color: "#667085", marginBottom: 10, padding: "0 16px" };
+const sortHeader = { cursor: "pointer", fontWeight: 600 };
 const details = { marginTop: 14, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 };
 const detailCard = { background: "#f8fafc", padding: 16, borderRadius: 14, border: "1px solid #e5e7eb" };
 const detailCardWide = { background: "#f8fafc", padding: 16, borderRadius: 14, border: "1px solid #e5e7eb", gridColumn: "1 / -1" };
