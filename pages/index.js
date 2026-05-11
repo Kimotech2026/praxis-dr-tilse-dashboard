@@ -58,7 +58,7 @@ export default function Home() {
                 <strong>{row.Uhrzeit || "-"}</strong>
                 <span>{row.Name || "-"}</span>
                 <span>{row.Arzt || "-"}</span>
-                <span style={badge}>{row.Anliegen || "-"}</span>
+                <span style={{ display: "flex", gap: 6 }}>{(row.Anliegen || "").split(",").map((item, i) => <span key={i} style={{ ...badge, background: item.trim() === "Termin" ? "#e0f2fe" : item.trim() === "Rezept" ? "#dcfce7" : item.trim() === "Attest" ? "#fef9c3" : "#e5e7eb", color: item.trim() === "Termin" ? "#0369a1" : item.trim() === "Rezept" ? "#166534" : item.trim() === "Attest" ? "#854d0e" : "#374151" }}>{item.trim()}</span>)}</span>
               </div>
 
               {openIndex === i && (
