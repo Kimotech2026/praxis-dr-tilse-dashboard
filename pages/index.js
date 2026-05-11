@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [data, setData] = useState([]);
+  const [openIndex, setOpenIndex] = useState(null);
 
   useEffect(() => {
     fetch("https://opensheet.elk.sh/1AFGmKqR2typaxKARBprS81ArcBUqXg1RX8sXwNyO1oY/Tabellenblatt1")
@@ -9,109 +10,70 @@ export default function Home() {
       .then((data) => setData(data));
   }, []);
 
+  const termine = data.filter(r => r.Anliegen === "Termin").length;
+  const rezepte = data.filter(r => r.Anliegen === "Rezept").length;
+  const atteste = data.filter(r => r.Anliegen === "Attest").length;
+
   return (
-    <div style={{
-      minHeight: "100vh",
-      background: "#f5f7fb",
-      padding: "40px",
-      fontFamily: "Arial, sans-serif"
-    }}>
-      <h1 style={{ fontSize: 32, marginBottom: 8 }}>Dr. Tilse Dashboard</h1>
-      <p style={{ color: "#667085", marginBottom: 30 }}>
-        Übersicht aller eingegangenen KI-Telefonate
-      </p>
+    <div style={layout}>
+      <aside style={sidebar}>
+        <h2>Praxis</h2>
+        <nav>
+          <p style={activeNav}>Heute</p>
+          <p style={navItem}>Anrufliste</p>
+          <p style={navItem}>Kontakte</p>
+          <p style={navItem}>Einstellungen</p>
+        </nav>
+      </aside>
 
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-        gap: 20,
-        marginBottom: 30
-      }}>
-        <div style={cardStyle}>
-          <p style={labelStyle}>Anrufe gesamt</p>
-          <h2>{data.length}</h2>
+      <main style={main}>
+        <h1>Dashboard – Praxis Dr. Tilse</h1>
+        <p style={{ color: "#667085" }}>Heutige Anrufübersicht</p>
+
+        <div style={cards}>
+          <div style={card}><p>Anrufe gesamt</p><h2>{data.length}</h2></div>
+          <div style={card}><p>Termine</p><h2>{termine}</h2></div>
+          <div style={card}><p>Rezepte</p><h2>{rezepte}</h2></div>
+          <div style={card}><p>Atteste</p><h2>{atteste}</h2></div>
         </div>
 
-        <div style={cardStyle}>
-          <p style={labelStyle}>Termine</p>
-          <h2>{data.filter(r => r.Anliegen === "Termin").length}</h2>
+        <div style={box}>
+          <h2>Heutige Anrufe</h2>
+
+          {data.map((row, i) => (
+            <div key={i} style={callCard} onClick={() => setOpenIndex(openIndex === i ? null : i)}>
+              <div style={callTop}>
+                <strong>{row.Uhrzeit || "-"}</strong>
+                <span>{row.Name || "-"}</span>
+                <span>{row.Telefonnummer || "-"}</span>
+                <span>{row.Arzt || "-"}</span>
+                <span style={badge}>{row.Anliegen || "-"}</span>
+              </div>
+
+              {openIndex === i && (
+                <div style={details}>
+                  <p><b>Bestandspatient:</b> {row.Bestandspatient || "-"}</p>
+                  <p><b>Geburtsdatum:</b> {row.Geburtsdatum || "-"}</p>
+                  <p><b>Zusammenfassung:</b> {row.Zusammenfassung || "-"}</p>
+                </div>
+              )}
+            </div>
+          ))}
         </div>
-
-        <div style={cardStyle}>
-          <p style={labelStyle}>Rezepte</p>
-          <h2>{data.filter(r => r.Anliegen === "Rezept").length}</h2>
-        </div>
-      </div>
-
-      <div style={tableBoxStyle}>
-        <h2 style={{ marginBottom: 20 }}>Letzte Anrufe</h2>
-
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
-          <thead>
-            <tr>
-              {["Datum", "Uhrzeit", "Name", "Anliegen", "Arzt", "Zusammenfassung"].map((h) => (
-                <th key={h} style={thStyle}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-
-          <tbody>
-            {data.map((row, i) => (
-              <tr key={i}>
-                <td style={tdStyle}>{row.Datum || "-"}</td>
-                <td style={tdStyle}>{row.Uhrzeit || "-"}</td>
-                <td style={tdStyle}>{row.Name || "-"}</td>
-                <td style={tdStyle}>
-                  <span style={badgeStyle}>{row.Anliegen || "-"}</span>
-                </td>
-                <td style={tdStyle}>{row.Arzt || "-"}</td>
-                <td style={tdStyle}>{row.Zusammenfassung || "-"}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      </main>
     </div>
   );
 }
 
-const cardStyle = {
-  background: "white",
-  padding: 24,
-  borderRadius: 16,
-  boxShadow: "0 8px 24px rgba(0,0,0,0.06)"
-};
-
-const labelStyle = {
-  color: "#667085",
-  margin: 0
-};
-
-const tableBoxStyle = {
-  background: "white",
-  padding: 24,
-  borderRadius: 16,
-  boxShadow: "0 8px 24px rgba(0,0,0,0.06)"
-};
-
-const thStyle = {
-  textAlign: "left",
-  padding: 14,
-  borderBottom: "1px solid #e5e7eb",
-  color: "#475467"
-};
-
-const tdStyle = {
-  padding: 14,
-  borderBottom: "1px solid #eef0f3",
-  verticalAlign: "top"
-};
-
-const badgeStyle = {
-  background: "#e0f2fe",
-  color: "#0369a1",
-  padding: "6px 10px",
-  borderRadius: 999,
-  fontWeight: 600,
-  fontSize: 13
-};
+const layout = { display: "flex", minHeight: "100vh", background: "#f5f7fb", fontFamily: "Arial" };
+const sidebar = { width: 240, background: "#0f172a", color: "white", padding: 24 };
+const main = { flex: 1, padding: 40 };
+const navItem = { padding: 12, color: "#cbd5e1" };
+const activeNav = { padding: 12, background: "#2563eb", borderRadius: 10 };
+const cards = { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20, margin: "30px 0" };
+const card = { background: "white", padding: 24, borderRadius: 16, boxShadow: "0 8px 24px rgba(0,0,0,0.06)" };
+const box = { background: "white", padding: 24, borderRadius: 16 };
+const callCard = { padding: 16, borderBottom: "1px solid #e5e7eb", cursor: "pointer" };
+const callTop = { display: "grid", gridTemplateColumns: "90px 1fr 1fr 1fr 100px", gap: 12, alignItems: "center" };
+const badge = { background: "#e0f2fe", color: "#0369a1", padding: "6px 10px", borderRadius: 999, textAlign: "center" };
+const details = { marginTop: 14, background: "#f8fafc", padding: 16, borderRadius: 12 };
