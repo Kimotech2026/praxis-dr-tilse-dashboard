@@ -45,20 +45,15 @@ export default function Home() {
         <div style={box}>
           <h2>Heutige Anrufe</h2>
           
-          <div style={headerRow}>
-            <span>Uhrzeit</span>
-            <span>Name</span>
-            <span>Arzt</span>
-            <span>Anliegen</span>
-          </div>
+          <div style={headerRow}><span>Uhrzeit</span><span>Name</span><span>Anliegen</span><span>Arzt</span></div>
 
           {data.map((row, i) => (
             <div key={i} style={callCard} onClick={() => setOpenIndex(openIndex === i ? null : i)}>
               <div style={callTop}>
-                <strong>{row.Uhrzeit || "-"}</strong>
-                <span>{row.Name || "-"}</span>
-                <span>{row.Arzt || "-"}</span>
-                <span style={{ display: "flex", gap: 6 }}>{(row.Anliegen || "").split(",").map((item, i) => <span key={i} style={{ ...badge, background: item.trim() === "Termin" ? "#e0f2fe" : item.trim() === "Rezept" ? "#dcfce7" : item.trim() === "Attest" ? "#fef9c3" : "#e5e7eb", color: item.trim() === "Termin" ? "#0369a1" : item.trim() === "Rezept" ? "#166534" : item.trim() === "Attest" ? "#854d0e" : "#374151" }}>{item.trim()}</span>)}</span>
+              <strong>{row.Uhrzeit || "-"}</strong>
+              <span>{row.Name || "-"}</span>
+              <span style={{ display: "flex", gap: 6 }}>{(row.Anliegen || "").split(",").map((item, i) => <span key={i} style={{ ...badge, background: item.trim() === "Termin" ? "#e0f2fe" : item.trim() === "Rezept" ? "#dcfce7" : item.trim() === "Attest" ? "#fef9c3" : "#e5e7eb", color: item.trim() === "Termin" ? "#0369a1" : item.trim() === "Rezept" ? "#166534" : item.trim() === "Attest" ? "#854d0e" : "#374151" }}>{item.trim()}</span>)}</span>
+              <span>{row.Arzt || "-"}</span>
               </div>
 
               {openIndex === i && (
