@@ -315,7 +315,16 @@ export default function Home() {
         )}
         
         {activePage === "Kalender" && (
-          <div style={box}><h2>Kalender</h2><p>Hier kommt später der Kalender rein.</p></div>
+          <div style={box}>
+            <h2>Kalender</h2>
+        
+            <iframe
+              src="DEIN_GOOGLE_KALENDER_EMBED_LINK"
+              style={{ border: 0, width: "100%", height: 650, borderRadius: 14 }}
+              frameBorder="0"
+              scrolling="no"
+            />
+          </div>
         )}
       </main>
     </div>
