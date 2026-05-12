@@ -37,6 +37,7 @@ export default function Home() {
   const [openIndex, setOpenIndex] = useState(null);
   const [statusMap, setStatusMap] = useState({});
   const [activePage, setActivePage] = useState("Anrufe");
+  const [activeCalendar, setActiveCalendar] = useState("Frau");
   const [statusFilter, setStatusFilter] = useState("Alle");
   const [search, setSearch] = useState("");  
   const [anliegenFilter, setAnliegenFilter] = useState("Alle");
@@ -318,8 +319,16 @@ export default function Home() {
           <div style={box}>
             <h2>Kalender</h2>
         
+            <div style={tabBar}>
+              {["Frau Dr. Tilse", "Herr Dr. Tilse"].map(item => (
+                <button key={item} onClick={() => setActiveCalendar(item)} style={activeCalendar === item ? activeTab : tabItem}>
+                  {item}
+                </button>
+              ))}
+            </div>
+        
             <iframe
-              src="https://calendar.google.com/calendar/embed?src=a97f878565c5dac9bd5b57532837c0cc811565a1b452232db18de9f294d2dbc8%40group.calendar.google.com&ctz=Europe%2FBerlin"
+              src={activeCalendar === "Frau Dr. Tilse" ? "https://calendar.google.com/calendar/embed?src=a97f878565c5dac9bd5b57532837c0cc811565a1b452232db18de9f294d2dbc8%40group.calendar.google.com&ctz=Europe%2FBerlin" : "https://calendar.google.com/calendar/embed?src=ee8c28099ea055a6a6d06eb21cd9038cd860247aabacc309edd6283b1dd9f30b%40group.calendar.google.com&ctz=Europe%2FBerlin"}
               style={{ border: 0, width: "100%", height: 650, borderRadius: 14 }}
               frameBorder="0"
               scrolling="no"
