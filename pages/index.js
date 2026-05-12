@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Phone, Users, CheckSquare, Calendar, User, CreditCard, Settings } from "lucide-react";
+import { Phone, Users, CheckSquare, Calendar, User, CreditCard, Settings, Filter } from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -71,18 +71,22 @@ export default function Home() {
             <div style={filterRow}>
               <input placeholder="Suche..." value={search} onChange={(e) => setSearch(e.target.value)} style={searchInput} />
             
-              <select
-                value={anliegenFilter === "Alle" ? "" : anliegenFilter}
-                onChange={(e) => setAnliegenFilter(e.target.value || "Alle")}
-                style={filterSelect}
-              >
-                <option value="" disabled hidden>Anliegen filtern</option>
-                <option value="Alle">Alle</option>
-                <option value="Termin">Termin</option>
-                <option value="Rezept">Rezept</option>
-                <option value="Attest">Attest</option>
-                <option value="Sonstige">Sonstige</option>
-              </select>
+              <div style={anliegenWrapper}>
+                <Filter size={16} style={filterIcon} />
+                
+                <select
+                  value={anliegenFilter === "Alle" ? "" : anliegenFilter}
+                  onChange={(e) => setAnliegenFilter(e.target.value || "Alle")}
+                  style={anliegenFilter !== "Alle" ? filterActive : filterSelect}
+                >
+                  <option value="" disabled hidden>Anliegen filtern</option>
+                  <option value="Alle">Alle</option>
+                  <option value="Termin">Termin</option>
+                  <option value="Rezept">Rezept</option>
+                  <option value="Attest">Attest</option>
+                  <option value="Sonstige">Sonstige</option>
+                </select>
+              </div>
             
               <select value={arztFilter} onChange={(e) => setArztFilter(e.target.value)} style={filterSelect}>
                 <option value="Alle">Arzt</option>
@@ -240,3 +244,7 @@ const searchInput = { width: "25%", padding: "10px 12px", borderRadius: 10, bord
 const filterRow = { display: "flex", gap: 10, marginBottom: 18, alignItems: "center" };
 const filterSelect = { padding: "10px 12px", borderRadius: 10, border: "1px solid #dbe1ea", background: "white", cursor: "pointer" };
 const datePicker = {  padding: "10px 12px",  borderRadius: 10,  border: "1px solid #dbe1ea",  cursor: "pointer",  width: 180};
+const anliegenWrapper = { position: "relative", display: "flex", alignItems: "center" };
+const filterIcon = { position: "absolute", left: 10, color: "#64748b" };
+const filterSelect = { padding: "10px 12px 10px 32px", borderRadius: 10, border: "1px solid #dbe1ea", background: "white", cursor: "pointer" };
+const filterActive = { padding: "10px 12px 10px 32px", borderRadius: 10, border: "1px solid #2563eb", background: "#eff6ff", cursor: "pointer", color: "#1d4ed8", fontWeight: 600 };
