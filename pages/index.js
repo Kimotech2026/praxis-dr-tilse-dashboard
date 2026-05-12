@@ -116,16 +116,27 @@ export default function Home() {
               
               {data
                 .filter((row) => {
+                  const originalIndex = data.indexOf(row);
+                
                   const statusMatch =
                     statusFilter === "Alle" ||
-                    (statusMap[data.indexOf(row)] || "Neu / Ungelesen") === statusFilter;
-              
+                    (statusMap[originalIndex] || "Neu / Ungelesen") === statusFilter;
+                
                   const searchMatch =
                     (row.Name || "").toLowerCase().includes(search.toLowerCase()) ||
                     (row.Arzt || "").toLowerCase().includes(search.toLowerCase()) ||
-                    (row.Anliegen || "").toLowerCase().includes(search.toLowerCase());
-              
-                  return statusMatch && searchMatch;
+                    (row.Anliegen || "").toLowerCase().includes(search.toLowerCase()) ||
+                    (row.Zusammenfassung || "").toLowerCase().includes(search.toLowerCase());
+                
+                  const anliegenMatch =
+                    anliegenFilter === "Alle" ||
+                    (row.Anliegen || "").split(",").map(x => x.trim()).includes(anliegenFilter);
+                
+                  const arztMatch =
+                    arztFilter === "Alle" ||
+                    (row.Arzt || "") === arztFilter;
+                
+                  return statusMatch && searchMatch && anliegenMatch && arztMatch;
                 })
                 .map((row, i) => (
                   <div key={i} style={openIndex === i ? callCardOpen : callCard} onMouseEnter={(e) => { if (openIndex !== i) e.currentTarget.style.background = "#f8fafc"; }} onMouseLeave={(e) => { if (openIndex !== i) { e.currentTarget.style.background = "white"; e.currentTarget.style.borderBottom = "1px solid #e5e7eb"; } }} onClick={() => setOpenIndex(openIndex === i ? null : i)}>                  <div style={callTop}>
