@@ -38,6 +38,7 @@ export default function Home() {
   const [statusMap, setStatusMap] = useState({});
   const [activePage, setActivePage] = useState("Anrufe");
   const [activeCalendar, setActiveCalendar] = useState("Frau Dr. Tilse");
+  const [showAddAppointment, setShowAddAppointment] = useState(false);
   const [statusFilter, setStatusFilter] = useState("Alle");
   const [search, setSearch] = useState("");  
   const [anliegenFilter, setAnliegenFilter] = useState("Alle");
@@ -340,14 +341,7 @@ export default function Home() {
             
               <button
                 style={addButton}
-                onClick={() => {
-                  const url =
-                    activeCalendar === "Frau Dr. Tilse"
-                      ? "https://calendar.google.com/calendar/u/0/r/eventedit?src=a97f878565c5dac9bd5b57532837c0cc811565a1b452232db18de9f294d2dbc8@group.calendar.google.com"
-                      : "https://calendar.google.com/calendar/u/0/r/eventedit?src=ee8c28099ea055a6a6d06eb21cd9038cd860247aabacc309edd6283b1dd9f30b@group.calendar.google.com";
-            
-                  window.open(url, "_blank");
-                }}
+                onClick={() => setShowAddAppointment(true)}
               >
                 + Termin hinzufügen
               </button>
