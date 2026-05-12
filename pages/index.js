@@ -127,8 +127,10 @@ export default function Home() {
                 placeholderText="Zeitraum"
                 customInput={<input style={datePicker} />}
               />
+              
+              </div>
             </div>
-                      
+            
             <div style={box}>
               <div style={headerRow}>
                 <span>Datum</span>
