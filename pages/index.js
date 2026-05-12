@@ -37,7 +37,7 @@ export default function Home() {
   const [openIndex, setOpenIndex] = useState(null);
   const [statusMap, setStatusMap] = useState({});
   const [activePage, setActivePage] = useState("Anrufe");
-  const [activeCalendar, setActiveCalendar] = useState("Frau");
+  const [activeCalendar, setActiveCalendar] = useState("Frau Dr. Tilse");
   const [statusFilter, setStatusFilter] = useState("Alle");
   const [search, setSearch] = useState("");  
   const [anliegenFilter, setAnliegenFilter] = useState("Alle");
