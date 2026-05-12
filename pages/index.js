@@ -115,7 +115,6 @@ export default function Home() {
             </div>
                       
             <div style={box}>
-              <h2>Heutige Anrufe</h2>
               <div style={headerRow}>
                 <span>Datum</span>
                 <span>Name</span>
@@ -254,7 +253,7 @@ const card = { background: "white", padding: 24, borderRadius: 16, boxShadow: "0
 const box = { background: "white", padding: 24, borderRadius: 16 };
 const callCard = { padding: 16, border: "1px solid transparent", borderBottom: "1px solid #e5e7eb", cursor: "pointer", borderRadius: 14, transition: "all 0.2s ease", marginBottom: 8, background: "white" };
 const callCardOpen = { ...callCard, background: "#f8fafc", boxShadow: "0 10px 28px rgba(15,23,42,0.08)", border: "1px solid #dbeafe" };
-const callTop = { display: "grid", gridTemplateColumns: "90px 1fr 220px 1fr 170px", gap: 12, alignItems: "center" };
+const callTop = { display: "grid", gridTemplateColumns: "90px 1.2fr 160px 1fr 170px", gap: 12, alignItems: "center" };
 const badge = { width: 90, height: 28, display: "inline-flex", justifyContent: "center", alignItems: "center", borderRadius: 999, fontSize: 13, fontWeight: 500 };
 const highlightCard = {  background: "linear-gradient(135deg, #2563eb, #1e40af)",  color: "white",  padding: 24,  borderRadius: 16,  boxShadow: "0 12px 30px rgba(37,99,235,0.30)"};
 const headerRow = { display: "grid", gridTemplateColumns: "90px 1fr 220px 1fr 170px", gap: 12, fontSize: 13, color: "#667085", marginBottom: 10, padding: "0 16px" };
