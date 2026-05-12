@@ -56,7 +56,7 @@ export default function Home() {
             <div style={box}>
               <h2>Heutige Anrufe</h2>
               <div style={headerRow}>
-                <span>Uhrzeit</span>
+                <span>Datum</span>
                 <span>Name</span>
                 <span>Anliegen</span>
                 <span>Arzt</span>
@@ -65,7 +65,10 @@ export default function Home() {
               
               {data.map((row, i) => (
                   <div key={i} style={openIndex === i ? callCardOpen : callCard} onMouseEnter={(e) => { if (openIndex !== i) e.currentTarget.style.background = "#f8fafc"; }} onMouseLeave={(e) => { if (openIndex !== i) { e.currentTarget.style.background = "white"; e.currentTarget.style.borderBottom = "1px solid #e5e7eb"; } }} onClick={() => setOpenIndex(openIndex === i ? null : i)}>                  <div style={callTop}>
-                    <strong>{row.Uhrzeit || "-"}</strong>
+                    <div>
+                      <strong>{row.Uhrzeit || "-"}</strong>
+                      <div style={dateText}>{row.Datum || "-"}</div>
+                    </div>
                     <span>{row.Name || "-"}</span>
               
                     <span style={{ display: "flex", gap: 6 }}>
@@ -171,3 +174,4 @@ const deleteStyle = { color: "#dc2626", fontWeight: 600, cursor: "pointer" };
 const bottomNav = { borderTop: "1px solid #334155", paddingTop: 16 };
 const bottomItem = { padding: 12, color: "#94a3b8", background: "#1e293b", borderRadius: 10, marginBottom: 8, cursor: "pointer" };
 const icon = { marginRight: 10, verticalAlign: "middle" };
+const dateText = { fontSize: 12, color: "#94a3b8", marginTop: 2 };
