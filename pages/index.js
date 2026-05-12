@@ -9,8 +9,8 @@ function CountUp({ value }) {
   useEffect(() => {
     let start = 0;
     const end = value;
-    const duration = 1200; // 👈 länger (1.2 Sekunden)
-    const steps = 60;      // 👈 mehr Schritte = smoother
+    const duration = 1200; 
+    const steps = 60;      
     const increment = end / steps;
     let currentStep = 0;
 
