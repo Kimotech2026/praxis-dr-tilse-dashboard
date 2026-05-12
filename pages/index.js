@@ -14,6 +14,7 @@ export default function Home() {
   const [arztFilter, setArztFilter] = useState("Alle");
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;  
+  const [showDateMenu, setShowDateMenu] = useState(false);
   
   const setQuickRange = (type) => {
     const today = new Date();
@@ -114,14 +115,26 @@ export default function Home() {
                 </select>
               </div>
 
-            <DatePicker
-              selectsRange={true}
-              startDate={startDate}
-              endDate={endDate}
-              onChange={(update) => setDateRange(update)}
-              placeholderText="Zeitraum"
-              customInput={<input style={datePicker} />}
-            />
+            <div style={{ position: "relative" }}>
+              <button onClick={() => setShowDateMenu(!showDateMenu)} style={datePicker}>Zeitraum</button>
+            
+              {showDateMenu && (
+                <div style={dateMenu}>
+                  <div style={dateShortcuts}>
+                    {["Heute", "Gestern", "Letzte 7 Tage", "Letzte 30 Tage", "Diese Woche", "Letzte Woche", "Dieser Monat", "Letzter Monat", "Zurücksetzen"].map(item => (
+                      <button key={item} onClick={() => setQuickRange(item)} style={quickDateButton}>{item}</button>
+                    ))}
+                  </div>
+            
+                  <DatePicker
+                    inline
+                    selectsRange={true}
+                    startDate={startDate}
+                    endDate={endDate}
+                    onChange={(update) => setDateRange(update)}
+                  />
+                </div>
+              )}
             </div>
             
             <div style={box}>
@@ -289,3 +302,5 @@ const filterIcon = { position: "absolute", left: 10, color: "#64748b" };
 const filterSelect = { padding: "10px 12px 10px 32px", borderRadius: 10, border: "1px solid #dbe1ea", background: "white", cursor: "pointer" };
 const filterActive = { padding: "10px 12px 10px 32px", borderRadius: 10, border: "1px solid #2563eb", background: "#eff6ff", cursor: "pointer", color: "#1d4ed8", fontWeight: 600 };
 const quickDateButton = { padding: "10px 12px", borderRadius: 10, border: "1px solid #dbe1ea", background: "white", cursor: "pointer", fontSize: 13 };
+const dateMenu = { position: "absolute", top: 48, right: 0, zIndex: 20, display: "flex", gap: 16, background: "white", padding: 12, borderRadius: 14, boxShadow: "0 12px 30px rgba(15,23,42,0.18)", border: "1px solid #e5e7eb" };
+const dateShortcuts = { display: "flex", flexDirection: "column", gap: 8, minWidth: 140 };
