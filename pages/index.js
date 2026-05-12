@@ -44,6 +44,26 @@ export default function Home() {
   const rezepte = data.filter(r => (r.Anliegen || "").split(",").map(x => x.trim()).includes("Rezept")).length;
   const atteste = data.filter(r => (r.Anliegen || "").split(",").map(x => x.trim()).includes("Attest")).length;
 
+  const filteredData = data.filter((row) => {
+    const dateMatch =
+      (!startDate && !endDate) ||
+      (() => {
+        const rowDate = parseGermanDate(row.Datum);
+        return (
+          rowDate &&
+          (!startDate || rowDate >= startDate) &&
+          (!endDate || rowDate <= endDate)
+        );
+      })();
+  
+    return dateMatch;
+  });
+  
+  const kpiTermine = filteredData.filter(r => (r.Anliegen || "").split(",").map(x => x.trim()).includes("Termin")).length;
+  const kpiRezepte = filteredData.filter(r => (r.Anliegen || "").split(",").map(x => x.trim()).includes("Rezept")).length;
+  const kpiAtteste = filteredData.filter(r => (r.Anliegen || "").split(",").map(x => x.trim()).includes("Attest")).length;
+
+  
   return (
     <div style={layout}>
         <aside style={sidebar}>
@@ -72,10 +92,10 @@ export default function Home() {
             <p style={{ color: "#667085" }}>Übersicht Ihrer von Anna geführten Anrufe.</p>
         
             <div style={cards}>
-              <div style={highlightCard}><p>Anrufe gesamt</p><h2>{data.length}</h2></div>
-              <div style={card}><p>Termine</p><h2>{termine}</h2></div>
-              <div style={card}><p>Rezepte</p><h2>{rezepte}</h2></div>
-              <div style={card}><p>Atteste</p><h2>{atteste}</h2></div>
+              <div style={highlightCard}><p>Anrufe gesamt</p><h2>{filteredData.length}</h2></div>
+              <div style={card}><p>Termine</p><h2>{kpiTermine}</h2></div>
+              <div style={card}><p>Rezepte</p><h2>{kpiRezepte}</h2></div>
+              <div style={card}><p>Atteste</p><h2>{kpiAtteste}</h2></div>
             </div>
 
             <div style={tabBar}>
