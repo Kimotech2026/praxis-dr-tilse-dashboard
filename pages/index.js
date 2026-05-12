@@ -3,6 +3,28 @@ import { Phone, Users, CheckSquare, Calendar, User, CreditCard, Settings, Filter
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+function CountUp({ value }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let start = 0;
+    const end = value;
+    const step = Math.max(1, Math.ceil(end / 20));
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= end) {
+        start = end;
+        clearInterval(timer);
+      }
+      setCount(start);
+    }, 25);
+
+    return () => clearInterval(timer);
+  }, [value]);
+
+  return count;
+}
+
 export default function Home() {
   const [data, setData] = useState([]);
   const [openIndex, setOpenIndex] = useState(null);
@@ -93,9 +115,9 @@ export default function Home() {
         
             <div style={cards}>
               <div style={highlightCard}><p>Anrufe gesamt</p><h2>{filteredData.length}</h2></div>
-              <div style={card}><p>Termine</p><h2>{kpiTermine}</h2></div>
-              <div style={card}><p>Rezepte</p><h2>{kpiRezepte}</h2></div>
-              <div style={card}><p>Atteste</p><h2>{kpiAtteste}</h2></div>
+                <div style={card}><p>Termine</p><h2>{kpiTermine}</h2></div>
+                <div style={card}><p>Rezepte</p><h2>{kpiRezepte}</h2></div>
+                <div style={card}><p>Atteste</p><h2>{kpiAtteste}</h2></div>
             </div>
 
             <div style={tabBar}>
