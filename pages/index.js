@@ -35,9 +35,8 @@ export default function Home() {
         <p style={bottomItem}><CreditCard size={18} style={icon}/> Mitgliedschaft</p>
         <p style={bottomItem}><Settings size={18} style={icon}/> Einstellungen</p>
         </div>
-        </aside>     
+        </aside><main style={main}><h1>Dashboard – Praxis Dr. Tilse</h1>
     
-        <h1>Dashboard – Praxis Dr. Tilse</h1>
         <p style={{ color: "#667085" }}>
           Heutige Anrufübersicht – {new Date().toLocaleDateString("de-DE")}
         </p>
