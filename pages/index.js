@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Phone, Users, CheckSquare, Calendar, User, CreditCard, Settings } from "lucide-react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -10,7 +12,8 @@ export default function Home() {
   const [search, setSearch] = useState("");  
   const [anliegenFilter, setAnliegenFilter] = useState("Alle");
   const [arztFilter, setArztFilter] = useState("Alle");
-  const [zeitraumFilter, setZeitraumFilter] = useState("Alle");
+  const [dateRange, setDateRange] = useState([null, null]);
+  const [startDate, endDate] = dateRange;  
   const updateStatus = (i, value) => setStatusMap(prev => ({ ...prev, [i]: value }));
 
   useEffect(() => {
@@ -19,9 +22,9 @@ export default function Home() {
       .then((data) => setData([...data].reverse()));
   }, []);
 
-  const termine = data.filter(r => r.Anliegen === "Termin").length;
-  const rezepte = data.filter(r => r.Anliegen === "Rezept").length;
-  const atteste = data.filter(r => r.Anliegen === "Attest").length;
+  const termine = data.filter(r => (r.Anliegen || "").split(",").map(x => x.trim()).includes("Termin")).length;
+  const rezepte = data.filter(r => (r.Anliegen || "").split(",").map(x => x.trim()).includes("Rezept")).length;
+  const atteste = data.filter(r => (r.Anliegen || "").split(",").map(x => x.trim()).includes("Attest")).length;
 
   return (
     <div style={layout}>
@@ -81,12 +84,14 @@ export default function Home() {
                 <option>Frau Dr. Tilse</option>
               </select>
             
-              <select value={zeitraumFilter} onChange={(e) => setZeitraumFilter(e.target.value)} style={filterSelect}>
-                <option>Alle</option>
-                <option>Heute</option>
-                <option>Gestern</option>
-                <option>Diese Woche</option>
-              </select>
+              <DatePicker
+                selectsRange={true}
+                startDate={startDate}
+                endDate={endDate}
+                onChange={(update) => setDateRange(update)}
+                placeholderText="Zeitraum"
+                customInput={<input style={datePicker} />}
+              />
             </div>
                       
             <div style={box}>
@@ -196,6 +201,7 @@ export default function Home() {
   );
 }
 
+
 const layout = { display: "flex", height: "100vh", overflow: "hidden", background: "#f5f7fb", fontFamily: "Arial" };
 const main = { flex: 1, padding: 32, overflow: "hidden", boxSizing: "border-box" };
 const sidebar = { width: 190, flexShrink: 0, background: "#0f172a", color: "white", padding: 18, display: "flex", flexDirection: "column", justifyContent: "space-between" };
@@ -227,4 +233,4 @@ const activeTab = { border: "none", background: "white", padding: "9px 14px", bo
 const searchInput = { width: "25%", padding: "10px 12px", borderRadius: 10, border: "1px solid #dbe1ea" };
 const filterRow = { display: "flex", gap: 10, marginBottom: 18, alignItems: "center" };
 const filterSelect = { padding: "10px 12px", borderRadius: 10, border: "1px solid #dbe1ea", background: "white", cursor: "pointer" };
-
+const datePicker = {  padding: "10px 12px",  borderRadius: 10,  border: "1px solid #dbe1ea",  cursor: "pointer",  width: 180};
