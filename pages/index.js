@@ -116,27 +116,36 @@ export default function Home() {
               
               {data
                 .filter((row) => {
-                  const originalIndex = data.indexOf(row);
-                
                   const statusMatch =
                     statusFilter === "Alle" ||
-                    (statusMap[originalIndex] || "Neu / Ungelesen") === statusFilter;
+                    (statusMap[data.indexOf(row)] || "Neu / Ungelesen") === statusFilter;
                 
                   const searchMatch =
                     (row.Name || "").toLowerCase().includes(search.toLowerCase()) ||
                     (row.Arzt || "").toLowerCase().includes(search.toLowerCase()) ||
-                    (row.Anliegen || "").toLowerCase().includes(search.toLowerCase()) ||
-                    (row.Zusammenfassung || "").toLowerCase().includes(search.toLowerCase());
+                    (row.Anliegen || "").toLowerCase().includes(search.toLowerCase());
+                
+                  const anliegenList = (row.Anliegen || "").split(",").map(x => x.trim());
                 
                   const anliegenMatch =
                     anliegenFilter === "Alle" ||
-                    (row.Anliegen || "").split(",").map(x => x.trim()).includes(anliegenFilter);
+                    anliegenList.includes(anliegenFilter);
                 
                   const arztMatch =
                     arztFilter === "Alle" ||
                     (row.Arzt || "") === arztFilter;
                 
-                  return statusMatch && searchMatch && anliegenMatch && arztMatch;
+                  const dateMatch =
+                    (!startDate && !endDate) ||
+                    (() => {
+                      const rowDate = new Date(row.Datum);
+                      return (
+                        (!startDate || rowDate >= startDate) &&
+                        (!endDate || rowDate <= endDate)
+                      );
+                    })();
+                
+                  return statusMatch && searchMatch && anliegenMatch && arztMatch && dateMatch;
                 })
                 .map((row, i) => (
                   <div key={i} style={openIndex === i ? callCardOpen : callCard} onMouseEnter={(e) => { if (openIndex !== i) e.currentTarget.style.background = "#f8fafc"; }} onMouseLeave={(e) => { if (openIndex !== i) { e.currentTarget.style.background = "white"; e.currentTarget.style.borderBottom = "1px solid #e5e7eb"; } }} onClick={() => setOpenIndex(openIndex === i ? null : i)}>                  <div style={callTop}>
