@@ -114,10 +114,10 @@ export default function Home() {
             <p style={{ color: "#667085" }}>Übersicht Ihrer von Anna geführten Anrufe.</p>
         
             <div style={cards}>
-              <div style={highlightCard}><p>Anrufe gesamt</p><h2>{filteredData.length}</h2></div>
-                <div style={card}><p>Termine</p><h2>{kpiTermine}</h2></div>
-                <div style={card}><p>Rezepte</p><h2>{kpiRezepte}</h2></div>
-                <div style={card}><p>Atteste</p><h2>{kpiAtteste}</h2></div>
+              <div style={highlightCard}><p>Anrufe gesamt</p><h2><CountUp value={filteredData.length} /></h2></div>
+              <div style={card}><p>Termine</p><h2><CountUp value={kpiTermine} /></h2></div>
+              <div style={card}><p>Rezepte</p><h2><CountUp value={kpiRezepte} /></h2></div>
+              <div style={card}><p>Atteste</p><h2><CountUp value={kpiAtteste} /></h2></div>
             </div>
 
             <div style={tabBar}>
