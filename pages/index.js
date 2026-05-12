@@ -8,6 +8,9 @@ export default function Home() {
   const [activePage, setActivePage] = useState("Anrufe");
   const [statusFilter, setStatusFilter] = useState("Alle");
   const [search, setSearch] = useState("");  
+  const [anliegenFilter, setAnliegenFilter] = useState("Alle");
+  const [arztFilter, setArztFilter] = useState("Alle");
+  const [zeitraumFilter, setZeitraumFilter] = useState("Alle");
   const updateStatus = (i, value) => setStatusMap(prev => ({ ...prev, [i]: value }));
 
   useEffect(() => {
@@ -54,24 +57,37 @@ export default function Home() {
               <div style={card}><p>Atteste</p><h2>{atteste}</h2></div>
             </div>
 
-            <div style={tabs}>
+            <div style={tabBar}>
               {["Alle", "Neu / Ungelesen", "In Bearbeitung", "Erledigt", "Gelesen"].map(tab => (
-                <span
-                  key={tab}
-                  onClick={() => setStatusFilter(tab)}
-                  style={statusFilter === tab ? activeTab : tabItem}
-                >
+                <button key={tab} onClick={() => setStatusFilter(tab)} style={statusFilter === tab ? activeTab : tabItem}>
                   {tab}
-                </span>
+                </button>
               ))}
             </div>
-
-            <input
-              placeholder="Suche nach Name, Arzt oder Anliegen..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              style={searchInput}
-            />
+            
+            <div style={filterRow}>
+              <input placeholder="Suche..." value={search} onChange={(e) => setSearch(e.target.value)} style={searchInput} />
+            
+              <select value={anliegenFilter} onChange={(e) => setAnliegenFilter(e.target.value)} style={filterSelect}>
+                <option>Alle</option>
+                <option>Termin</option>
+                <option>Rezept</option>
+                <option>Attest</option>
+              </select>
+            
+              <select value={arztFilter} onChange={(e) => setArztFilter(e.target.value)} style={filterSelect}>
+                <option>Alle</option>
+                <option>Herr Dr. Tilse</option>
+                <option>Frau Dr. Tilse</option>
+              </select>
+            
+              <select value={zeitraumFilter} onChange={(e) => setZeitraumFilter(e.target.value)} style={filterSelect}>
+                <option>Alle</option>
+                <option>Heute</option>
+                <option>Gestern</option>
+                <option>Diese Woche</option>
+              </select>
+            </div>
                       
             <div style={box}>
               <h2>Heutige Anrufe</h2>
@@ -205,6 +221,10 @@ const bottomItem = { padding: 12, color: "#94a3b8", background: "#1e293b", borde
 const icon = { marginRight: 10, verticalAlign: "middle" };
 const dateText = { fontSize: 12, color: "#94a3b8", marginTop: 2 };
 const tabs = { display: "flex", gap: 20, marginBottom: 16 };
-const tabItem = { cursor: "pointer", color: "#64748b", paddingBottom: 6 };
-const activeTab = { cursor: "pointer", color: "#0f172a", borderBottom: "2px solid #2563eb", paddingBottom: 6, fontWeight: 600 };
-const searchInput = {  width: "100%",  padding: 10,  borderRadius: 10,  border: "1px solid #e5e7eb",  marginBottom: 16};
+const tabItem = { border: "none", background: "transparent", padding: "9px 14px", borderRadius: 10, cursor: "pointer", color: "#64748b", fontWeight: 500 };
+const tabBar = { display: "flex", gap: 8, background: "#eef2f7", padding: 6, borderRadius: 14, marginBottom: 18, width: "fit-content" };
+const activeTab = { border: "none", background: "white", padding: "9px 14px", borderRadius: 10, cursor: "pointer", color: "#0f172a", fontWeight: 700, boxShadow: "0 4px 12px rgba(15,23,42,0.08)" };
+const searchInput = { width: "25%", padding: "10px 12px", borderRadius: 10, border: "1px solid #dbe1ea" };
+const filterRow = { display: "flex", gap: 10, marginBottom: 18, alignItems: "center" };
+const filterSelect = { padding: "10px 12px", borderRadius: 10, border: "1px solid #dbe1ea", background: "white", cursor: "pointer" };
+
