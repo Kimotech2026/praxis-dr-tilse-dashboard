@@ -114,21 +114,14 @@ export default function Home() {
                 </select>
               </div>
 
-            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-              {["Heute", "Gestern", "Letzte 7 Tage", "Letzte 30 Tage"].map(item => (
-                <button key={item} onClick={() => setQuickRange(item)} style={quickDateButton}>{item}</button>
-              ))}
-                  
-              <DatePicker
-                selectsRange={true}
-                startDate={startDate}
-                endDate={endDate}
-                onChange={(update) => setDateRange(update)}
-                placeholderText="Zeitraum"
-                customInput={<input style={datePicker} />}
-              />
-              
-              </div>
+            <DatePicker
+              selectsRange={true}
+              startDate={startDate}
+              endDate={endDate}
+              onChange={(update) => setDateRange(update)}
+              placeholderText="Zeitraum"
+              customInput={<input style={datePicker} />}
+            />
             </div>
             
             <div style={box}>
