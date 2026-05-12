@@ -317,8 +317,7 @@ export default function Home() {
         
         {activePage === "Kalender" && (
           <div style={box}>
-            <h2>Kalender</h2>
-        
+                
             <div style={tabBar}>
               {["Frau Dr. Tilse", "Herr Dr. Tilse"].map(item => (
                 <button key={item} onClick={() => setActiveCalendar(item)} style={activeCalendar === item ? activeTab : tabItem}>
