@@ -14,6 +14,16 @@ export default function Home() {
   const [arztFilter, setArztFilter] = useState("Alle");
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;  
+  
+  const setQuickRange = (type) => {
+    const today = new Date();
+    const start = new Date();
+  
+    if (type === "Heute") setDateRange([today, today]);
+    if (type === "Gestern") { start.setDate(today.getDate() - 1); setDateRange([start, start]); }
+    if (type === "Letzte 7 Tage") { start.setDate(today.getDate() - 6); setDateRange([start, today]); }
+    if (type === "Letzte 30 Tage") { start.setDate(today.getDate() - 29); setDateRange([start, today]); }
+  };
   const updateStatus = (i, value) => setStatusMap(prev => ({ ...prev, [i]: value }));
 
   useEffect(() => {
@@ -103,7 +113,12 @@ export default function Home() {
                   <option value="Sonstige">Sonstige</option>
                 </select>
               </div>
-            
+
+            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+              {["Heute", "Gestern", "Letzte 7 Tage", "Letzte 30 Tage"].map(item => (
+                <button key={item} onClick={() => setQuickRange(item)} style={quickDateButton}>{item}</button>
+              ))}
+                  
               <DatePicker
                 selectsRange={true}
                 startDate={startDate}
@@ -278,3 +293,4 @@ const anliegenWrapper = { position: "relative", display: "flex", alignItems: "ce
 const filterIcon = { position: "absolute", left: 10, color: "#64748b" };
 const filterSelect = { padding: "10px 12px 10px 32px", borderRadius: 10, border: "1px solid #dbe1ea", background: "white", cursor: "pointer" };
 const filterActive = { padding: "10px 12px 10px 32px", borderRadius: 10, border: "1px solid #2563eb", background: "#eff6ff", cursor: "pointer", color: "#1d4ed8", fontWeight: 600 };
+const quickDateButton = { padding: "10px 12px", borderRadius: 10, border: "1px solid #dbe1ea", background: "white", cursor: "pointer", fontSize: 13 };
