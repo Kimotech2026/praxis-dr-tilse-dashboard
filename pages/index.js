@@ -18,15 +18,7 @@ export default function Home() {
 
   return (
     <div style={layout}>
-      <aside style={sidebar}>
-        <h2>Praxis</h2>
-        <nav>
-          <p style={activeNav}>Heute</p>
-          <p style={navItem}>Anrufliste</p>
-          <p style={navItem}>Kontakte</p>
-          <p style={navItem}>Einstellungen</p>
-        </nav>
-      </aside>
+      <aside style={sidebar}><div><h2>Praxis</h2><nav><p style={activeNav}>Übersicht</p><p style={navItem}>Anrufliste</p><p style={navItem}>Kontakte</p></nav></div><div style={bottomNav}><p style={bottomItem}>Mitgliedschaft</p><p style={bottomItem}>Profil</p><p style={bottomItem}>Einstellungen</p></div></aside>
 
       <main style={main}>
         <h1>Dashboard – Praxis Dr. Tilse</h1>
@@ -59,7 +51,7 @@ export default function Home() {
 }
 
 const layout = { display: "flex", minHeight: "100vh", background: "#f5f7fb", fontFamily: "Arial" };
-const sidebar = { width: 240, background: "#0f172a", color: "white", padding: 24 };
+const sidebar = { width: 240, background: "#0f172a", color: "white", padding: 24, display: "flex", flexDirection: "column", justifyContent: "space-between" };
 const main = { flex: 1, padding: 40 };
 const navItem = { padding: 12, color: "#cbd5e1" };
 const activeNav = { padding: 12, background: "#2563eb", borderRadius: 10 };
@@ -77,3 +69,5 @@ const detailCardWide = { background: "#f8fafc", padding: 16, borderRadius: 14, b
 const detailLabel = { display: "block", color: "#667085", fontSize: 13, marginBottom: 6 };
 const selectStyle = { padding: "8px 10px", borderRadius: 10, border: "1px solid #d1d5db", background: "#f3f4f6", cursor: "pointer", fontWeight: 400 };
 const deleteStyle = { color: "#dc2626", fontWeight: 600, cursor: "pointer" };
+const bottomNav = { borderTop: "1px solid #334155", paddingTop: 16 };
+const bottomItem = { padding: 12, color: "#94a3b8", background: "#1e293b", borderRadius: 10, marginBottom: 8, cursor: "pointer" };
