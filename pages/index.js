@@ -15,15 +15,22 @@ export default function Home() {
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;  
   const [showDateMenu, setShowDateMenu] = useState(false);
-  
+  const parseGermanDate = (dateString) => { if (!dateString) return null; const [day, month, year] = dateString.split("."); return new Date(Number(year), Number(month) - 1, Number(day)); };
   const setQuickRange = (type) => {
     const today = new Date();
-    const start = new Date();
+    today.setHours(0, 0, 0, 0);
+    const start = new Date(today);
+    const end = new Date(today);
   
     if (type === "Heute") setDateRange([today, today]);
     if (type === "Gestern") { start.setDate(today.getDate() - 1); setDateRange([start, start]); }
-    if (type === "Letzte 7 Tage") { start.setDate(today.getDate() - 6); setDateRange([start, today]); }
-    if (type === "Letzte 30 Tage") { start.setDate(today.getDate() - 29); setDateRange([start, today]); }
+    if (type === "Letzte 7 Tage") { start.setDate(today.getDate() - 6); setDateRange([start, end]); }
+    if (type === "Letzte 30 Tage") { start.setDate(today.getDate() - 29); setDateRange([start, end]); }
+    if (type === "Diese Woche") { start.setDate(today.getDate() - ((today.getDay() + 6) % 7)); setDateRange([start, end]); }
+    if (type === "Letzte Woche") { start.setDate(today.getDate() - ((today.getDay() + 6) % 7) - 7); end.setDate(start.getDate() + 6); setDateRange([start, end]); }
+    if (type === "Dieser Monat") { start.setDate(1); setDateRange([start, end]); }
+    if (type === "Letzter Monat") { start.setMonth(today.getMonth() - 1, 1); end.setMonth(today.getMonth(), 0); setDateRange([start, end]); }
+    if (type === "Zurücksetzen") setDateRange([null, null]);
   };
   const updateStatus = (i, value) => setStatusMap(prev => ({ ...prev, [i]: value }));
 
@@ -173,7 +180,7 @@ export default function Home() {
                   const dateMatch =
                     (!startDate && !endDate) ||
                     (() => {
-                      const rowDate = new Date(row.Datum);
+                      const rowDate = parseGermanDate(row.Datum);
                       return (
                         (!startDate || rowDate >= startDate) &&
                         (!endDate || rowDate <= endDate)
