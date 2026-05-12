@@ -21,7 +21,7 @@ export default function Home() {
     <div style={layout}>
         <aside style={sidebar}>
         <div>
-        <h2>Praxis</h2>
+        <h2>Praxis Dr. Tilse</h2>
         <nav>
         <p style={activeNav}><BarChart size={18} style={icon}/> Übersicht</p>
         <p style={navItem}><Phone size={18} style={icon}/> Anrufliste</p>
@@ -35,7 +35,7 @@ export default function Home() {
         <p style={bottomItem}><CreditCard size={18} style={icon}/> Mitgliedschaft</p>
         <p style={bottomItem}><Settings size={18} style={icon}/> Einstellungen</p>
         </div>
-        </aside><main style={main}><h1>Dashboard – Praxis Dr. Tilse</h1>
+        </aside><main style={main}><h1>Dashboard</h1>
     
         <p style={{ color: "#667085" }}>
           Heutige Anrufübersicht – {new Date().toLocaleDateString("de-DE")}
