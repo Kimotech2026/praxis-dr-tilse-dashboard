@@ -18,8 +18,7 @@ export default function Home() {
 
   return (
     <div style={layout}>
-      <aside style={sidebar}><div><h2>Praxis</h2><nav><p style={activeNav}>Übersicht</p><p style={navItem}>Anrufliste</p><p style={navItem}>Kontakte</p><p style={navItem}>Aufgaben</p><p style={navItem}>Kalender</p></nav></div><div style={bottomNav}><p style={bottomItem}>Profil</p><p style={bottomItem}>Mitgliedschaft</p><p style={bottomItem}>Einstellungen</p></div></aside>
-      <main style={main}>
+        <aside style={sidebar}><div><h2>Praxis</h2><nav><p style={activeNav}>📊 Übersicht</p><p style={navItem}>📞 Anrufliste</p><p style={navItem}>👥 Kontakte</p><p style={navItem}>✅ Aufgaben</p><p style={navItem}>📅 Kalender</p></nav></div><div style={bottomNav}><p style={bottomItem}>👤 Profil</p><p style={bottomItem}>💳 Mitgliedschaft</p><p style={bottomItem}>⚙️ Einstellungen</p></div></aside>      <main style={main}>
         <h1>Dashboard – Praxis Dr. Tilse</h1>
         <p style={{ color: "#667085" }}>
           Heutige Anrufübersicht – {new Date().toLocaleDateString("de-DE")}
