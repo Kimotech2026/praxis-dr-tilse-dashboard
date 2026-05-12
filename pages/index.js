@@ -117,6 +117,12 @@ export default function Home() {
     
         <h1>{activePage}</h1>
 
+        {activePage === "Kalender" && (
+          <p style={{ color: "#667085" }}>
+            Verwalten Sie die Kalender Ihrer Ärzte.
+          </p>
+        )}
+
         {activePage === "Anrufe" && (
           <>
             <p style={{ color: "#667085" }}>Übersicht Ihrer von Anna geführten Anrufe.</p>
