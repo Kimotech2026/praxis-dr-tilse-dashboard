@@ -9,15 +9,22 @@ function CountUp({ value }) {
   useEffect(() => {
     let start = 0;
     const end = value;
-    const step = Math.max(1, Math.ceil(end / 20));
+    const duration = 1200; // 👈 länger (1.2 Sekunden)
+    const steps = 60;      // 👈 mehr Schritte = smoother
+    const increment = end / steps;
+    let currentStep = 0;
+
     const timer = setInterval(() => {
-      start += step;
-      if (start >= end) {
-        start = end;
+      currentStep++;
+      const next = Math.round(increment * currentStep);
+
+      if (currentStep >= steps) {
+        setCount(end);
         clearInterval(timer);
+      } else {
+        setCount(next);
       }
-      setCount(start);
-    }, 25);
+    }, duration / steps);
 
     return () => clearInterval(timer);
   }, [value]);
