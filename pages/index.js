@@ -139,7 +139,8 @@ export default function Home() {
                 
                   const anliegenMatch =
                     anliegenFilter === "Alle" ||
-                    anliegenList.includes(anliegenFilter);
+                    (anliegenFilter === "Sonstige" && (!row.Anliegen || row.Anliegen === "-")) ||
+                    (row.Anliegen || "").split(",").map(x => x.trim()).includes(anliegenFilter);
                 
                   const arztMatch =
                     arztFilter === "Alle" ||
