@@ -64,7 +64,7 @@ export default function Home() {
               </div>
               
               {data.map((row, i) => (
-                <div key={i} style={callCard} onClick={() => setOpenIndex(openIndex === i ? null : i)}>
+                <div key={i} style={openIndex === i ? callCardOpen : callCard} onMouseEnter={(e) => { if (openIndex !== i) e.currentTarget.style.background = "#f8fafc"; }} onMouseLeave={(e) => { if (openIndex !== i) e.currentTarget.style.background = "transparent"; }} onClick={() => setOpenIndex(openIndex === i ? null : i)}>
                   <div style={callTop}>
                     <strong>{row.Uhrzeit || "-"}</strong>
                     <span>{row.Name || "-"}</span>
@@ -157,15 +157,16 @@ const activeNav = { padding: 12, background: "#2563eb", borderRadius: 10, color:
 const cards = { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20, margin: "30px 0" };
 const card = { background: "white", padding: 24, borderRadius: 16, boxShadow: "0 8px 24px rgba(0,0,0,0.06)" };
 const box = { background: "white", padding: 24, borderRadius: 16 };
-const callCard = { padding: 16, borderBottom: "1px solid #e5e7eb", cursor: "pointer" };
+const callCard = { padding: 16, borderBottom: "1px solid #e5e7eb", cursor: "pointer", borderRadius: 14, transition: "all 0.2s ease", marginBottom: 8 };
+const callCardOpen = { ...callCard, background: "#f8fafc", boxShadow: "0 10px 28px rgba(15,23,42,0.08)", border: "1px solid #dbeafe" };
 const callTop = { display: "grid", gridTemplateColumns: "90px 1fr 220px 1fr 170px", gap: 12, alignItems: "center" };
 const badge = { background: "#e0f2fe", color: "#0369a1", padding: "6px 10px", borderRadius: 999, textAlign: "center" };
 const highlightCard = {  background: "linear-gradient(135deg, #2563eb, #1e40af)",  color: "white",  padding: 24,  borderRadius: 16,  boxShadow: "0 12px 30px rgba(37,99,235,0.30)"};
 const headerRow = { display: "grid", gridTemplateColumns: "90px 1fr 220px 1fr 170px", gap: 12, fontSize: 13, color: "#667085", marginBottom: 10, padding: "0 16px" };
-const details = { marginTop: 14, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 };
-const detailCard = { background: "#f8fafc", padding: 16, borderRadius: 14, border: "1px solid #e5e7eb" };
-const detailCardWide = { background: "#f8fafc", padding: 16, borderRadius: 14, border: "1px solid #e5e7eb", gridColumn: "1 / -1" };
-const detailLabel = { display: "block", color: "#667085", fontSize: 13, marginBottom: 6 };
+const details = { marginTop: 16, padding: 16, background: "white", borderRadius: 14, border: "1px solid #e5e7eb", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 };
+const detailCard = { background: "#f8fafc", padding: 14, borderRadius: 12 };
+const detailCardWide = { background: "#f8fafc", padding: 14, borderRadius: 12, gridColumn: "1 / -1" };
+const detailLabel = { display: "block", color: "#64748b", fontSize: 12, marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.4 };
 const selectStyle = { padding: "8px 10px", borderRadius: 10, border: "1px solid #d1d5db", background: "#f3f4f6", cursor: "pointer", fontWeight: 400 };
 const deleteStyle = { color: "#dc2626", fontWeight: 600, cursor: "pointer" };
 const bottomNav = { borderTop: "1px solid #334155", paddingTop: 16 };
