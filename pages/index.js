@@ -356,6 +356,42 @@ export default function Home() {
             />
           </div>
         )}
+
+        {showAddAppointment && (
+          <div style={modalOverlay}>
+            <div style={modal}>
+              <h2>Termin hinzufügen</h2>
+        
+              <input placeholder="Patient / Titel" style={input} />
+              <input type="date" style={input} />
+              <input type="time" style={input} />
+              <input type="time" style={input} />
+        
+              <select style={input}>
+                <option>Frau Dr. Tilse</option>
+                <option>Herr Dr. Tilse</option>
+              </select>
+        
+              <textarea placeholder="Beschreibung" style={{ ...input, height: 80 }} />
+        
+              <div style={{ display: "flex", justifyContent: "flex-end", gap: 10 }}>
+                <button onClick={() => setShowAddAppointment(false)} style={cancelButton}>
+                  Abbrechen
+                </button>
+        
+                <button
+                  style={addButton}
+                  onClick={() => {
+                    alert("Später wird hier der Termin gespeichert 😉");
+                  }}
+                >
+                  Speichern
+                </button>
+              </div>
+            </div>
+          </div>
+        )}    
+          
       </main>
     </div>
   );
@@ -401,3 +437,7 @@ const quickDateButton = { padding: "10px 12px", borderRadius: 10, border: "1px s
 const dateMenu = { position: "absolute", top: 48, right: 0, zIndex: 20, display: "flex", gap: 16, background: "white", padding: 12, borderRadius: 14, boxShadow: "0 12px 30px rgba(15,23,42,0.18)", border: "1px solid #e5e7eb" };
 const dateShortcuts = { display: "flex", flexDirection: "column", gap: 8, minWidth: 140 };
 const addButton = {  padding: "10px 14px",  borderRadius: 10,  border: "none",  background: "#2563eb",  color: "white",  cursor: "pointer",  fontWeight: 700};
+const modalOverlay = { position: "fixed", top: 0, left: 0, width: "100%", height: "100%", background: "rgba(0,0,0,0.4)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 50 };
+const modal = { background: "white", padding: 24, borderRadius: 16, width: 400, display: "flex", flexDirection: "column", gap: 12 };
+const input = { padding: "10px 12px", borderRadius: 10, border: "1px solid #dbe1ea" };
+const cancelButton = { padding: "10px 14px", borderRadius: 10, border: "1px solid #d1d5db", background: "white", cursor: "pointer" };
