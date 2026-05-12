@@ -6,6 +6,8 @@ export default function Home() {
   const [openIndex, setOpenIndex] = useState(null);
   const [statusMap, setStatusMap] = useState({});
   const [activePage, setActivePage] = useState("Anrufe");
+  const [statusFilter, setStatusFilter] = useState("Alle");
+  const [search, setSearch] = useState("");  
   const updateStatus = (i, value) => setStatusMap(prev => ({ ...prev, [i]: value }));
 
   useEffect(() => {
@@ -51,7 +53,26 @@ export default function Home() {
               <div style={card}><p>Rezepte</p><h2>{rezepte}</h2></div>
               <div style={card}><p>Atteste</p><h2>{atteste}</h2></div>
             </div>
-        
+
+            <div style={tabs}>
+              {["Alle", "Neu / Ungelesen", "In Bearbeitung", "Erledigt", "Gelesen"].map(tab => (
+                <span
+                  key={tab}
+                  onClick={() => setStatusFilter(tab)}
+                  style={statusFilter === tab ? activeTab : tabItem}
+                >
+                  {tab}
+                </span>
+              ))}
+            </div>
+
+            <input
+              placeholder="Suche nach Name, Arzt oder Anliegen..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              style={searchInput}
+            />
+                      
             <div style={box}>
               <h2>Heutige Anrufe</h2>
               <div style={headerRow}>
@@ -62,7 +83,20 @@ export default function Home() {
                 <span>Status</span>
               </div>
               
-              {data.map((row, i) => (
+              {data
+                .filter((row) => {
+                  const statusMatch =
+                    statusFilter === "Alle" ||
+                    (statusMap[data.indexOf(row)] || "Neu / Ungelesen") === statusFilter;
+              
+                  const searchMatch =
+                    (row.Name || "").toLowerCase().includes(search.toLowerCase()) ||
+                    (row.Arzt || "").toLowerCase().includes(search.toLowerCase()) ||
+                    (row.Anliegen || "").toLowerCase().includes(search.toLowerCase());
+              
+                  return statusMatch && searchMatch;
+                })
+                .map((row, i) => (
                   <div key={i} style={openIndex === i ? callCardOpen : callCard} onMouseEnter={(e) => { if (openIndex !== i) e.currentTarget.style.background = "#f8fafc"; }} onMouseLeave={(e) => { if (openIndex !== i) { e.currentTarget.style.background = "white"; e.currentTarget.style.borderBottom = "1px solid #e5e7eb"; } }} onClick={() => setOpenIndex(openIndex === i ? null : i)}>                  <div style={callTop}>
                     <div>
                       <strong>{row.Uhrzeit || "-"}</strong>
@@ -170,3 +204,7 @@ const bottomNav = { borderTop: "1px solid #334155", paddingTop: 16 };
 const bottomItem = { padding: 12, color: "#94a3b8", background: "#1e293b", borderRadius: 10, marginBottom: 8, cursor: "pointer" };
 const icon = { marginRight: 10, verticalAlign: "middle" };
 const dateText = { fontSize: 12, color: "#94a3b8", marginTop: 2 };
+const tabs = { display: "flex", gap: 20, marginBottom: 16 };
+const tabItem = { cursor: "pointer", color: "#64748b", paddingBottom: 6 };
+const activeTab = { cursor: "pointer", color: "#0f172a", borderBottom: "2px solid #2563eb", paddingBottom: 6, fontWeight: 600 };
+const searchInput = {  width: "100%",  padding: 10,  borderRadius: 10,  border: "1px solid #e5e7eb",  marginBottom: 16};
