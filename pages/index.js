@@ -319,7 +319,7 @@ export default function Home() {
             <h2>Kalender</h2>
         
             <iframe
-              src="DEIN_GOOGLE_KALENDER_EMBED_LINK"
+              src="https://calendar.google.com/calendar/embed?src=a97f878565c5dac9bd5b57532837c0cc811565a1b452232db18de9f294d2dbc8%40group.calendar.google.com&ctz=Europe%2FBerlin"
               style={{ border: 0, width: "100%", height: 650, borderRadius: 14 }}
               frameBorder="0"
               scrolling="no"
