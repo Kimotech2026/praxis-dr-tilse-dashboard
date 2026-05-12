@@ -242,7 +242,6 @@ const tabBar = { display: "flex", gap: 8, background: "#eef2f7", padding: 6, bor
 const activeTab = { border: "none", background: "white", padding: "9px 14px", borderRadius: 10, cursor: "pointer", color: "#0f172a", fontWeight: 700, boxShadow: "0 4px 12px rgba(15,23,42,0.08)" };
 const searchInput = { width: "25%", padding: "10px 12px", borderRadius: 10, border: "1px solid #dbe1ea" };
 const filterRow = { display: "flex", gap: 10, marginBottom: 18, alignItems: "center" };
-const filterSelect = { padding: "10px 12px", borderRadius: 10, border: "1px solid #dbe1ea", background: "white", cursor: "pointer" };
 const datePicker = {  padding: "10px 12px",  borderRadius: 10,  border: "1px solid #dbe1ea",  cursor: "pointer",  width: 180};
 const anliegenWrapper = { position: "relative", display: "flex", alignItems: "center" };
 const filterIcon = { position: "absolute", left: 10, color: "#64748b" };
