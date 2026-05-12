@@ -64,8 +64,7 @@ export default function Home() {
               </div>
               
               {data.map((row, i) => (
-                <div key={i} style={openIndex === i ? callCardOpen : callCard} onMouseEnter={(e) => { if (openIndex !== i) e.currentTarget.style.background = "#f8fafc"; }} onMouseLeave={(e) => { if (openIndex !== i) e.currentTarget.style.background = "transparent"; }} onClick={() => setOpenIndex(openIndex === i ? null : i)}>
-                  <div style={callTop}>
+                  <div key={i} style={openIndex === i ? callCardOpen : callCard} onMouseEnter={(e) => { if (openIndex !== i) e.currentTarget.style.background = "#f8fafc"; }} onMouseLeave={(e) => { if (openIndex !== i) { e.currentTarget.style.background = "white"; e.currentTarget.style.borderBottom = "1px solid #e5e7eb"; } }} onClick={() => setOpenIndex(openIndex === i ? null : i)}>                  <div style={callTop}>
                     <strong>{row.Uhrzeit || "-"}</strong>
                     <span>{row.Name || "-"}</span>
               
@@ -157,7 +156,7 @@ const activeNav = { padding: 12, background: "#2563eb", borderRadius: 10, color:
 const cards = { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20, margin: "30px 0" };
 const card = { background: "white", padding: 24, borderRadius: 16, boxShadow: "0 8px 24px rgba(0,0,0,0.06)" };
 const box = { background: "white", padding: 24, borderRadius: 16 };
-const callCard = { padding: 16, borderBottom: "1px solid #e5e7eb", cursor: "pointer", borderRadius: 14, transition: "all 0.2s ease", marginBottom: 8 };
+const callCard = { padding: 16, border: "1px solid transparent", borderBottom: "1px solid #e5e7eb", cursor: "pointer", borderRadius: 14, transition: "all 0.2s ease", marginBottom: 8, background: "white" };
 const callCardOpen = { ...callCard, background: "#f8fafc", boxShadow: "0 10px 28px rgba(15,23,42,0.08)", border: "1px solid #dbeafe" };
 const callTop = { display: "grid", gridTemplateColumns: "90px 1fr 220px 1fr 170px", gap: 12, alignItems: "center" };
 const badge = { background: "#e0f2fe", color: "#0369a1", padding: "6px 10px", borderRadius: 999, textAlign: "center" };
