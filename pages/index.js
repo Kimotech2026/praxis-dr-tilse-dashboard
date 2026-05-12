@@ -24,11 +24,11 @@ export default function Home() {
         <div>
         <h2>Praxis Dr. Tilse</h2>
         <nav>
-          <p onClick={() => setActivePage("Übersicht")} style={activePage === "Übersicht" ? activeNav : navItem}><BarChart size={18} style={icon}/> Übersicht</p>
-          <p onClick={() => setActivePage("Anrufliste")} style={activePage === "Anrufliste" ? activeNav : navItem}><Phone size={18} style={icon}/> Anrufliste</p>
-          <p onClick={() => setActivePage("Kontakte")} style={activePage === "Kontakte" ? activeNav : navItem}><Users size={18} style={icon}/> Kontakte</p>
-          <p onClick={() => setActivePage("Aufgaben")} style={activePage === "Aufgaben" ? activeNav : navItem}><CheckSquare size={18} style={icon}/> Aufgaben</p>
-          <p onClick={() => setActivePage("Kalender")} style={activePage === "Kalender" ? activeNav : navItem}><Calendar size={18} style={icon}/> Kalender</p>
+          <p onClick={() => setActivePage("Übersicht")} onMouseEnter={(e) => activePage !== "Übersicht" && (e.currentTarget.style.background = "#1e293b")} onMouseLeave={(e) => activePage !== "Übersicht" && (e.currentTarget.style.background = "transparent")} style={activePage === "Übersicht" ? activeNav : { ...navItem, cursor: "pointer" }}><BarChart size={18} style={icon}/> Übersicht</p>
+          <p onClick={() => setActivePage("Anrufliste")} onMouseEnter={(e) => activePage !== "Anrufliste" && (e.currentTarget.style.background = "#1e293b")} onMouseLeave={(e) => activePage !== "Anrufliste" && (e.currentTarget.style.background = "transparent")} style={activePage === "Anrufliste" ? activeNav : { ...navItem, cursor: "pointer" }}><Phone size={18} style={icon}/> Anrufliste</p>
+          <p onClick={() => setActivePage("Kontakte")} onMouseEnter={(e) => activePage !== "Kontakte" && (e.currentTarget.style.background = "#1e293b")} onMouseLeave={(e) => activePage !== "Kontakte" && (e.currentTarget.style.background = "transparent")} style={activePage === "Kontakte" ? activeNav : { ...navItem, cursor: "pointer" }}><Users size={18} style={icon}/> Kontakte</p>
+          <p onClick={() => setActivePage("Aufgaben")} onMouseEnter={(e) => activePage !== "Aufgaben" && (e.currentTarget.style.background = "#1e293b")} onMouseLeave={(e) => activePage !== "Aufgaben" && (e.currentTarget.style.background = "transparent")} style={activePage === "Aufgaben" ? activeNav : { ...navItem, cursor: "pointer" }}><CheckSquare size={18} style={icon}/> Aufgaben</p>
+          <p onClick={() => setActivePage("Kalender")} onMouseEnter={(e) => activePage !== "Kalender" && (e.currentTarget.style.background = "#1e293b")} onMouseLeave={(e) => activePage !== "Kalender" && (e.currentTarget.style.background = "transparent")} style={activePage === "Kalender" ? activeNav : { ...navItem, cursor: "pointer" }}><Calendar size={18} style={icon}/> Kalender</p>
         </nav>
         </div>
         <div style={bottomNav}>
@@ -151,8 +151,9 @@ export default function Home() {
 
 const layout = { display: "flex", minHeight: "100vh", background: "#f5f7fb", fontFamily: "Arial" };
 const main = { flex: 1, padding: 40 };
-const sidebar = { width: 190, flexShrink: 0, background: "#0f172a", color: "white", padding: 18, display: "flex", flexDirection: "column", justifyContent: "space-between" };const navItem = { padding: 12, color: "#cbd5e1" };
-const activeNav = { padding: 12, background: "#2563eb", borderRadius: 10 };
+const sidebar = { width: 190, flexShrink: 0, background: "#0f172a", color: "white", padding: 18, display: "flex", flexDirection: "column", justifyContent: "space-between" };
+const navItem = { padding: 12, color: "#cbd5e1", cursor: "pointer", borderRadius: 10, transition: "all 0.2s ease" };
+const activeNav = { padding: 12, background: "#2563eb", borderRadius: 10, color: "white", cursor: "pointer", transition: "all 0.2s ease" };
 const cards = { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20, margin: "30px 0" };
 const card = { background: "white", padding: 24, borderRadius: 16, boxShadow: "0 8px 24px rgba(0,0,0,0.06)" };
 const box = { background: "white", padding: 24, borderRadius: 16 };
