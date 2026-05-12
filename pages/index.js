@@ -49,8 +49,8 @@ export default function Home() {
 }
 
 const layout = { display: "flex", minHeight: "100vh", background: "#f5f7fb", fontFamily: "Arial" };
-const sidebar = { width: 300, background: "#0f172a", color: "white", padding: 18, display: "flex", flexDirection: "column", justifyContent: "space-between" };
-const navItem = { padding: 12, color: "#cbd5e1" };
+const main = { flex: 1, padding: 40 };
+const sidebar = { width: 190, flexShrink: 0, background: "#0f172a", color: "white", padding: 18, display: "flex", flexDirection: "column", justifyContent: "space-between" };const navItem = { padding: 12, color: "#cbd5e1" };
 const activeNav = { padding: 12, background: "#2563eb", borderRadius: 10 };
 const cards = { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20, margin: "30px 0" };
 const card = { background: "white", padding: 24, borderRadius: 16, boxShadow: "0 8px 24px rgba(0,0,0,0.06)" };
