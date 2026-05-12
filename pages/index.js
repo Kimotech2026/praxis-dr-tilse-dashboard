@@ -88,11 +88,20 @@ export default function Home() {
                 </select>
               </div>
             
-              <select value={arztFilter} onChange={(e) => setArztFilter(e.target.value)} style={filterSelect}>
-                <option value="Alle">Arzt</option>
-                <option>Herr Dr. Tilse</option>
-                <option>Frau Dr. Tilse</option>
-              </select>
+              <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+                <User size={16} style={{ position: "absolute", left: 10, color: arztFilter !== "Alle" ? "#2563eb" : "#64748b" }} />
+                
+                <select
+                  value={arztFilter === "Alle" ? "" : arztFilter}
+                  onChange={(e) => setArztFilter(e.target.value || "Alle")}
+                  style={arztFilter !== "Alle" ? { padding: "10px 12px 10px 32px", borderRadius: 10, border: "1px solid #2563eb", background: "#eff6ff", cursor: "pointer", color: "#1d4ed8", fontWeight: 600 } : { padding: "10px 12px 10px 32px", borderRadius: 10, border: "1px solid #dbe1ea", background: "white", cursor: "pointer" }}
+                >
+                  <option value="" disabled hidden>Arzt filtern</option>
+                  <option value="Alle">Alle</option>
+                  <option value="Herr Dr. Tilse">Herr Dr. Tilse</option>
+                  <option value="Frau Dr. Tilse">Frau Dr. Tilse</option>
+                </select>
+              </div>
             
               <DatePicker
                 selectsRange={true}
