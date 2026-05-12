@@ -324,12 +324,34 @@ export default function Home() {
         {activePage === "Kalender" && (
           <div style={box}>
                 
-            <div style={tabBar}>
-              {["Frau Dr. Tilse", "Herr Dr. Tilse"].map(item => (
-                <button key={item} onClick={() => setActiveCalendar(item)} style={activeCalendar === item ? activeTab : tabItem}>
-                  {item}
-                </button>
-              ))}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+              
+              <div style={tabBar}>
+                {["Frau Dr. Tilse", "Herr Dr. Tilse"].map(item => (
+                  <button
+                    key={item}
+                    onClick={() => setActiveCalendar(item)}
+                    style={activeCalendar === item ? activeTab : tabItem}
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+            
+              <button
+                style={addButton}
+                onClick={() => {
+                  const url =
+                    activeCalendar === "Frau Dr. Tilse"
+                      ? "https://calendar.google.com/calendar/u/0/r/eventedit?src=a97f878565c5dac9bd5b57532837c0cc811565a1b452232db18de9f294d2dbc8@group.calendar.google.com"
+                      : "https://calendar.google.com/calendar/u/0/r/eventedit?src=ee8c28099ea055a6a6d06eb21cd9038cd860247aabacc309edd6283b1dd9f30b@group.calendar.google.com";
+            
+                  window.open(url, "_blank");
+                }}
+              >
+                + Termin hinzufügen
+              </button>
+            
             </div>
         
             <iframe
@@ -384,3 +406,4 @@ const filterActive = { padding: "10px 12px 10px 32px", borderRadius: 10, border:
 const quickDateButton = { padding: "10px 12px", borderRadius: 10, border: "1px solid #dbe1ea", background: "white", cursor: "pointer", fontSize: 13 };
 const dateMenu = { position: "absolute", top: 48, right: 0, zIndex: 20, display: "flex", gap: 16, background: "white", padding: 12, borderRadius: 14, boxShadow: "0 12px 30px rgba(15,23,42,0.18)", border: "1px solid #e5e7eb" };
 const dateShortcuts = { display: "flex", flexDirection: "column", gap: 8, minWidth: 140 };
+const addButton = {  padding: "10px 14px",  borderRadius: 10,  border: "none",  background: "#2563eb",  color: "white",  cursor: "pointer",  fontWeight: 700};
