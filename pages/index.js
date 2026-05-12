@@ -136,7 +136,8 @@ export default function Home() {
                 </div>
               )}
             </div>
-            
+            </div>   
+                
             <div style={box}>
               <div style={headerRow}>
                 <span>Datum</span>
