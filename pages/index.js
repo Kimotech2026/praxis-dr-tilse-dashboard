@@ -72,10 +72,11 @@ export default function Home() {
               <input placeholder="Suche..." value={search} onChange={(e) => setSearch(e.target.value)} style={searchInput} />
             
               <select value={anliegenFilter} onChange={(e) => setAnliegenFilter(e.target.value)} style={filterSelect}>
-                <option value="Alle">Anliegen</option>
+                <option value="Alle">Alle</option>
                 <option value="Termin">Termin</option>
                 <option value="Rezept">Rezept</option>
                 <option value="Attest">Attest</option>
+                <option value="Sonstige">Sonstige</option>
               </select>
             
               <select value={arztFilter} onChange={(e) => setArztFilter(e.target.value)} style={filterSelect}>
