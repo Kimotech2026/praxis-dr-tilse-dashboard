@@ -39,108 +39,111 @@ export default function Home() {
         </aside>
   
         <main style={main}>
-        <h1>{activePage}</h1>
     
-        <p style={{ color: "#667085" }}>
-          Heutige Anrufübersicht – {new Date().toLocaleDateString("de-DE")}
-        </p>
+        <h1>{activePage}</h1>
 
-        <div style={cards}>
-          <div style={highlightCard}>
-            <p>Anrufe gesamt</p>
-            <h2>{data.length}</h2>
-          </div>
-          <div style={card}><p>Termine</p><h2>{termine}</h2></div>
-          <div style={card}><p>Rezepte</p><h2>{rezepte}</h2></div>
-          <div style={card}><p>Atteste</p><h2>{atteste}</h2></div>
-        </div>
-
-        <div style={box}>
-          <h2>Heutige Anrufe</h2>
-
-          <div style={headerRow}>
-            <span>Uhrzeit</span>
-            <span>Name</span>
-            <span>Anliegen</span>
-            <span>Arzt</span>
-            <span>Status</span>
-          </div>
-
-          {data.map((row, i) => (
-           <div key={i} style={callCard} onClick={() => setOpenIndex(openIndex === i ? null : i)}>
-              <div style={callTop}>
-                <strong>{row.Uhrzeit || "-"}</strong>
-                
-                <span>{row.Name || "-"}</span>
-                
-                <span style={{ display: "flex", gap: 6 }}>
-                  {(row.Anliegen || "").split(",").map((item, i) => (
-                    <span
-                      key={i}
-                      style={{
-                        ...badge,
-                        background:
-                          item.trim() === "Termin"
-                            ? "#e0f2fe"
-                            : item.trim() === "Rezept"
-                            ? "#dcfce7"
-                            : item.trim() === "Attest"
-                            ? "#fef9c3"
-                            : "#e5e7eb",
-                        color:
-                          item.trim() === "Termin"
-                            ? "#0369a1"
-                            : item.trim() === "Rezept"
-                            ? "#166534"
-                            : item.trim() === "Attest"
-                            ? "#854d0e"
-                            : "#374151",
-                      }}
-                    >
-                      {item.trim()}
-                    </span>
-                  ))}
-                </span>
-            
-                <span>{row.Arzt || "-"}</span>
-            
-                <select
-                  value={statusMap[i] || "Neu / Ungelesen"}
-                  onClick={(e) => e.stopPropagation()}
-                  onChange={(e) => updateStatus(i, e.target.value)}
-                  style={selectStyle}
-                >
-                  <option>Neu / Ungelesen</option>
-                  <option>In Bearbeitung</option>
-                  <option>Erledigt</option>
-                  <option>Gelesen</option>
-                </select>
-              </div>
-            
-              {openIndex === i && (
-                <div style={details}>
-                  
-                  <div style={detailCard}>
-                    <span style={detailLabel}>Bestandspatient</span>
-                    <strong>{row.Bestandspatient || "-"}</strong>
-                  </div>
-            
-                  <div style={detailCard}>
-                    <span style={detailLabel}>Geburtsdatum</span>
-                    <strong>{row.Geburtsdatum || "-"}</strong>
-                  </div>
-            
-                  <div style={detailCardWide}>
-                    <span style={detailLabel}>Zusammenfassung</span>
-                    <p>{row.Zusammenfassung || "-"}</p>
-                  </div>
-            
-                </div>
-              )}
-            
+        {activePage === "Übersicht" && (
+          <>
+            <p style={{ color: "#667085" }}>Heutige Anrufübersicht – {new Date().toLocaleDateString("de-DE")}</p>
+        
+            <div style={cards}>
+              <div style={highlightCard}><p>Anrufe gesamt</p><h2>{data.length}</h2></div>
+              <div style={card}><p>Termine</p><h2>{termine}</h2></div>
+              <div style={card}><p>Rezepte</p><h2>{rezepte}</h2></div>
+              <div style={card}><p>Atteste</p><h2>{atteste}</h2></div>
             </div>
-          ))}
-        </div>
+        
+            <div style={box}>
+              <h2>Heutige Anrufe</h2>
+              <div style={headerRow}>
+                <span>Uhrzeit</span>
+                <span>Name</span>
+                <span>Anliegen</span>
+                <span>Arzt</span>
+                <span>Status</span>
+              </div>
+              
+              {data.map((row, i) => (
+                <div key={i} style={callCard} onClick={() => setOpenIndex(openIndex === i ? null : i)}>
+                  <div style={callTop}>
+                    <strong>{row.Uhrzeit || "-"}</strong>
+                    <span>{row.Name || "-"}</span>
+              
+                    <span style={{ display: "flex", gap: 6 }}>
+                      {(row.Anliegen || "").split(",").map((item, i) => (
+                        <span
+                          key={i}
+                          style={{
+                            ...badge,
+                            background:
+                              item.trim() === "Termin" ? "#e0f2fe" :
+                              item.trim() === "Rezept" ? "#dcfce7" :
+                              item.trim() === "Attest" ? "#fef9c3" : "#e5e7eb",
+                            color:
+                              item.trim() === "Termin" ? "#0369a1" :
+                              item.trim() === "Rezept" ? "#166534" :
+                              item.trim() === "Attest" ? "#854d0e" : "#374151",
+                          }}
+                        >
+                          {item.trim()}
+                        </span>
+                      ))}
+                    </span>
+              
+                    <span>{row.Arzt || "-"}</span>
+              
+                    <select
+                      value={statusMap[i] || "Neu / Ungelesen"}
+                      onClick={(e) => e.stopPropagation()}
+                      onChange={(e) => updateStatus(i, e.target.value)}
+                      style={selectStyle}
+                    >
+                      <option>Neu / Ungelesen</option>
+                      <option>In Bearbeitung</option>
+                      <option>Erledigt</option>
+                      <option>Gelesen</option>
+                    </select>
+                  </div>
+              
+                  {openIndex === i && (
+                    <div style={details}>
+                      <div style={detailCard}>
+                        <span style={detailLabel}>Bestandspatient</span>
+                        <strong>{row.Bestandspatient || "-"}</strong>
+                      </div>
+              
+                      <div style={detailCard}>
+                        <span style={detailLabel}>Geburtsdatum</span>
+                        <strong>{row.Geburtsdatum || "-"}</strong>
+                      </div>
+              
+                      <div style={detailCardWide}>
+                        <span style={detailLabel}>Zusammenfassung</span>
+                        <p>{row.Zusammenfassung || "-"}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+        
+        {activePage === "Anrufliste" && (
+          <div style={box}><h2>Anrufliste</h2><p>Hier kommt später die komplette Anrufliste rein.</p></div>
+        )}
+        
+        {activePage === "Kontakte" && (
+          <div style={box}><h2>Kontakte</h2><p>Hier kommen später Patientenkontakte rein.</p></div>
+        )}
+        
+        {activePage === "Aufgaben" && (
+          <div style={box}><h2>Aufgaben</h2><p>Hier kommen offene Aufgaben rein.</p></div>
+        )}
+        
+        {activePage === "Kalender" && (
+          <div style={box}><h2>Kalender</h2><p>Hier kommt später der Kalender rein.</p></div>
+        )}
       </main>
     </div>
   );
