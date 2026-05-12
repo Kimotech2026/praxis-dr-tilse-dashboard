@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { BarChart, Phone, Users, CheckSquare, Calendar, User, CreditCard, Settings } from "lucide-react";
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -18,7 +19,24 @@ export default function Home() {
 
   return (
     <div style={layout}>
-        <aside style={sidebar}><div><h2>Praxis</h2><nav><p style={activeNav}>📊 Übersicht</p><p style={navItem}>📞 Anrufliste</p><p style={navItem}>👥 Kontakte</p><p style={navItem}>✅ Aufgaben</p><p style={navItem}>📅 Kalender</p></nav></div><div style={bottomNav}><p style={bottomItem}>👤 Profil</p><p style={bottomItem}>💳 Mitgliedschaft</p><p style={bottomItem}>⚙️ Einstellungen</p></div></aside>      <main style={main}>
+        <aside style={sidebar}>
+        <div>
+        <h2>Praxis</h2>
+        <nav>
+        <p style={activeNav}><BarChart size={18} style={icon}/> Übersicht</p>
+        <p style={navItem}><Phone size={18} style={icon}/> Anrufliste</p>
+        <p style={navItem}><Users size={18} style={icon}/> Kontakte</p>
+        <p style={navItem}><CheckSquare size={18} style={icon}/> Aufgaben</p>
+        <p style={navItem}><Calendar size={18} style={icon}/> Kalender</p>
+        </nav>
+        </div>
+        <div style={bottomNav}>
+        <p style={bottomItem}><User size={18} style={icon}/> Profil</p>
+        <p style={bottomItem}><CreditCard size={18} style={icon}/> Mitgliedschaft</p>
+        <p style={bottomItem}><Settings size={18} style={icon}/> Einstellungen</p>
+        </div>
+        </aside>     
+    
         <h1>Dashboard – Praxis Dr. Tilse</h1>
         <p style={{ color: "#667085" }}>
           Heutige Anrufübersicht – {new Date().toLocaleDateString("de-DE")}
@@ -68,3 +86,4 @@ const selectStyle = { padding: "8px 10px", borderRadius: 10, border: "1px solid 
 const deleteStyle = { color: "#dc2626", fontWeight: 600, cursor: "pointer" };
 const bottomNav = { borderTop: "1px solid #334155", paddingTop: 16 };
 const bottomItem = { padding: 12, color: "#94a3b8", background: "#1e293b", borderRadius: 10, marginBottom: 8, cursor: "pointer" };
+const icon = { marginRight: 10, verticalAlign: "middle" };
