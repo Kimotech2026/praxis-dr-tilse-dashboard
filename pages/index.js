@@ -71,7 +71,12 @@ export default function Home() {
             <div style={filterRow}>
               <input placeholder="Suche..." value={search} onChange={(e) => setSearch(e.target.value)} style={searchInput} />
             
-              <select value={anliegenFilter} onChange={(e) => setAnliegenFilter(e.target.value)} style={filterSelect}>
+              <select
+                value={anliegenFilter === "Alle" ? "" : anliegenFilter}
+                onChange={(e) => setAnliegenFilter(e.target.value || "Alle")}
+                style={filterSelect}
+              >
+                <option value="" disabled hidden>Anliegen filtern</option>
                 <option value="Alle">Alle</option>
                 <option value="Termin">Termin</option>
                 <option value="Rezept">Rezept</option>
