@@ -356,7 +356,7 @@ export default function Home() {
         
             <iframe
               src={activeCalendar === "Frau Dr. Tilse" ? "https://calendar.google.com/calendar/embed?src=a97f878565c5dac9bd5b57532837c0cc811565a1b452232db18de9f294d2dbc8%40group.calendar.google.com&ctz=Europe%2FBerlin" : "https://calendar.google.com/calendar/embed?src=ee8c28099ea055a6a6d06eb21cd9038cd860247aabacc309edd6283b1dd9f30b%40group.calendar.google.com&ctz=Europe%2FBerlin"}
-              style={{ border: 0, width: "100%", height: "calc(100vh - 220px)", borderRadius: 14 }}
+              style={{ border: 0, width: "100%", height: 850, borderRadius: 14 }}
               frameBorder="0"
               scrolling="no"
             />
