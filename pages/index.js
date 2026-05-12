@@ -100,6 +100,7 @@ export default function Home() {
                   <option value="Alle">Alle</option>
                   <option value="Herr Dr. Tilse">Herr Dr. Tilse</option>
                   <option value="Frau Dr. Tilse">Frau Dr. Tilse</option>
+                  <option value="Sonstige">Sonstige</option>
                 </select>
               </div>
             
@@ -142,6 +143,7 @@ export default function Home() {
                 
                   const arztMatch =
                     arztFilter === "Alle" ||
+                    (arztFilter === "Sonstige" && (!row.Arzt || row.Arzt === "-")) ||
                     (row.Arzt || "") === arztFilter;
                 
                   const dateMatch =
