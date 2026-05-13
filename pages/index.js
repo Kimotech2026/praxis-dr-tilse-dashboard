@@ -490,3 +490,4 @@ const input = { padding: "12px 14px", borderRadius: 12, border: "1px solid #dbe1
 const textarea = { ...input, height: 90, resize: "none", fontFamily: "Arial" };
 const modalActions = { display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 8 };
 const cancelButton = { padding: "10px 14px", borderRadius: 10, border: "1px solid #d1d5db", background: "white", cursor: "pointer", fontWeight: 600 };
+const formLabel = { display: "block", marginBottom: 6, color: "#64748b", fontSize: 13, fontWeight: 600 };
