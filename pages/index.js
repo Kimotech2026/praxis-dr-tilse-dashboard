@@ -54,7 +54,6 @@ export default function Home() {
   const [appointmentTime, setAppointmentTime] = useState("");
   const [appointmentDoctor, setAppointmentDoctor] = useState(activeCalendar);
   const [appointmentNote, setAppointmentNote] = useState("");
-  const [appointmentExtras, setAppointmentExtras] = useState([]);
   const parseGermanDate = (dateString) => { if (!dateString) return null; const [day, month, year] = dateString.split("."); return new Date(Number(year), Number(month) - 1, Number(day)); };
   const setQuickRange = (type) => {
     const today = new Date();
@@ -522,7 +521,7 @@ const dateMenu = { position: "absolute", top: 48, right: 0, zIndex: 20, display:
 const dateShortcuts = { display: "flex", flexDirection: "column", gap: 8, minWidth: 140 };
 const addButton = {  padding: "10px 14px",  borderRadius: 10,  border: "none",  background: "#2563eb",  color: "white",  cursor: "pointer",  fontWeight: 700};
 const modalOverlay = { position: "fixed", inset: 0, background: "rgba(15,23,42,0.45)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 50 };
-const modal = { background: "white", padding: 24, borderRadius: 20, width: 440, display: "flex", flexDirection: "column", gap: 14, boxShadow: "0 24px 70px rgba(15,23,42,0.25)", animation: "fadeIn 0.2s ease" };
+const modal = { background: "white", padding: 24, borderRadius: 20, width: 560, display: "flex", flexDirection: "column", gap: 14, boxShadow: "0 24px 70px rgba(15,23,42,0.25)", animation: "fadeIn 0.2s ease" };
 const modalHeader = { display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 6 };
 const modalSubtext = { margin: "6px 0 0", color: "#667085", fontSize: 14 };
 const closeButton = { border: "none", background: "#f1f5f9", width: 34, height: 34, borderRadius: 10, cursor: "pointer", fontSize: 20, color: "#334155", display: "flex", alignItems: "center", justifyContent: "center" };
