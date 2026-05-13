@@ -46,6 +46,13 @@ export default function Home() {
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;  
   const [showDateMenu, setShowDateMenu] = useState(false);
+  const [appointmentPatient, setAppointmentPatient] = useState("");
+  const [appointmentExisting, setAppointmentExisting] = useState("Ja");
+  const [appointmentBirthdate, setAppointmentBirthdate] = useState("");
+  const [appointmentDate, setAppointmentDate] = useState("");
+  const [appointmentTime, setAppointmentTime] = useState("");
+  const [appointmentDoctor, setAppointmentDoctor] = useState(activeCalendar);
+  const [appointmentNote, setAppointmentNote] = useState("");
   const parseGermanDate = (dateString) => { if (!dateString) return null; const [day, month, year] = dateString.split("."); return new Date(Number(year), Number(month) - 1, Number(day)); };
   const setQuickRange = (type) => {
     const today = new Date();
@@ -70,7 +77,11 @@ export default function Home() {
       .then((res) => res.json())
       .then((data) => setData([...data].reverse()));
   }, []);
-
+  
+  useEffect(() => {
+    setAppointmentDoctor(activeCalendar);
+  }, [activeCalendar]);  
+  
   const termine = data.filter(r => (r.Anliegen || "").split(",").map(x => x.trim()).includes("Termin")).length;
   const rezepte = data.filter(r => (r.Anliegen || "").split(",").map(x => x.trim()).includes("Rezept")).length;
   const atteste = data.filter(r => (r.Anliegen || "").split(",").map(x => x.trim()).includes("Attest")).length;
@@ -94,6 +105,15 @@ export default function Home() {
   const kpiRezepte = filteredData.filter(r => (r.Anliegen || "").split(",").map(x => x.trim()).includes("Rezept")).length;
   const kpiAtteste = filteredData.filter(r => (r.Anliegen || "").split(",").map(x => x.trim()).includes("Attest")).length;
 
+  const appointmentTimes = [
+    "07:00", "07:15", "07:30", "07:45",
+    "08:00", "08:15", "08:30", "08:45",
+    "09:00", "09:15", "09:30", "09:45",
+    "10:00", "10:15", "10:30", "10:45",
+    "11:00", "11:15", "11:30", "11:45",
+    "14:00", "14:15", "14:30", "14:45",
+    "15:00", "15:15", "15:30", "15:45"
+  ];
   
   return (
     <div style={layout}>
@@ -368,16 +388,33 @@ export default function Home() {
                 <button onClick={() => setShowAddAppointment(false)} style={closeButton}>×</button>
               </div>
         
-              <input placeholder="Patient / Titel" style={input} />
-              <input type="date" style={input} />
-              <input type="time" style={input} />
-        
-              <select style={input} defaultValue={activeCalendar}>
+              <div>
+                <label style={{ fontSize: 12, color: "#64748b" }}>Patient</label>
+                <input value={appointmentPatient} onChange={(e) => setAppointmentPatient(e.target.value)} style={input} />
+              </div>
+              
+              <select value={appointmentExisting} onChange={(e) => setAppointmentExisting(e.target.value)} style={input}>
+                <option>Ja</option>
+                <option>Nein</option>
+              </select>
+              
+              <input type="date" value={appointmentBirthdate} onChange={(e) => setAppointmentBirthdate(e.target.value)} style={input} />
+              
+              <input type="date" value={appointmentDate} onChange={(e) => setAppointmentDate(e.target.value)} style={input} />
+              
+              <select value={appointmentTime} onChange={(e) => setAppointmentTime(e.target.value)} style={input}>
+                <option value="">Uhrzeit auswählen</option>
+                {appointmentTimes.map(time => (
+                  <option key={time} value={time}>{time} Uhr</option>
+                ))}
+              </select>
+              
+              <select value={appointmentDoctor} onChange={(e) => setAppointmentDoctor(e.target.value)} style={input}>
                 <option>Frau Dr. Tilse</option>
                 <option>Herr Dr. Tilse</option>
               </select>
-        
-              <textarea placeholder="Notiz / Beschreibung" style={textarea} />
+              
+              <textarea placeholder="Notiz / Beschreibung" value={appointmentNote} onChange={(e) => setAppointmentNote(e.target.value)} style={textarea} />
         
               <div style={modalActions}>
                 <button onClick={() => setShowAddAppointment(false)} style={cancelButton}>Abbrechen</button>
