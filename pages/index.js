@@ -474,18 +474,35 @@ export default function Home() {
                 <button
                   style={addButton}
                   onClick={() => {
-                    console.log({
-                      appointmentPatient,
-                      appointmentExisting,
-                      appointmentBirthdate,
-                      appointmentDate,
-                      appointmentTime,
-                      appointmentDoctor,
-                      appointmentExtras,
-                      appointmentNote
-                    });
+                    if (!appointmentPatient || !appointmentDate || !appointmentTime) {
+                      alert("Bitte Name, Datum und Uhrzeit ausfüllen.");
+                      return;
+                    }
                 
-                    alert("Termin-Daten wurden erfasst.");
+                    const calendarId =
+                      appointmentDoctor === "Frau Dr. Tilse"
+                        ? "a97f878565c5dac9bd5b57532837c0cc811565a1b452232db18de9f294d2dbc8@group.calendar.google.com"
+                        : "ee8c28099ea055a6a6d06eb21cd9038cd860247aabacc309edd6283b1dd9f30b@group.calendar.google.com";
+                
+                    const start = `${appointmentDate}T${appointmentTime}:00`;
+                    const endDate = new Date(start);
+                    endDate.setMinutes(endDate.getMinutes() + 15);
+                
+                    const end = endDate.toISOString().replace(/[-:]|\.\d{3}/g, "");
+                
+                    const startFormatted = `${appointmentDate.replaceAll("-", "")}T${appointmentTime.replace(":", "")}00`;
+                
+                    const details = `
+                Patient: ${appointmentPatient}
+                Bestandspatient: ${appointmentExisting}
+                Geburtsdatum: ${appointmentBirthdate || "-"}
+                Zusätzlich gewünscht: ${appointmentExtras.length ? appointmentExtras.join(", ") : "-"}
+                Notiz: ${appointmentNote || "-"}
+                `;
+                
+                    const url = `https://calendar.google.com/calendar/u/0/r/eventedit?src=${calendarId}&text=${encodeURIComponent(appointmentPatient)}&dates=${startFormatted}/${end}&details=${encodeURIComponent(details)}`;
+                
+                    window.open(url, "_blank");
                   }}
                 >
                   Termin speichern
