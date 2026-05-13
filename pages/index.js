@@ -413,22 +413,6 @@ export default function Home() {
                     <label style={formLabel}>Geburtsdatum</label>
                     <input type="date" value={appointmentBirthdate} onChange={(e) => setAppointmentBirthdate(e.target.value)} style={input} />
                   </div>
-                  
-                  <div style={{ gridColumn: "1 / -1" }}>
-                    <label style={formLabel}>Zusätzlich gewünscht</label>
-                  
-                    <div style={{ display: "flex", gap: 10 }}>
-                      <label style={checkOption}>
-                        <input type="checkbox" checked={appointmentExtras.includes("Rezept")} onChange={() => toggleExtra("Rezept")} />
-                        Rezept
-                      </label>
-                  
-                      <label style={checkOption}>
-                        <input type="checkbox" checked={appointmentExtras.includes("Attest")} onChange={() => toggleExtra("Attest")} />
-                        Attest
-                      </label>
-                    </div>
-                  </div>
           
                 </div>
               </div>
@@ -463,7 +447,25 @@ export default function Home() {
               </div>
               
               <div style={formSection}>
-                <p style={sectionTitle}>Notiz</p>
+                <p style={sectionTitle}>Anmerkung</p>
+              
+                <div style={{ marginBottom: 14 }}>
+                  <label style={formLabel}>Zusätzlich gewünscht</label>
+              
+                  <div style={{ display: "flex", gap: 10 }}>
+                    <label style={checkOption}>
+                      <input type="checkbox" checked={appointmentExtras.includes("Rezept")} onChange={() => toggleExtra("Rezept")} />
+                      Rezept
+                    </label>
+              
+                    <label style={checkOption}>
+                      <input type="checkbox" checked={appointmentExtras.includes("Attest")} onChange={() => toggleExtra("Attest")} />
+                      Attest
+                    </label>
+                  </div>
+                </div>
+              
+                <label style={formLabel}>Notiz</label>
                 <textarea placeholder="Notiz / Beschreibung" value={appointmentNote} onChange={(e) => setAppointmentNote(e.target.value)} style={textareaFull} />
               </div>
 
