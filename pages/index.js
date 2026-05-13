@@ -387,50 +387,67 @@ export default function Home() {
                 <button onClick={() => setShowAddAppointment(false)} style={closeButton}>×</button>
               </div>
         
-              <div>
-                <label style={formLabel}>Name des Patienten</label>
-                <input placeholder="z. B. Max Mustermann" value={appointmentPatient} onChange={(e) => setAppointmentPatient(e.target.value)} style={input} />
+              <div style={formSection}>
+                <p style={sectionTitle}>Patientendaten</p>
+              
+                <div style={formGrid}>
+                  <div>
+                    <label style={formLabel}>Name des Patienten</label>
+                    <input placeholder="z. B. Max Mustermann" value={appointmentPatient} onChange={(e) => setAppointmentPatient(e.target.value)} style={input} />
+                  </div>
+              
+                  <div>
+                    <label style={formLabel}>Bestandspatient</label>
+                    <select value={appointmentExisting} onChange={(e) => setAppointmentExisting(e.target.value)} style={input}>
+                      <option>Ja</option>
+                      <option>Nein</option>
+                    </select>
+                  </div>
+              
+                  <div>
+                    <label style={formLabel}>Geburtsdatum</label>
+                    <input type="date" value={appointmentBirthdate} onChange={(e) => setAppointmentBirthdate(e.target.value)} style={input} />
+                  </div>
+                </div>
               </div>
               
-              <div>
-                <label style={formLabel}>Bestandspatient</label>
-                <select value={appointmentExisting} onChange={(e) => setAppointmentExisting(e.target.value)} style={input}>
-                  <option>Ja</option>
-                  <option>Nein</option>
-                </select>
+              <div style={formSection}>
+                <p style={sectionTitle}>Termindaten</p>
+              
+                <div style={formGrid}>
+                  <div>
+                    <label style={formLabel}>Termindatum</label>
+                    <input type="date" value={appointmentDate} onChange={(e) => setAppointmentDate(e.target.value)} style={input} />
+                  </div>
+              
+                  <div>
+                    <label style={formLabel}>Uhrzeit</label>
+                    <select value={appointmentTime} onChange={(e) => setAppointmentTime(e.target.value)} style={input}>
+                      <option value="">Uhrzeit auswählen</option>
+                      {appointmentTimes.map(time => (
+                        <option key={time} value={time}>{time} Uhr</option>
+                      ))}
+                    </select>
+                  </div>
+              
+                  <div>
+                    <label style={formLabel}>Arzt</label>
+                    <select value={appointmentDoctor} onChange={(e) => setAppointmentDoctor(e.target.value)} style={input}>
+                      <option>Frau Dr. Tilse</option>
+                      <option>Herr Dr. Tilse</option>
+                    </select>
+                  </div>
+                </div>
               </div>
               
-              <div>
-                <label style={formLabel}>Geburtsdatum</label>
-                <input type="date" value={appointmentBirthdate} onChange={(e) => setAppointmentBirthdate(e.target.value)} style={input} />
+              <div style={formSection}>
+                <p style={sectionTitle}>Notiz</p>
+                <textarea placeholder="Notiz / Beschreibung" value={appointmentNote} onChange={(e) => setAppointmentNote(e.target.value)} style={textareaFull} />
               </div>
-              
-              <div>
-                <label style={formLabel}>Termindatum</label>
-                <input type="date" value={appointmentDate} onChange={(e) => setAppointmentDate(e.target.value)} style={input} />
-              </div>
-              
-              <div>
-                <label style={formLabel}>Uhrzeit</label>
-                <select value={appointmentTime} onChange={(e) => setAppointmentTime(e.target.value)} style={input}>
-                  <option value="">Uhrzeit auswählen</option>
-                  {appointmentTimes.map(time => (
-                    <option key={time} value={time}>{time} Uhr</option>
-                  ))}
-                </select>
-              </div>
-              
-              <div>
-                <label style={formLabel}>Arzt</label>
-                <select value={appointmentDoctor} onChange={(e) => setAppointmentDoctor(e.target.value)} style={input}>
-                  <option>Frau Dr. Tilse</option>
-                  <option>Herr Dr. Tilse</option>
-                </select>
-              </div>
-              
-              <div>
-                <label style={formLabel}>Notiz</label>
-                <textarea placeholder="Notiz / Beschreibung" value={appointmentNote} onChange={(e) => setAppointmentNote(e.target.value)} style={textarea} />
+
+              <div style={modalActions}>
+                <button onClick={() => setShowAddAppointment(false)} style={cancelButton}>Abbrechen</button>
+                <button style={addButton}>Termin speichern</button>
               </div>
             </div>
           </div>
@@ -491,3 +508,7 @@ const textarea = { ...input, height: 90, resize: "none", fontFamily: "Arial" };
 const modalActions = { display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 8 };
 const cancelButton = { padding: "10px 14px", borderRadius: 10, border: "1px solid #d1d5db", background: "white", cursor: "pointer", fontWeight: 600 };
 const formLabel = { display: "block", marginBottom: 6, color: "#64748b", fontSize: 13, fontWeight: 600 };
+const formSection = { background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 16, padding: 16 };
+const sectionTitle = { margin: "0 0 12px", fontSize: 13, fontWeight: 800, color: "#334155" };
+const formGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 };
+const textareaFull = { ...input, width: "100%", height: 100, resize: "none", fontFamily: "Arial", boxSizing: "border-box" };
