@@ -509,6 +509,6 @@ const modalActions = { display: "flex", justifyContent: "flex-end", gap: 10, mar
 const cancelButton = { padding: "10px 14px", borderRadius: 10, border: "1px solid #d1d5db", background: "white", cursor: "pointer", fontWeight: 600 };
 const formLabel = { display: "block", marginBottom: 6, color: "#64748b", fontSize: 13, fontWeight: 600 };
 const formSection = { background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 16, padding: 16 };
-const sectionTitle = { margin: "0 0 12px", fontSize: 16, fontWeight: 800, color: "#0f172a" };
+const sectionTitle = { margin: "0 0 12px", fontSize: 16, fontWeight: 800, color: "#0f172a", letterSpacing: 0.3 };
 const formGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 };
 const textareaFull = { ...input, width: "100%", height: 100, resize: "none", fontFamily: "Arial", boxSizing: "border-box" };
