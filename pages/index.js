@@ -49,10 +49,12 @@ export default function Home() {
   const [appointmentPatient, setAppointmentPatient] = useState("");
   const [appointmentExisting, setAppointmentExisting] = useState("Ja");
   const [appointmentBirthdate, setAppointmentBirthdate] = useState("");
+  const [appointmentExtras, setAppointmentExtras] = useState([]);
   const [appointmentDate, setAppointmentDate] = useState("");
   const [appointmentTime, setAppointmentTime] = useState("");
   const [appointmentDoctor, setAppointmentDoctor] = useState(activeCalendar);
   const [appointmentNote, setAppointmentNote] = useState("");
+  const [appointmentExtras, setAppointmentExtras] = useState([]);
   const parseGermanDate = (dateString) => { if (!dateString) return null; const [day, month, year] = dateString.split("."); return new Date(Number(year), Number(month) - 1, Number(day)); };
   const setQuickRange = (type) => {
     const today = new Date();
@@ -114,6 +116,10 @@ export default function Home() {
     "14:00", "14:15", "14:30", "14:45",
     "15:00", "15:15", "15:30", "15:45"
   ];
+
+  const toggleExtra = (value) => {
+    setAppointmentExtras(prev => prev.includes(value) ? prev.filter(x => x !== value) : [...prev, value]);
+  };
   
   return (
     <div style={layout}>
@@ -408,6 +414,23 @@ export default function Home() {
                     <label style={formLabel}>Geburtsdatum</label>
                     <input type="date" value={appointmentBirthdate} onChange={(e) => setAppointmentBirthdate(e.target.value)} style={input} />
                   </div>
+                  
+                  <div style={{ gridColumn: "1 / -1" }}>
+                    <label style={formLabel}>Zusätzlich gewünscht</label>
+                  
+                    <div style={{ display: "flex", gap: 10 }}>
+                      <label style={checkOption}>
+                        <input type="checkbox" checked={appointmentExtras.includes("Rezept")} onChange={() => toggleExtra("Rezept")} />
+                        Rezept
+                      </label>
+                  
+                      <label style={checkOption}>
+                        <input type="checkbox" checked={appointmentExtras.includes("Attest")} onChange={() => toggleExtra("Attest")} />
+                        Attest
+                      </label>
+                    </div>
+                  </div>
+          
                 </div>
               </div>
               
@@ -512,3 +535,4 @@ const formSection = { background: "#f8fafc", border: "1px solid #e2e8f0", border
 const sectionTitle = { margin: "0 0 12px", fontSize: 16, fontWeight: 800, color: "#0f172a", letterSpacing: 0.3 };
 const formGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 };
 const textareaFull = { ...input, width: "100%", height: 100, resize: "none", fontFamily: "Arial", boxSizing: "border-box" };
+const checkOption = { display: "flex", alignItems: "center", gap: 8, padding: "10px 12px", borderRadius: 12, border: "1px solid #dbe1ea", background: "white", cursor: "pointer", fontSize: 14, color: "#334155" };
