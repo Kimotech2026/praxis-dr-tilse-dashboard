@@ -416,7 +416,7 @@ export default function Home() {
               
                 <div style={formGrid}>
                   <div>
-                    <label style={formLabel}>Termindatum</label>
+                    <label style={formLabel}>Datum</label>
                     <input type="date" value={appointmentDate} onChange={(e) => setAppointmentDate(e.target.value)} style={input} />
                   </div>
               
