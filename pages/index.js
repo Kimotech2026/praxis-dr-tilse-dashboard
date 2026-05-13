@@ -471,7 +471,25 @@ export default function Home() {
 
               <div style={modalActions}>
                 <button onClick={() => setShowAddAppointment(false)} style={cancelButton}>Abbrechen</button>
-                <button style={addButton}>Termin speichern</button>
+                <button
+                  style={addButton}
+                  onClick={() => {
+                    console.log({
+                      appointmentPatient,
+                      appointmentExisting,
+                      appointmentBirthdate,
+                      appointmentDate,
+                      appointmentTime,
+                      appointmentDoctor,
+                      appointmentExtras,
+                      appointmentNote
+                    });
+                
+                    alert("Termin-Daten wurden erfasst.");
+                  }}
+                >
+                  Termin speichern
+                </button>
               </div>
             </div>
           </div>
