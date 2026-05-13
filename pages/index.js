@@ -383,42 +383,54 @@ export default function Home() {
               <div style={modalHeader}>
                 <div>
                   <h2 style={{ margin: 0 }}>Termin hinzufügen</h2>
-                  <p style={modalSubtext}>Neuen Termin für {activeCalendar} erstellen</p>
                 </div>
                 <button onClick={() => setShowAddAppointment(false)} style={closeButton}>×</button>
               </div>
         
               <div>
-                <label style={{ fontSize: 12, color: "#64748b" }}>Patient</label>
-                <input value={appointmentPatient} onChange={(e) => setAppointmentPatient(e.target.value)} style={input} />
+                <label style={formLabel}>Name des Patienten</label>
+                <input placeholder="z. B. Max Mustermann" value={appointmentPatient} onChange={(e) => setAppointmentPatient(e.target.value)} style={input} />
               </div>
               
-              <select value={appointmentExisting} onChange={(e) => setAppointmentExisting(e.target.value)} style={input}>
-                <option>Ja</option>
-                <option>Nein</option>
-              </select>
+              <div>
+                <label style={formLabel}>Bestandspatient</label>
+                <select value={appointmentExisting} onChange={(e) => setAppointmentExisting(e.target.value)} style={input}>
+                  <option>Ja</option>
+                  <option>Nein</option>
+                </select>
+              </div>
               
-              <input type="date" value={appointmentBirthdate} onChange={(e) => setAppointmentBirthdate(e.target.value)} style={input} />
+              <div>
+                <label style={formLabel}>Geburtsdatum</label>
+                <input type="date" value={appointmentBirthdate} onChange={(e) => setAppointmentBirthdate(e.target.value)} style={input} />
+              </div>
               
-              <input type="date" value={appointmentDate} onChange={(e) => setAppointmentDate(e.target.value)} style={input} />
+              <div>
+                <label style={formLabel}>Termindatum</label>
+                <input type="date" value={appointmentDate} onChange={(e) => setAppointmentDate(e.target.value)} style={input} />
+              </div>
               
-              <select value={appointmentTime} onChange={(e) => setAppointmentTime(e.target.value)} style={input}>
-                <option value="">Uhrzeit auswählen</option>
-                {appointmentTimes.map(time => (
-                  <option key={time} value={time}>{time} Uhr</option>
-                ))}
-              </select>
+              <div>
+                <label style={formLabel}>Uhrzeit</label>
+                <select value={appointmentTime} onChange={(e) => setAppointmentTime(e.target.value)} style={input}>
+                  <option value="">Uhrzeit auswählen</option>
+                  {appointmentTimes.map(time => (
+                    <option key={time} value={time}>{time} Uhr</option>
+                  ))}
+                </select>
+              </div>
               
-              <select value={appointmentDoctor} onChange={(e) => setAppointmentDoctor(e.target.value)} style={input}>
-                <option>Frau Dr. Tilse</option>
-                <option>Herr Dr. Tilse</option>
-              </select>
+              <div>
+                <label style={formLabel}>Arzt</label>
+                <select value={appointmentDoctor} onChange={(e) => setAppointmentDoctor(e.target.value)} style={input}>
+                  <option>Frau Dr. Tilse</option>
+                  <option>Herr Dr. Tilse</option>
+                </select>
+              </div>
               
-              <textarea placeholder="Notiz / Beschreibung" value={appointmentNote} onChange={(e) => setAppointmentNote(e.target.value)} style={textarea} />
-        
-              <div style={modalActions}>
-                <button onClick={() => setShowAddAppointment(false)} style={cancelButton}>Abbrechen</button>
-                <button style={addButton}>Termin speichern</button>
+              <div>
+                <label style={formLabel}>Notiz</label>
+                <textarea placeholder="Notiz / Beschreibung" value={appointmentNote} onChange={(e) => setAppointmentNote(e.target.value)} style={textarea} />
               </div>
             </div>
           </div>
