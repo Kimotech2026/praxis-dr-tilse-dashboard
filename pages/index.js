@@ -373,7 +373,6 @@ export default function Home() {
                 { name: "Premium", price: "999 €", doctors: "bis zu 10 Ärzte", minutes: "3.500 Minuten / Monat", desc: "Für große Praxen oder MVZs mit hohem Anrufaufkommen.", features: ["alles aus Standard", "bis zu 10 Arztprofile", "3.500 Gesprächsminuten", "Mehrere Standorte möglich"], icon: <Crown size={28} />, active: false, action: "Upgrade anfragen" }
               ].map(plan => (
                 <div key={plan.name} style={plan.active ? membershipCardActive : membershipCard}>
-                  {plan.active && <div style={activePlanBadge}>Aktuelles Paket</div>}
                   <div style={membershipIcon}>{plan.icon}</div>
                   <h3 style={membershipTitle}>{plan.name}</h3>
                   <p style={membershipDesc}>{plan.desc}</p>
