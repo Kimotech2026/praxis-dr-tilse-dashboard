@@ -368,7 +368,7 @@ export default function Home() {
           <div style={box}>
         
             <div style={tabBar}>
-              {["Benachrichtigungen", "Dashboard", "Hinweise", "Konto"].map(tab => (
+              {["Benachrichtigungen", "Dashboard", "Konto"].map(tab => (
                 <button
                   key={tab}
                   onClick={() => setActiveSettingsTab(tab)}
@@ -384,17 +384,29 @@ export default function Home() {
                 <div style={settingsCard}>
                   <div>
                     <h3 style={settingsTitle}>Neue Anrufe</h3>
-                    <p style={settingsText}>Benachrichtigung bei neuem Anruf anzeigen.</p>
+                    <p style={settingsText}>Zeigt eine Benachrichtigung im Dashboard an, sobald ein neuer Anruf eingegangen ist. So sieht das Praxisteam sofort, wenn neue Patientenanliegen vorliegen.</p>
                   </div>
-                  <input type="checkbox" />
+                  <input type="checkbox" checked={settings.emailNewCalls} onChange={(e) => setSettings({ ...settings, emailNewCalls: e.target.checked })} />
                 </div>
             
                 <div style={settingsCard}>
                   <div>
-                    <h3 style={settingsTitle}>Tagesübersicht</h3>
-                    <p style={settingsText}>Tägliche Zusammenfassung der Anrufe erhalten.</p>
+                    <h3 style={settingsTitle}>Tagesübersicht per E-Mail</h3>
+                    <p style={settingsText}>Sendet am Ende des Tages eine kompakte Zusammenfassung aller eingegangenen Anrufe, Termine, Rezeptwünsche und offenen Anliegen.</p>
                   </div>
-                  <input type="checkbox" />
+                  <input type="checkbox" checked={settings.dailySummary} onChange={(e) => setSettings({ ...settings, dailySummary: e.target.checked })} />
+                </div>
+            
+                <div style={settingsCard}>
+                  <div>
+                    <h3 style={settingsTitle}>Offene Rückrufe hervorheben</h3>
+                    <p style={settingsText}>Markiert Rückruf-Anliegen besonders sichtbar, damit wichtige Patientenrückmeldungen im Praxisalltag nicht untergehen.</p>
+                  </div>
+                  <input type="checkbox" checked={settings.highlightCallbacks} onChange={(e) => setSettings({ ...settings, highlightCallbacks: e.target.checked })} />
+                </div>
+            
+                <div style={settingsActions}>
+                  <button onClick={saveSettings} style={smallSaveButton}>Speichern</button>
                 </div>
               </div>
             )}
@@ -434,16 +446,8 @@ export default function Home() {
                   <input type="checkbox" checked={settings.hideDoneCalls} onChange={(e) => setSettings({ ...settings, hideDoneCalls: e.target.checked })} />
                 </div>
             
-                <button onClick={saveSettings} style={addButton}>Einstellungen speichern</button>
-              </div>
-            )}
-        
-            {activeSettingsTab === "Hinweise" && (
-              <div style={settingsGrid}>
-                <div style={settingsCardColumn}>
-                  <h3 style={settingsTitle}>Praxis-Hinweise</h3>
-                  <p style={settingsText}>Interne Hinweise, die im Praxisalltag wichtig sind.</p>
-                  <textarea style={textareaFull} placeholder="z. B. Rezepte nur für Bestandspatienten aufnehmen..." />
+                <div style={settingsActions}>
+                  <button onClick={saveSettings} style={smallSaveButton}>Speichern</button>
                 </div>
               </div>
             )}
