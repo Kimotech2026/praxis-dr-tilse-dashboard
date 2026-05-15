@@ -41,6 +41,7 @@ export default function Home() {
   const [activeSettingsTab, setActiveSettingsTab] = useState("Praxisdaten");  
   const [settings, setSettings] = useState({ startPage: "Anrufe", emailNewCalls: true, dailySummary: false, compactView: false, entriesPerPage: "25", highlightCallbacks: true, showCalendarFirst: false, autoOpenNewCalls: true, practiceNotes: "", practiceName: "Praxis Dr. Tilse", practiceAddress: "", practiceEmail: "", practiceWebsite: "", practicePhone: "" });
   const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("✓ Erfolgreich aktualisiert");
   const [showAddAppointment, setShowAddAppointment] = useState(false);
   const [statusFilter, setStatusFilter] = useState("Alle");
   const [search, setSearch] = useState("");  
@@ -79,7 +80,9 @@ export default function Home() {
   const saveSettings = () => {
     localStorage.setItem("dashboardSettings", JSON.stringify(settings));
     setActivePage(settings.startPage);
-    alert("Einstellungen gespeichert.");
+    setToastMessage("✓ Erfolgreich aktualisiert");
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 1800);
   };
   
   useEffect(() => {
@@ -390,6 +393,7 @@ export default function Home() {
                   <div
                     onClick={() => {
                       setSettings({ ...settings, emailNewCalls: !settings.emailNewCalls });
+                      setToastMessage("✓ Erfolgreich aktualisiert");
                       setShowToast(true);
                       setTimeout(() => setShowToast(false), 1800);
                     }}
@@ -404,7 +408,7 @@ export default function Home() {
                     <h3 style={settingsTitle}>Tagesübersicht per E-Mail</h3>
                     <p style={settingsText}>Sendet am Ende des Tages eine kompakte Zusammenfassung aller eingegangenen Anrufe, Termine, Rezeptwünsche und offenen Anliegen.</p>
                   </div>
-                  <div onClick={() => { setSettings({ ...settings, dailySummary: !settings.dailySummary }); setShowToast(true); setTimeout(() => setShowToast(false), 1800); }} style={toggleSwitch(settings.dailySummary)}>
+                  <div onClick={() => { setSettings({ ...settings, dailySummary: !settings.dailySummary }); setToastMessage("✓ Erfolgreich aktualisiert"); setShowToast(true); setTimeout(() => setShowToast(false), 1800); }} style={toggleSwitch(settings.dailySummary)}>
                     <div style={toggleCircle}></div>
                   </div>
                 </div>
@@ -414,8 +418,7 @@ export default function Home() {
                     <h3 style={settingsTitle}>Offene Rückrufe hervorheben</h3>
                     <p style={settingsText}>Markiert Rückruf-Anliegen besonders sichtbar, damit wichtige Patientenrückmeldungen im Praxisalltag nicht untergehen.</p>
                   </div>
-                  <div onClick={() => { setSettings({ ...settings, highlightCallbacks: !settings.highlightCallbacks }); setShowToast(true); setTimeout(() => setShowToast(false), 1800); }} style={toggleSwitch(settings.highlightCallbacks)}>
-                    <div style={toggleCircle}></div>
+                  <div onClick={() => { setSettings({ ...settings, highlightCallbacks: !settings.highlightCallbacks }); setToastMessage("✓ Erfolgreich aktualisiert"); setShowToast(true); setTimeout(() => setShowToast(false), 1800); }} style={toggleSwitch(settings.highlightCallbacks)}>                    <div style={toggleCircle}></div>
                   </div>
                 </div>
             
@@ -492,7 +495,28 @@ export default function Home() {
             
                     <div style={{ gridColumn: "1 / -1" }}>
                       <label style={formLabel}>Öffnungszeiten</label>
-                      <textarea value={settings.practiceOpeningHours || ""} onChange={(e) => setSettings({ ...settings, practiceOpeningHours: e.target.value })} placeholder="z. B. Mo–Do 07:00–12:00 / 14:00–16:00, Fr 07:00–12:00" style={textareaFull} />
+                    
+                      {["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"].map(day => (
+                        <div key={day} style={openingRow}>
+                          <span style={openingDay}>{day}</span>
+                    
+                          <select style={input}>
+                            <option>Geschlossen</option>
+                            <option>07:00</option>
+                            <option>08:00</option>
+                            <option>09:00</option>
+                          </select>
+                    
+                          <span>bis</span>
+                    
+                          <select style={input}>
+                            <option>Geschlossen</option>
+                            <option>12:00</option>
+                            <option>13:00</option>
+                            <option>16:00</option>
+                          </select>
+                        </div>
+                      ))}
                     </div>
                   </div>
             
@@ -512,7 +536,11 @@ export default function Home() {
             Adresse: ${settings.practiceAddress}
             Öffnungszeiten: ${settings.practiceOpeningHours || "-"}
             `;
-                        window.location.href = `mailto:support@deine-domain.de?subject=Praxisdaten ändern&body=${encodeURIComponent(body)}`;
+                        setToastMessage("✓ Erfolgreich an Support gesendet");
+                        setShowToast(true);
+                        setTimeout(() => {
+                          setShowToast(false);
+                        }, 1800);
                       }}
                     >
                       Änderung an Support senden
@@ -710,7 +738,7 @@ export default function Home() {
         )}  
 
         <div style={{ ...toast, ...(showToast ? {} : toastHidden) }}>
-          ✓ Erfolgreich aktualisiert
+          {toastMessage}
         </div>
           
       </main>
@@ -763,7 +791,7 @@ const modal = { background: "white", padding: 24, borderRadius: 20, width: 560, 
 const modalHeader = { display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 6 };
 const modalSubtext = { margin: "6px 0 0", color: "#667085", fontSize: 14 };
 const closeButton = { border: "none", background: "#f1f5f9", width: 34, height: 34, borderRadius: 10, cursor: "pointer", fontSize: 20, color: "#334155", display: "flex", alignItems: "center", justifyContent: "center" };
-const input = { padding: "12px 14px", borderRadius: 12, border: "1px solid #dbe1ea", background: "#f8fafc", fontSize: 14, outline: "none" };
+const input = { padding: "14px 16px", borderRadius: 12, border: "1px solid #dbe1ea", background: "#f8fafc", fontSize: 14, outline: "none" };
 const textarea = { ...input, height: 90, resize: "none", fontFamily: "Arial" };
 const modalActions = { display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 8 };
 const cancelButton = { padding: "10px 14px", borderRadius: 10, border: "1px solid #d1d5db", background: "white", cursor: "pointer", fontWeight: 600 };
@@ -780,9 +808,11 @@ const settingsTitle = { margin: 0, fontSize: 16, color: "#0f172a" };
 const settingsText = { margin: "6px 0 0", color: "#64748b", fontSize: 14 };
 const settingsActions = { display: "flex", justifyContent: "flex-end", marginTop: 6 };
 const smallSaveButton = { padding: "10px 18px", borderRadius: 10, border: "none", background: "#2563eb", color: "white", cursor: "pointer", fontWeight: 700, width: "fit-content" };
-const settingsFormGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginTop: 18 };
+const settingsFormGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18, marginTop: 18 };
 const infoBox = { marginTop: 16, padding: 14, borderRadius: 12, background: "#eff6ff", border: "1px solid #bfdbfe", color: "#1d4ed8", fontSize: 14 };
 const toggleSwitch = (active) => ({ width: 46, height: 24, borderRadius: 999, background: active ? "#22c55e" : "#e5e7eb", display: "flex", alignItems: "center", justifyContent: active ? "flex-end" : "flex-start", padding: 2, cursor: "pointer", transition: "all 0.2s ease" });
 const toggleCircle = { width: 18, height: 18, borderRadius: "50%", background: "white", boxShadow: "0 2px 4px rgba(0,0,0,0.2)" };
 const toast = { position: "fixed", right: 24, bottom: 24, background: "#dcfce7", color: "#166534", border: "1px solid #86efac", padding: "12px 18px", borderRadius: 12, boxShadow: "0 12px 30px rgba(15,23,42,0.18)", fontWeight: 400, fontSize: 13, zIndex: 100, minWidth: 260, textAlign: "left", transform: "translateY(0)", opacity: 1, transition: "all 0.5s ease" };
 const toastHidden = { transform: "translateY(40px)", opacity: 0 };
+const openingRow = { display: "grid", gridTemplateColumns: "120px 1fr 30px 1fr", gap: 10, alignItems: "center", marginTop: 10 };
+const openingDay = { fontSize: 14, color: "#334155", fontWeight: 500 };
