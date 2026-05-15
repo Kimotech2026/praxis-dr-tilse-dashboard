@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Phone, Users, CheckSquare, Calendar, User, CreditCard, Settings, Filter } from "lucide-react";
+import { Phone, Users, CheckSquare, Calendar, User, CreditCard, Settings, Filter, Shield, Star, Crown } from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -155,7 +155,7 @@ export default function Home() {
         </div>
         <div style={bottomNav}>
         <p style={bottomItem}><User size={18} style={icon}/> Profil</p>
-        <p style={bottomItem}><CreditCard size={18} style={icon}/> Mitgliedschaft</p>
+        <p onClick={() => setActivePage("Mitgliedschaft")} style={bottomItem}><CreditCard size={18} style={icon}/> Mitgliedschaft</p>
         <p onClick={() => setActivePage("Einstellungen")} style={bottomItem}><Settings size={18} style={icon}/> Einstellungen</p>
         </div>
         </aside>
@@ -359,7 +359,31 @@ export default function Home() {
             </div>
           </>
         )}
+
+        {activePage === "Mitgliedschaft" && (
+          <div style={box}>
+            <h2 style={{ marginTop: 0 }}>Mitgliedschaft</h2>
+            <p style={{ color: "#64748b", marginBottom: 24 }}>Aktuelles Paket: <strong>Standard</strong></p>
         
+            <div style={membershipGrid}>
+              {[
+                { name: "Basic", price: "399 €", doctors: "1 Arzt", minutes: "350 Minuten / Monat", icon: <Shield size={28} />, active: false },
+                { name: "Standard", price: "599 €", doctors: "bis zu 3 Ärzte", minutes: "1.050 Minuten / Monat", icon: <Star size={28} />, active: true },
+                { name: "Premium", price: "999 €", doctors: "bis zu 10 Ärzte", minutes: "3.500 Minuten / Monat", icon: <Crown size={28} />, active: false }
+              ].map(plan => (
+                <div key={plan.name} style={plan.active ? membershipCardActive : membershipCard}>
+                  <div style={membershipIcon}>{plan.icon}</div>
+                  <h3 style={membershipTitle}>{plan.name}</h3>
+                  <h2 style={membershipPrice}>{plan.price}<span style={membershipMonth}> / Monat</span></h2>
+                  <p style={membershipText}>{plan.doctors}</p>
+                  <p style={membershipText}>{plan.minutes}</p>
+                  {plan.active && <div style={activePlanBadge}>Aktuelles Paket</div>}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {activePage === "Kontakte" && (
           <div style={box}><h2>Kontakte</h2><p>Hier kommen später Patientenkontakte rein.</p></div>
         )}
@@ -828,3 +852,12 @@ const settingsTwoColumn = { display: "grid", gridTemplateColumns: "260px 1fr", g
 const settingsDivider = { height: 1, background: "#e5e7eb", margin: "28px 0" };
 const settingsFormGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18, marginTop: 0 };
 const openingRowDouble = { display: "grid", gridTemplateColumns: "120px 500px", gap: 18, alignItems: "start", marginBottom: 16, paddingBottom: 12, borderBottom: "1px solid #e5e7eb" };
+const membershipGrid = { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 };
+const membershipCard = { position: "relative", background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 18, padding: 24 };
+const membershipCardActive = { position: "relative", background: "linear-gradient(135deg, #eff6ff, #ffffff)", border: "2px solid #2563eb", borderRadius: 18, padding: 24, boxShadow: "0 16px 40px rgba(37,99,235,0.18)" };
+const membershipIcon = { width: 54, height: 54, borderRadius: 16, background: "#e0edff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 18 };
+const membershipTitle = { margin: 0, fontSize: 20, color: "#0f172a" };
+const membershipPrice = { margin: "12px 0", fontSize: 30, color: "#0f172a" };
+const membershipMonth = { fontSize: 14, color: "#64748b", fontWeight: 400 };
+const membershipText = { color: "#475569", margin: "8px 0", fontSize: 14 };
+const activePlanBadge = { marginTop: 18, padding: "9px 12px", borderRadius: 999, background: "#2563eb", color: "white", fontSize: 13, fontWeight: 700, width: "fit-content" };
