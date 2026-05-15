@@ -368,7 +368,7 @@ export default function Home() {
           <div style={box}>
         
             <div style={tabBar}>
-              {["Paxis Daten", "Benachrichtigungen", "Dashboard", "Konto"].map(tab => (
+              {["Paxisdaten", "Benachrichtigungen", "Dashboard", "Konto"].map(tab => (
                 <button
                   key={tab}
                   onClick={() => setActiveSettingsTab(tab)}
