@@ -464,57 +464,58 @@ export default function Home() {
             {activeSettingsTab === "Praxisdaten" && (
               <div style={settingsGrid}>
                 <div style={settingsCardColumn}>
-                  <h3 style={settingsTitle}>Praxisdaten ändern</h3>
-                  <p style={settingsText}>Änderungen an Praxisdaten werden nicht automatisch übernommen. Ihre Anfrage wird an unser Support-Team gesendet und nach Prüfung freigegeben.</p>
-            
-                  <div style={settingsFormGrid}>
+                  <div style={settingsTwoColumn}>
                     <div>
-                      <label style={formLabel}>Praxisname</label>
-                      <input value={settings.practiceName} onChange={(e) => setSettings({ ...settings, practiceName: e.target.value })} style={input} />
+                      <h3 style={settingsTitle}>Praxisdaten</h3>
+                      <p style={settingsText}>Hier können Änderungswünsche zu den Stammdaten der Praxis eingetragen werden. Die Änderung wird durch unser Support-Team geprüft.</p>
                     </div>
-            
+                  
+                    <div style={settingsFormGrid}>
+                      <div style={{ gridColumn: "1 / -1" }}>
+                        <label style={formLabel}>Praxisname</label>
+                        <input value={settings.practiceName} onChange={(e) => setSettings({ ...settings, practiceName: e.target.value })} style={input} />
+                      </div>
+                  
+                      <div style={{ gridColumn: "1 / -1" }}>
+                        <label style={formLabel}>Adresse</label>
+                        <input value={settings.practiceAddress} onChange={(e) => setSettings({ ...settings, practiceAddress: e.target.value })} style={input} />
+                      </div>
+                  
+                      <div>
+                        <label style={formLabel}>E-Mail-Adresse</label>
+                        <input value={settings.practiceEmail} onChange={(e) => setSettings({ ...settings, practiceEmail: e.target.value })} style={input} />
+                      </div>
+                  
+                      <div>
+                        <label style={formLabel}>Telefonnummer</label>
+                        <input value={settings.practicePhone} onChange={(e) => setSettings({ ...settings, practicePhone: e.target.value })} style={input} />
+                      </div>
+                  
+                      <div style={{ gridColumn: "1 / -1" }}>
+                        <label style={formLabel}>Webseite</label>
+                        <input value={settings.practiceWebsite} onChange={(e) => setSettings({ ...settings, practiceWebsite: e.target.value })} style={input} />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div style={settingsDivider}></div>
+                  
+                  <div style={settingsTwoColumn}>
                     <div>
-                      <label style={formLabel}>Telefonnummer</label>
-                      <input value={settings.practicePhone} onChange={(e) => setSettings({ ...settings, practicePhone: e.target.value })} style={input} />
+                      <h3 style={settingsTitle}>Öffnungszeiten</h3>
+                      <p style={settingsText}>Pro Wochentag können zwei Zeitfenster ausgewählt werden, zum Beispiel vormittags und nachmittags.</p>
                     </div>
-            
+                  
                     <div>
-                      <label style={formLabel}>E-Mail-Adresse</label>
-                      <input value={settings.practiceEmail} onChange={(e) => setSettings({ ...settings, practiceEmail: e.target.value })} style={input} />
-                    </div>
-            
-                    <div>
-                      <label style={formLabel}>Webseite</label>
-                      <input value={settings.practiceWebsite} onChange={(e) => setSettings({ ...settings, practiceWebsite: e.target.value })} style={input} />
-                    </div>
-            
-                    <div style={{ gridColumn: "1 / -1" }}>
-                      <label style={formLabel}>Adresse</label>
-                      <input value={settings.practiceAddress} onChange={(e) => setSettings({ ...settings, practiceAddress: e.target.value })} style={input} />
-                    </div>
-            
-                    <div style={{ gridColumn: "1 / -1" }}>
-                      <label style={formLabel}>Öffnungszeiten</label>
-                    
                       {["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"].map(day => (
-                        <div key={day} style={openingRow}>
+                        <div key={day} style={openingRowDouble}>
                           <span style={openingDay}>{day}</span>
-                    
-                          <select style={input}>
-                            <option>Geschlossen</option>
-                            <option>07:00</option>
-                            <option>08:00</option>
-                            <option>09:00</option>
-                          </select>
-                    
+                          <select style={input}><option>Geschlossen</option><option>07:00</option><option>08:00</option><option>09:00</option></select>
                           <span>bis</span>
-                    
-                          <select style={input}>
-                            <option>Geschlossen</option>
-                            <option>12:00</option>
-                            <option>13:00</option>
-                            <option>16:00</option>
-                          </select>
+                          <select style={input}><option>Geschlossen</option><option>12:00</option><option>13:00</option></select>
+                          <select style={input}><option>Geschlossen</option><option>14:00</option><option>15:00</option></select>
+                          <span>bis</span>
+                          <select style={input}><option>Geschlossen</option><option>16:00</option><option>17:00</option></select>
                         </div>
                       ))}
                     </div>
@@ -816,3 +817,6 @@ const toast = { position: "fixed", right: 24, bottom: 24, background: "#dcfce7",
 const toastHidden = { transform: "translateY(40px)", opacity: 0 };
 const openingRow = { display: "grid", gridTemplateColumns: "120px 1fr 30px 1fr", gap: 10, alignItems: "center", marginTop: 10 };
 const openingDay = { fontSize: 14, color: "#334155", fontWeight: 500 };
+const settingsTwoColumn = { display: "grid", gridTemplateColumns: "280px 1fr", gap: 40, alignItems: "flex-start" };
+const settingsDivider = { height: 1, background: "#e5e7eb", margin: "28px 0" };
+const openingRowDouble = { display: "grid", gridTemplateColumns: "110px 1fr 30px 1fr 1fr 30px 1fr", gap: 10, alignItems: "center", marginBottom: 12 };
