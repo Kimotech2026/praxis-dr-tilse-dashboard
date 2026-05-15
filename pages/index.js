@@ -40,6 +40,7 @@ export default function Home() {
   const [activeCalendar, setActiveCalendar] = useState("Frau Dr. Tilse");
   const [activeSettingsTab, setActiveSettingsTab] = useState("Praxisdaten");  
   const [settings, setSettings] = useState({ startPage: "Anrufe", emailNewCalls: true, dailySummary: false, compactView: false, entriesPerPage: "25", highlightCallbacks: true, showCalendarFirst: false, autoOpenNewCalls: true, practiceNotes: "", practiceName: "Praxis Dr. Tilse", practiceAddress: "", practiceEmail: "", practiceWebsite: "", practicePhone: "" });
+  const [showToast, setShowToast] = useState(false);
   const [showAddAppointment, setShowAddAppointment] = useState(false);
   const [statusFilter, setStatusFilter] = useState("Alle");
   const [search, setSearch] = useState("");  
@@ -368,7 +369,7 @@ export default function Home() {
           <div style={box}>
         
             <div style={tabBar}>
-              {["Paxisdaten", "Benachrichtigungen", "Dashboard", "Konto"].map(tab => (
+              {["Praxisdaten", "Benachrichtigungen", "Dashboard", "Konto"].map(tab => (
                 <button
                   key={tab}
                   onClick={() => setActiveSettingsTab(tab)}
@@ -386,19 +387,15 @@ export default function Home() {
                     <h3 style={settingsTitle}>Neue Anrufe</h3>
                     <p style={settingsText}>Zeigt eine Benachrichtigung im Dashboard an, sobald ein neuer Anruf eingegangen ist. So sieht das Praxisteam sofort, wenn neue Patientenanliegen vorliegen.</p>
                   </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                    
-                    <span style={{ fontSize: 13, color: settings.emailNewCalls ? "#16a34a" : "#94a3b8", fontWeight: 600 }}>
-                      {settings.emailNewCalls ? "AN" : "AUS"}
-                    </span>
-                  
-                    <div
-                      onClick={() => setSettings({ ...settings, emailNewCalls: !settings.emailNewCalls })}
-                      style={toggleSwitch(settings.emailNewCalls)}
-                    >
-                      <div style={toggleCircle}></div>
-                    </div>
-                  
+                  <div
+                    onClick={() => {
+                      setSettings({ ...settings, emailNewCalls: !settings.emailNewCalls });
+                      setShowToast(true);
+                      setTimeout(() => setShowToast(false), 1800);
+                    }}
+                    style={toggleSwitch(settings.emailNewCalls)}
+                  >
+                    <div style={toggleCircle}></div>
                   </div>
                 </div>
             
@@ -407,7 +404,7 @@ export default function Home() {
                     <h3 style={settingsTitle}>Tagesübersicht per E-Mail</h3>
                     <p style={settingsText}>Sendet am Ende des Tages eine kompakte Zusammenfassung aller eingegangenen Anrufe, Termine, Rezeptwünsche und offenen Anliegen.</p>
                   </div>
-                  <div onClick={() => setSettings({ ...settings, dailySummary: !settings.dailySummary })} style={toggleSwitch(settings.dailySummary)}>
+                  <div onClick={() => { setSettings({ ...settings, dailySummary: !settings.dailySummary }); setShowToast(true); setTimeout(() => setShowToast(false), 1800); }} style={toggleSwitch(settings.dailySummary)}>
                     <div style={toggleCircle}></div>
                   </div>
                 </div>
@@ -417,7 +414,7 @@ export default function Home() {
                     <h3 style={settingsTitle}>Offene Rückrufe hervorheben</h3>
                     <p style={settingsText}>Markiert Rückruf-Anliegen besonders sichtbar, damit wichtige Patientenrückmeldungen im Praxisalltag nicht untergehen.</p>
                   </div>
-                  <div onClick={() => setSettings({ ...settings, highlightCallbacks: !settings.highlightCallbacks })} style={toggleSwitch(settings.highlightCallbacks)}>
+                  <div onClick={() => { setSettings({ ...settings, highlightCallbacks: !settings.highlightCallbacks }); setShowToast(true); setTimeout(() => setShowToast(false), 1800); }} style={toggleSwitch(settings.highlightCallbacks)}>
                     <div style={toggleCircle}></div>
                   </div>
                 </div>
@@ -711,6 +708,10 @@ export default function Home() {
             </div>
           </div>
         )}  
+
+        {showToast && (
+          <div style={toast}>✓ Erfolgreich aktualisiert</div>
+        )}
           
       </main>
     </div>
@@ -783,3 +784,4 @@ const settingsFormGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap:
 const infoBox = { marginTop: 16, padding: 14, borderRadius: 12, background: "#eff6ff", border: "1px solid #bfdbfe", color: "#1d4ed8", fontSize: 14 };
 const toggleSwitch = (active) => ({ width: 46, height: 24, borderRadius: 999, background: active ? "#22c55e" : "#e5e7eb", display: "flex", alignItems: "center", justifyContent: active ? "flex-end" : "flex-start", padding: 2, cursor: "pointer", transition: "all 0.2s ease" });
 const toggleCircle = { width: 18, height: 18, borderRadius: "50%", background: "white", boxShadow: "0 2px 4px rgba(0,0,0,0.2)" };
+const toast = { position: "fixed", right: 24, bottom: 24, background: "#dcfce7", color: "#166534", border: "1px solid #86efac", padding: "14px 18px", borderRadius: 14, boxShadow: "0 12px 30px rgba(15,23,42,0.18)", fontWeight: 700, zIndex: 100 };
