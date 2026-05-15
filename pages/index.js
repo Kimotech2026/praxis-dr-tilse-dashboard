@@ -38,6 +38,7 @@ export default function Home() {
   const [statusMap, setStatusMap] = useState({});
   const [activePage, setActivePage] = useState("Anrufe");
   const [activeCalendar, setActiveCalendar] = useState("Frau Dr. Tilse");
+  const [activeSettingsTab, setActiveSettingsTab] = useState("Benachrichtigungen");
   const [showAddAppointment, setShowAddAppointment] = useState(false);
   const [statusFilter, setStatusFilter] = useState("Alle");
   const [search, setSearch] = useState("");  
@@ -135,7 +136,7 @@ export default function Home() {
         <div style={bottomNav}>
         <p style={bottomItem}><User size={18} style={icon}/> Profil</p>
         <p style={bottomItem}><CreditCard size={18} style={icon}/> Mitgliedschaft</p>
-        <p style={bottomItem}><Settings size={18} style={icon}/> Einstellungen</p>
+        <p onClick={() => setActivePage("Einstellungen")} style={bottomItem}><Settings size={18} style={icon}/> Einstellungen</p>
         </div>
         </aside>
   
@@ -346,7 +347,52 @@ export default function Home() {
         {activePage === "Aufgaben" && (
           <div style={box}><h2>Aufgaben</h2><p>Hier kommen offene Aufgaben rein.</p></div>
         )}
+
+        {activePage === "Einstellungen" && (
+          <div style={box}>
         
+            <div style={tabBar}>
+              {["Benachrichtigungen", "Dashboard", "Hinweise", "Konto"].map(tab => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveSettingsTab(tab)}
+                  style={activeSettingsTab === tab ? activeTab : tabItem}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+        
+            {activeSettingsTab === "Benachrichtigungen" && (
+              <div>
+                <p>Neue Anrufe per E-Mail melden</p>
+                <p>Tägliche Zusammenfassung senden</p>
+              </div>
+            )}
+        
+            {activeSettingsTab === "Dashboard" && (
+              <div>
+                <p>Startseite auswählen</p>
+                <p>Anzahl Einträge festlegen</p>
+              </div>
+            )}
+        
+            {activeSettingsTab === "Hinweise" && (
+              <div>
+                <p>Individuelle Praxis-Hinweise für Anrufe</p>
+              </div>
+            )}
+        
+            {activeSettingsTab === "Konto" && (
+              <div>
+                <p>Passwort ändern</p>
+                <p>Abmelden</p>
+              </div>
+            )}
+        
+          </div>
+        )}
+
         {activePage === "Kalender" && (
           <div style={box}>
                 
