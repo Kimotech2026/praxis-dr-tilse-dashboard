@@ -42,6 +42,7 @@ export default function Home() {
   const [settings, setSettings] = useState({ startPage: "Anrufe", emailNewCalls: true, dailySummary: false, compactView: false, entriesPerPage: "25", highlightCallbacks: true, showCalendarFirst: false, autoOpenNewCalls: true, practiceNotes: "", practiceName: "Praxis Dr. Tilse", practiceAddress: "", practiceEmail: "", practiceWebsite: "", practicePhone: "" });
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("✓ Erfolgreich aktualisiert");
+  const [pendingPlan, setPendingPlan] = useState(null);
   const [showAddAppointment, setShowAddAppointment] = useState(false);
   const [statusFilter, setStatusFilter] = useState("Alle");
   const [search, setSearch] = useState("");  
@@ -367,9 +368,9 @@ export default function Home() {
         
             <div style={membershipGrid}>
               {[
-                { name: "Basic", price: "399 €", doctors: "1 Arzt", minutes: "350 Minuten / Monat", desc: "Ideal für kleinere Einzelpraxen mit überschaubarem Anrufvolumen.", features: ["1 Arztprofil", "350 Gesprächsminuten", "Anrufübersicht", "Kalender-Anbindung"], icon: <Shield size={28} />, active: false },
-                { name: "Standard", price: "599 €", doctors: "bis zu 3 Ärzte", minutes: "1.050 Minuten / Monat", desc: "Empfohlen für Gemeinschaftspraxen mit mehreren Behandlern.", features: ["bis zu 3 Arztprofile", "1.050 Gesprächsminuten", "Priorisierte Einrichtung", "Erweiterte Auswertung"], icon: <Star size={28} />, active: true },
-                { name: "Premium", price: "999 €", doctors: "bis zu 10 Ärzte", minutes: "3.500 Minuten / Monat", desc: "Für größere Praxen oder MVZs mit hohem Anrufaufkommen.", features: ["bis zu 10 Arztprofile", "3.500 Gesprächsminuten", "Mehrere Standorte möglich", "Individuelle Betreuung"], icon: <Crown size={28} />, active: false }
+                { name: "Basic", price: "399 €", doctors: "1 Arzt", minutes: "350 Minuten / Monat", desc: "Für kleine Einzelpraxen mit geringem Anrufvolumen.", features: ["1 Arztprofil", "350 Gesprächsminuten", "Anrufübersicht", "Kalender-Anbindung"], icon: <Shield size={28} />, active: false, action: "Downgrade anfragen" },
+                { name: "Standard", price: "599 €", doctors: "bis zu 3 Ärzte", minutes: "1.050 Minuten / Monat", desc: "Für Gemeinschaftspraxen mit mehreren Behandlern.", features: ["alles aus Basic", "bis zu 3 Arztprofile", "1.050 Gesprächsminuten", "Erweiterte Auswertung"], icon: <Star size={28} />, active: true, action: "Aktuelles Paket" },
+                { name: "Premium", price: "999 €", doctors: "bis zu 10 Ärzte", minutes: "3.500 Minuten / Monat", desc: "Für große Praxen oder MVZs mit hohem Anrufaufkommen.", features: ["alles aus Standard", "bis zu 10 Arztprofile", "3.500 Gesprächsminuten", "Mehrere Standorte möglich"], icon: <Crown size={28} />, active: false, action: "Upgrade anfragen" }
               ].map(plan => (
                 <div key={plan.name} style={plan.active ? membershipCardActive : membershipCard}>
                   {plan.active && <div style={activePlanBadge}>Aktuelles Paket</div>}
@@ -389,14 +390,10 @@ export default function Home() {
                   <button
                     style={plan.active ? disabledPlanButton : planButton}
                     onClick={() => {
-                      if (!plan.active) {
-                        setToastMessage("✓ Anfrage an Vertrieb gesendet");
-                        setShowToast(true);
-                        setTimeout(() => setShowToast(false), 1800);
-                      }
+                      if (!plan.active) setPendingPlan(plan.name);
                     }}
                   >
-                    {plan.active ? "Aktiv" : "Paket anfragen"}
+                    {plan.action}
                   </button>
                 </div>
               ))}
@@ -790,6 +787,19 @@ export default function Home() {
           </div>
         )}  
 
+        {pendingPlan && (
+          <div style={modalOverlay}>
+            <div style={confirmModal}>
+              <h3 style={{ marginTop: 0 }}>Paketänderung anfragen?</h3>
+              <p style={settingsText}>Möchten Sie eine Anfrage an unsere Vertriebsabteilung senden? Ein zuständiger Vertriebsmitarbeiter meldet sich anschließend bei Ihnen.</p>
+              <div style={modalActions}>
+                <button onClick={() => setPendingPlan(null)} style={cancelButton}>Nein</button>
+                <button onClick={() => { setPendingPlan(null); setToastMessage("✓ Anfrage an Vertrieb gesendet"); setShowToast(true); setTimeout(() => setShowToast(false), 1800); }} style={addButton}>Ja, Anfrage senden</button>
+              </div>
+            </div>
+          </div>
+        )}
+          
         <div style={{ ...toast, ...(showToast ? {} : toastHidden) }}>
           {toastMessage}
         </div>
@@ -873,8 +883,8 @@ const settingsDivider = { height: 1, background: "#e5e7eb", margin: "28px 0" };
 const settingsFormGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18, marginTop: 0 };
 const openingRowDouble = { display: "grid", gridTemplateColumns: "120px 500px", gap: 18, alignItems: "start", marginBottom: 16, paddingBottom: 12, borderBottom: "1px solid #e5e7eb" };
 const membershipGrid = { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 };
-const membershipCard = { position: "relative", background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 18, padding: 24 };
-const membershipCardActive = { position: "relative", background: "linear-gradient(135deg, #eff6ff, #ffffff)", border: "2px solid #2563eb", borderRadius: 18, padding: 24, boxShadow: "0 16px 40px rgba(37,99,235,0.18)" };
+const membershipCard = { position: "relative", background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 18, padding: 24, display: "flex", flexDirection: "column" };
+const membershipCardActive = { position: "relative", background: "linear-gradient(135deg, #eff6ff, #ffffff)", border: "2px solid #2563eb", borderRadius: 18, padding: 24, boxShadow: "0 16px 40px rgba(37,99,235,0.18)", display: "flex", flexDirection: "column" };
 const membershipIcon = { width: 54, height: 54, borderRadius: 16, background: "#e0edff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 18 };
 const membershipTitle = { margin: 0, fontSize: 20, color: "#0f172a" };
 const membershipPrice = { margin: "12px 0", fontSize: 30, color: "#0f172a" };
@@ -884,5 +894,6 @@ const activePlanBadge = { marginTop: 18, padding: "9px 12px", borderRadius: 999,
 const membershipDesc = { color: "#64748b", fontSize: 14, lineHeight: 1.5, minHeight: 44 };
 const featureList = { marginTop: 18, display: "flex", flexDirection: "column", gap: 6 };
 const featureItem = { margin: 0, fontSize: 14, color: "#334155" };
-const planButton = { marginTop: 20, width: "100%", padding: "11px 14px", borderRadius: 12, border: "none", background: "#2563eb", color: "white", cursor: "pointer", fontWeight: 700 };
-const disabledPlanButton = { marginTop: 20, width: "100%", padding: "11px 14px", borderRadius: 12, border: "1px solid #bfdbfe", background: "#eff6ff", color: "#2563eb", fontWeight: 700 };
+const planButton = { marginTop: "auto", width: "100%", padding: "11px 14px", borderRadius: 12, border: "none", background: "#2563eb", color: "white", cursor: "pointer", fontWeight: 700 };
+const disabledPlanButton = { marginTop: "auto", width: "100%", padding: "11px 14px", borderRadius: 12, border: "1px solid #bfdbfe", background: "#eff6ff", color: "#2563eb", fontWeight: 700 };
+const confirmModal = { background: "white", padding: 24, borderRadius: 18, width: 420, boxShadow: "0 24px 70px rgba(15,23,42,0.25)" };
