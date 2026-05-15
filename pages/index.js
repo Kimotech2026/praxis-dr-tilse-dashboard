@@ -38,7 +38,7 @@ export default function Home() {
   const [statusMap, setStatusMap] = useState({});
   const [activePage, setActivePage] = useState("Anrufe");
   const [activeCalendar, setActiveCalendar] = useState("Frau Dr. Tilse");
-  const [activeSettingsTab, setActiveSettingsTab] = useState("Benachrichtigungen");
+  const [activeSettingsTab, setActiveSettingsTab] = useState("Praxisdaten");  
   const [settings, setSettings] = useState({ startPage: "Anrufe", emailNewCalls: true, dailySummary: false, compactView: false, entriesPerPage: "25", highlightCallbacks: true, showCalendarFirst: false, autoOpenNewCalls: true, practiceNotes: "", practiceName: "Praxis Dr. Tilse", practiceAddress: "", practiceEmail: "", practiceWebsite: "", practicePhone: "" });
   const [showAddAppointment, setShowAddAppointment] = useState(false);
   const [statusFilter, setStatusFilter] = useState("Alle");
