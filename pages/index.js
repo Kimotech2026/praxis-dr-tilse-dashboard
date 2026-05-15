@@ -471,26 +471,26 @@ export default function Home() {
                     </div>
                   
                     <div style={settingsFormGrid}>
-                      <div style={{ gridColumn: "1 / -1" }}>
+                      <div>
                         <label style={formLabel}>Praxisname</label>
                         <input value={settings.practiceName} onChange={(e) => setSettings({ ...settings, practiceName: e.target.value })} style={input} />
                       </div>
-                  
-                      <div style={{ gridColumn: "1 / -1" }}>
+                      
+                      <div>
                         <label style={formLabel}>Adresse</label>
                         <input value={settings.practiceAddress} onChange={(e) => setSettings({ ...settings, practiceAddress: e.target.value })} style={input} />
                       </div>
-                  
+                      
                       <div>
                         <label style={formLabel}>E-Mail-Adresse</label>
                         <input value={settings.practiceEmail} onChange={(e) => setSettings({ ...settings, practiceEmail: e.target.value })} style={input} />
                       </div>
-                  
+                      
                       <div>
                         <label style={formLabel}>Telefonnummer</label>
                         <input value={settings.practicePhone} onChange={(e) => setSettings({ ...settings, practicePhone: e.target.value })} style={input} />
                       </div>
-                  
+                      
                       <div style={{ gridColumn: "1 / -1" }}>
                         <label style={formLabel}>Webseite</label>
                         <input value={settings.practiceWebsite} onChange={(e) => setSettings({ ...settings, practiceWebsite: e.target.value })} style={input} />
@@ -826,5 +826,5 @@ const openingRow = { display: "grid", gridTemplateColumns: "120px 1fr 30px 1fr",
 const openingDay = { fontSize: 14, color: "#334155", fontWeight: 500 };
 const settingsTwoColumn = { display: "grid", gridTemplateColumns: "300px minmax(700px, 1fr)", gap: 110, alignItems: "flex-start" };
 const settingsDivider = { height: 1, background: "#e5e7eb", margin: "28px 0" };
-const settingsFormGrid = { display: "grid", gridTemplateColumns: "1fr", gap: 14, marginTop: 0 };
+const settingsFormGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18, marginTop: 0 };
 const openingRowDouble = { display: "grid", gridTemplateColumns: "120px minmax(700px, 1fr)", gap: 18, alignItems: "start", paddingBottom: 16, marginBottom: 16, borderBottom: "1px solid #e5e7eb" };
