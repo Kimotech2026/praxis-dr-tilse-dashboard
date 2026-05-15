@@ -386,14 +386,11 @@ export default function Home() {
                     ))}
                   </div>
         
-                  <button
-                    style={plan.active ? disabledPlanButton : planButton}
-                    onClick={() => {
-                      if (!plan.active) setPendingPlan(plan.name);
-                    }}
-                  >
-                    {plan.action}
-                  </button>
+                  <div style={planButtonWrap}>
+                    <button style={plan.active ? disabledPlanButton : planButton} onClick={() => { if (!plan.active) setPendingPlan(plan.name); }}>
+                      {plan.action}
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -882,8 +879,8 @@ const settingsDivider = { height: 1, background: "#e5e7eb", margin: "28px 0" };
 const settingsFormGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18, marginTop: 0 };
 const openingRowDouble = { display: "grid", gridTemplateColumns: "120px 500px", gap: 18, alignItems: "start", marginBottom: 16, paddingBottom: 12, borderBottom: "1px solid #e5e7eb" };
 const membershipGrid = { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 };
-const membershipCard = { position: "relative", background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 18, padding: 24, display: "flex", flexDirection: "column" };
-const membershipCardActive = { position: "relative", background: "linear-gradient(135deg, #eff6ff, #ffffff)", border: "2px solid #2563eb", borderRadius: 18, padding: 24, boxShadow: "0 16px 40px rgba(37,99,235,0.18)", display: "flex", flexDirection: "column" };
+const membershipCard = { position: "relative", background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 18, padding: 24, display: "flex", flexDirection: "column", minHeight: 520 };
+const membershipCardActive = { position: "relative", background: "linear-gradient(135deg, #eff6ff, #ffffff)", border: "2px solid #2563eb", borderRadius: 18, padding: 24, boxShadow: "0 16px 40px rgba(37,99,235,0.18)", display: "flex", flexDirection: "column", minHeight: 520 };
 const membershipIcon = { width: 54, height: 54, borderRadius: 16, background: "#e0edff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 18 };
 const membershipTitle = { margin: 0, fontSize: 20, color: "#0f172a" };
 const membershipPrice = { margin: "12px 0", fontSize: 30, color: "#0f172a" };
@@ -891,9 +888,10 @@ const membershipMonth = { fontSize: 14, color: "#64748b", fontWeight: 400 };
 const membershipText = { color: "#475569", margin: "8px 0", fontSize: 14 };
 const activePlanBadge = { marginTop: 18, padding: "9px 12px", borderRadius: 999, background: "#2563eb", color: "white", fontSize: 13, fontWeight: 700, width: "fit-content" };
 const membershipDesc = { color: "#64748b", fontSize: 14, lineHeight: 1.5, minHeight: 44 };
-const featureList = { marginTop: 18, display: "flex", flexDirection: "column", gap: 6, minHeight: 140 };
+const featureList = { marginTop: 18, display: "flex", flexDirection: "column", gap: 6, marginBottom: 28 };
 const featureItem = { margin: 0, fontSize: 14, color: "#334155" };
 const planButton = { marginTop: "auto", paddingTop: 12, width: "100%", padding: "11px 14px", borderRadius: 12, border: "none", background: "#2563eb", color: "white", cursor: "pointer", fontWeight: 700 };
 const disabledPlanButton = { marginTop: "auto", paddingTop: 12, width: "100%", padding: "11px 14px", borderRadius: 12, border: "1px solid #bfdbfe", background: "#eff6ff", color: "#2563eb", fontWeight: 700 };
 const confirmModal = { background: "white", padding: 24, borderRadius: 18, width: 420, boxShadow: "0 24px 70px rgba(15,23,42,0.25)" };
 const highlightInfo = { fontSize: 15, fontWeight: 700, color: "#0f172a", margin: "6px 0" };
+const planButtonWrap = { marginTop: "auto", paddingTop: 34 };
