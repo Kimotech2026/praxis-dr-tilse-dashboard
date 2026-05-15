@@ -39,7 +39,7 @@ export default function Home() {
   const [activePage, setActivePage] = useState("Anrufe");
   const [activeCalendar, setActiveCalendar] = useState("Frau Dr. Tilse");
   const [activeSettingsTab, setActiveSettingsTab] = useState("Benachrichtigungen");
-  const [settings, setSettings] = useState({ startPage: "Anrufe", emailNewCalls: true, dailySummary: false, compactView: false, entriesPerPage: "25", highlightCallbacks: true, showCalendarFirst: false, autoOpenNewCalls: true, practiceNotes: "" });
+  const [settings, setSettings] = useState({ startPage: "Anrufe", emailNewCalls: true, dailySummary: false, compactView: false, entriesPerPage: "25", highlightCallbacks: true, showCalendarFirst: false, autoOpenNewCalls: true, practiceNotes: "", practiceName: "Praxis Dr. Tilse", practiceAddress: "", practiceEmail: "", practiceWebsite: "", practicePhone: "" });
   const [showAddAppointment, setShowAddAppointment] = useState(false);
   const [statusFilter, setStatusFilter] = useState("Alle");
   const [search, setSearch] = useState("");  
@@ -368,7 +368,7 @@ export default function Home() {
           <div style={box}>
         
             <div style={tabBar}>
-              {["Benachrichtigungen", "Dashboard", "Konto"].map(tab => (
+              {["Paxis Daten", "Benachrichtigungen", "Dashboard", "Konto"].map(tab => (
                 <button
                   key={tab}
                   onClick={() => setActiveSettingsTab(tab)}
@@ -443,7 +443,71 @@ export default function Home() {
                 </div>
               </div>
             )}
-        
+
+            {activeSettingsTab === "Praxisdaten" && (
+              <div style={settingsGrid}>
+                <div style={settingsCardColumn}>
+                  <h3 style={settingsTitle}>Praxisdaten ändern</h3>
+                  <p style={settingsText}>Änderungen an Praxisdaten werden nicht automatisch übernommen. Ihre Anfrage wird an unser Support-Team gesendet und nach Prüfung freigegeben.</p>
+            
+                  <div style={settingsFormGrid}>
+                    <div>
+                      <label style={formLabel}>Praxisname</label>
+                      <input value={settings.practiceName} onChange={(e) => setSettings({ ...settings, practiceName: e.target.value })} style={input} />
+                    </div>
+            
+                    <div>
+                      <label style={formLabel}>Telefonnummer</label>
+                      <input value={settings.practicePhone} onChange={(e) => setSettings({ ...settings, practicePhone: e.target.value })} style={input} />
+                    </div>
+            
+                    <div>
+                      <label style={formLabel}>E-Mail-Adresse</label>
+                      <input value={settings.practiceEmail} onChange={(e) => setSettings({ ...settings, practiceEmail: e.target.value })} style={input} />
+                    </div>
+            
+                    <div>
+                      <label style={formLabel}>Webseite</label>
+                      <input value={settings.practiceWebsite} onChange={(e) => setSettings({ ...settings, practiceWebsite: e.target.value })} style={input} />
+                    </div>
+            
+                    <div style={{ gridColumn: "1 / -1" }}>
+                      <label style={formLabel}>Adresse</label>
+                      <input value={settings.practiceAddress} onChange={(e) => setSettings({ ...settings, practiceAddress: e.target.value })} style={input} />
+                    </div>
+            
+                    <div style={{ gridColumn: "1 / -1" }}>
+                      <label style={formLabel}>Öffnungszeiten</label>
+                      <textarea value={settings.practiceOpeningHours || ""} onChange={(e) => setSettings({ ...settings, practiceOpeningHours: e.target.value })} placeholder="z. B. Mo–Do 07:00–12:00 / 14:00–16:00, Fr 07:00–12:00" style={textareaFull} />
+                    </div>
+                  </div>
+            
+                  <div style={infoBox}>Diese Änderung wird durch unser Support-Team geprüft. Die Daten werden erst nach Freigabe übernommen.</div>
+            
+                  <div style={settingsActions}>
+                    <button
+                      style={smallSaveButton}
+                      onClick={() => {
+                        const body = `
+            Praxisdaten-Änderungsanfrage:
+            
+            Praxisname: ${settings.practiceName}
+            Telefonnummer: ${settings.practicePhone}
+            E-Mail: ${settings.practiceEmail}
+            Webseite: ${settings.practiceWebsite}
+            Adresse: ${settings.practiceAddress}
+            Öffnungszeiten: ${settings.practiceOpeningHours || "-"}
+            `;
+                        window.location.href = `mailto:support@deine-domain.de?subject=Praxisdaten ändern&body=${encodeURIComponent(body)}`;
+                      }}
+                    >
+                      Änderung an Support senden
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {activeSettingsTab === "Konto" && (
               <div style={settingsGrid}>
                 <div style={settingsCard}>
@@ -698,3 +762,5 @@ const settingsTitle = { margin: 0, fontSize: 16, color: "#0f172a" };
 const settingsText = { margin: "6px 0 0", color: "#64748b", fontSize: 14 };
 const settingsActions = { display: "flex", justifyContent: "flex-end", marginTop: 6 };
 const smallSaveButton = { padding: "10px 18px", borderRadius: 10, border: "none", background: "#2563eb", color: "white", cursor: "pointer", fontWeight: 700, width: "fit-content" };
+const settingsFormGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginTop: 18 };
+const infoBox = { marginTop: 16, padding: 14, borderRadius: 12, background: "#eff6ff", border: "1px solid #bfdbfe", color: "#1d4ed8", fontSize: 14 };
