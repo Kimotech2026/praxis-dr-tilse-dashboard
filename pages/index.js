@@ -491,7 +491,7 @@ export default function Home() {
                         <input value={settings.practicePhone} onChange={(e) => setSettings({ ...settings, practicePhone: e.target.value })} style={input} />
                       </div>
                       
-                      <div style={{ gridColumn: "1 / -1" }}>
+                      <div>
                         <label style={formLabel}>Webseite</label>
                         <input value={settings.practiceWebsite} onChange={(e) => setSettings({ ...settings, practiceWebsite: e.target.value })} style={input} />
                       </div>
@@ -507,7 +507,7 @@ export default function Home() {
                     </div>
                   
                     <div>
-                      {["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"].map(day => (
+                      {["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"].map(day => (
                         <div key={day} style={openingRowDouble}>
                           <span style={openingDay}>{day}</span>
                         
@@ -827,4 +827,4 @@ const openingDay = { fontSize: 14, color: "#334155", fontWeight: 500 };
 const settingsTwoColumn = { display: "grid", gridTemplateColumns: "260px 1fr", gap: 120, alignItems: "flex-start" };
 const settingsDivider = { height: 1, background: "#e5e7eb", margin: "28px 0" };
 const settingsFormGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18, marginTop: 0 };
-const openingRowDouble = { display: "grid", gridTemplateColumns: "120px 420px", gap: 18, alignItems: "start", marginBottom: 16, paddingBottom: 12, borderBottom: "1px solid #e5e7eb" };
+const openingRowDouble = { display: "grid", gridTemplateColumns: "120px 500px", gap: 18, alignItems: "start", marginBottom: 16, paddingBottom: 12, borderBottom: "1px solid #e5e7eb" };
