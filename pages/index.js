@@ -377,8 +377,8 @@ export default function Home() {
                   <h3 style={membershipTitle}>{plan.name}</h3>
                   <p style={membershipDesc}>{plan.desc}</p>
                   <h2 style={membershipPrice}>{plan.price}<span style={membershipMonth}> / Monat</span></h2>
-                  <p style={membershipText}>{plan.doctors}</p>
-                  <p style={membershipText}>{plan.minutes}</p>
+                  <p style={highlightInfo}>{plan.doctors}</p>
+                  <p style={highlightInfo}>{plan.minutes}</p>
         
                   <div style={featureList}>
                     {plan.features.map(item => (
@@ -891,8 +891,9 @@ const membershipMonth = { fontSize: 14, color: "#64748b", fontWeight: 400 };
 const membershipText = { color: "#475569", margin: "8px 0", fontSize: 14 };
 const activePlanBadge = { marginTop: 18, padding: "9px 12px", borderRadius: 999, background: "#2563eb", color: "white", fontSize: 13, fontWeight: 700, width: "fit-content" };
 const membershipDesc = { color: "#64748b", fontSize: 14, lineHeight: 1.5, minHeight: 44 };
-const featureList = { marginTop: 18, display: "flex", flexDirection: "column", gap: 6 };
+const featureList = { marginTop: 18, display: "flex", flexDirection: "column", gap: 6, minHeight: 140 };
 const featureItem = { margin: 0, fontSize: 14, color: "#334155" };
-const planButton = { marginTop: "auto", width: "100%", padding: "11px 14px", borderRadius: 12, border: "none", background: "#2563eb", color: "white", cursor: "pointer", fontWeight: 700 };
-const disabledPlanButton = { marginTop: "auto", width: "100%", padding: "11px 14px", borderRadius: 12, border: "1px solid #bfdbfe", background: "#eff6ff", color: "#2563eb", fontWeight: 700 };
+const planButton = { marginTop: "auto", paddingTop: 12, width: "100%", padding: "11px 14px", borderRadius: 12, border: "none", background: "#2563eb", color: "white", cursor: "pointer", fontWeight: 700 };
+const disabledPlanButton = { marginTop: "auto", paddingTop: 12, width: "100%", padding: "11px 14px", borderRadius: 12, border: "1px solid #bfdbfe", background: "#eff6ff", color: "#2563eb", fontWeight: 700 };
 const confirmModal = { background: "white", padding: 24, borderRadius: 18, width: 420, boxShadow: "0 24px 70px rgba(15,23,42,0.25)" };
+const highlightInfo = { fontSize: 15, fontWeight: 700, color: "#0f172a", margin: "6px 0" };
