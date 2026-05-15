@@ -704,3 +704,5 @@ const settingsCard = { display: "flex", justifyContent: "space-between", alignIt
 const settingsCardColumn = { background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 16, padding: 18 };
 const settingsTitle = { margin: 0, fontSize: 16, color: "#0f172a" };
 const settingsText = { margin: "6px 0 0", color: "#64748b", fontSize: 14 };
+const settingsActions = { display: "flex", justifyContent: "flex-end", marginTop: 6 };
+const smallSaveButton = { padding: "10px 18px", borderRadius: 10, border: "none", background: "#2563eb", color: "white", cursor: "pointer", fontWeight: 700, width: "fit-content" };
