@@ -363,21 +363,41 @@ export default function Home() {
         {activePage === "Mitgliedschaft" && (
           <div style={box}>
             <h2 style={{ marginTop: 0 }}>Mitgliedschaft</h2>
-            <p style={{ color: "#64748b", marginBottom: 24 }}>Aktuelles Paket: <strong>Standard</strong></p>
+            <p style={{ color: "#64748b", marginBottom: 24 }}>Ihr aktuelles Paket: <strong>Standard</strong></p>
         
             <div style={membershipGrid}>
               {[
-                { name: "Basic", price: "399 €", doctors: "1 Arzt", minutes: "350 Minuten / Monat", icon: <Shield size={28} />, active: false },
-                { name: "Standard", price: "599 €", doctors: "bis zu 3 Ärzte", minutes: "1.050 Minuten / Monat", icon: <Star size={28} />, active: true },
-                { name: "Premium", price: "999 €", doctors: "bis zu 10 Ärzte", minutes: "3.500 Minuten / Monat", icon: <Crown size={28} />, active: false }
+                { name: "Basic", price: "399 €", doctors: "1 Arzt", minutes: "350 Minuten / Monat", desc: "Ideal für kleinere Einzelpraxen mit überschaubarem Anrufvolumen.", features: ["1 Arztprofil", "350 Gesprächsminuten", "Anrufübersicht", "Kalender-Anbindung"], icon: <Shield size={28} />, active: false },
+                { name: "Standard", price: "599 €", doctors: "bis zu 3 Ärzte", minutes: "1.050 Minuten / Monat", desc: "Empfohlen für Gemeinschaftspraxen mit mehreren Behandlern.", features: ["bis zu 3 Arztprofile", "1.050 Gesprächsminuten", "Priorisierte Einrichtung", "Erweiterte Auswertung"], icon: <Star size={28} />, active: true },
+                { name: "Premium", price: "999 €", doctors: "bis zu 10 Ärzte", minutes: "3.500 Minuten / Monat", desc: "Für größere Praxen oder MVZs mit hohem Anrufaufkommen.", features: ["bis zu 10 Arztprofile", "3.500 Gesprächsminuten", "Mehrere Standorte möglich", "Individuelle Betreuung"], icon: <Crown size={28} />, active: false }
               ].map(plan => (
                 <div key={plan.name} style={plan.active ? membershipCardActive : membershipCard}>
+                  {plan.active && <div style={activePlanBadge}>Aktuelles Paket</div>}
                   <div style={membershipIcon}>{plan.icon}</div>
                   <h3 style={membershipTitle}>{plan.name}</h3>
+                  <p style={membershipDesc}>{plan.desc}</p>
                   <h2 style={membershipPrice}>{plan.price}<span style={membershipMonth}> / Monat</span></h2>
                   <p style={membershipText}>{plan.doctors}</p>
                   <p style={membershipText}>{plan.minutes}</p>
-                  {plan.active && <div style={activePlanBadge}>Aktuelles Paket</div>}
+        
+                  <div style={featureList}>
+                    {plan.features.map(item => (
+                      <p key={item} style={featureItem}>✓ {item}</p>
+                    ))}
+                  </div>
+        
+                  <button
+                    style={plan.active ? disabledPlanButton : planButton}
+                    onClick={() => {
+                      if (!plan.active) {
+                        setToastMessage("✓ Anfrage an Vertrieb gesendet");
+                        setShowToast(true);
+                        setTimeout(() => setShowToast(false), 1800);
+                      }
+                    }}
+                  >
+                    {plan.active ? "Aktiv" : "Paket anfragen"}
+                  </button>
                 </div>
               ))}
             </div>
@@ -861,3 +881,8 @@ const membershipPrice = { margin: "12px 0", fontSize: 30, color: "#0f172a" };
 const membershipMonth = { fontSize: 14, color: "#64748b", fontWeight: 400 };
 const membershipText = { color: "#475569", margin: "8px 0", fontSize: 14 };
 const activePlanBadge = { marginTop: 18, padding: "9px 12px", borderRadius: 999, background: "#2563eb", color: "white", fontSize: 13, fontWeight: 700, width: "fit-content" };
+const membershipDesc = { color: "#64748b", fontSize: 14, lineHeight: 1.5, minHeight: 44 };
+const featureList = { marginTop: 18, display: "flex", flexDirection: "column", gap: 6 };
+const featureItem = { margin: 0, fontSize: 14, color: "#334155" };
+const planButton = { marginTop: 20, width: "100%", padding: "11px 14px", borderRadius: 12, border: "none", background: "#2563eb", color: "white", cursor: "pointer", fontWeight: 700 };
+const disabledPlanButton = { marginTop: 20, width: "100%", padding: "11px 14px", borderRadius: 12, border: "1px solid #bfdbfe", background: "#eff6ff", color: "#2563eb", fontWeight: 700 };
