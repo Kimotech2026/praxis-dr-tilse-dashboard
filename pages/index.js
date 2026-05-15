@@ -363,7 +363,7 @@ export default function Home() {
 
         {activePage === "Mitgliedschaft" && (
           <div style={box}>
-            <p style={{ color: "#64748b", marginTop: -10, marginBottom: 24 }}>Ihr aktuelles Paket: <strong>Standard</strong></p>
+            <p style={{ color: "#64748b", marginTop: -6, marginBottom: 24 }}>Ihr aktuelles Paket: <strong>Standard</strong></p>
         
             <div style={membershipGrid}>
               {[
