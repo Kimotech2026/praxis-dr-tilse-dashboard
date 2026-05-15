@@ -364,29 +364,67 @@ export default function Home() {
             </div>
         
             {activeSettingsTab === "Benachrichtigungen" && (
-              <div>
-                <p>Neue Anrufe per E-Mail melden</p>
-                <p>Tägliche Zusammenfassung senden</p>
+              <div style={settingsGrid}>
+                <div style={settingsCard}>
+                  <div>
+                    <h3 style={settingsTitle}>Neue Anrufe</h3>
+                    <p style={settingsText}>Benachrichtigung bei neuem Anruf anzeigen.</p>
+                  </div>
+                  <input type="checkbox" />
+                </div>
+            
+                <div style={settingsCard}>
+                  <div>
+                    <h3 style={settingsTitle}>Tagesübersicht</h3>
+                    <p style={settingsText}>Tägliche Zusammenfassung der Anrufe erhalten.</p>
+                  </div>
+                  <input type="checkbox" />
+                </div>
               </div>
             )}
         
             {activeSettingsTab === "Dashboard" && (
-              <div>
-                <p>Startseite auswählen</p>
-                <p>Anzahl Einträge festlegen</p>
+              <div style={settingsGrid}>
+                <div style={settingsCard}>
+                  <div>
+                    <h3 style={settingsTitle}>Startseite</h3>
+                    <p style={settingsText}>Standardmäßig geöffneter Bereich im Dashboard.</p>
+                  </div>
+                  <select style={input}>
+                    <option>Anrufe</option>
+                    <option>Kalender</option>
+                    <option>Aufgaben</option>
+                  </select>
+                </div>
               </div>
             )}
         
             {activeSettingsTab === "Hinweise" && (
-              <div>
-                <p>Individuelle Praxis-Hinweise für Anrufe</p>
+              <div style={settingsGrid}>
+                <div style={settingsCardColumn}>
+                  <h3 style={settingsTitle}>Praxis-Hinweise</h3>
+                  <p style={settingsText}>Interne Hinweise, die im Praxisalltag wichtig sind.</p>
+                  <textarea style={textareaFull} placeholder="z. B. Rezepte nur für Bestandspatienten aufnehmen..." />
+                </div>
               </div>
             )}
         
             {activeSettingsTab === "Konto" && (
-              <div>
-                <p>Passwort ändern</p>
-                <p>Abmelden</p>
+              <div style={settingsGrid}>
+                <div style={settingsCard}>
+                  <div>
+                    <h3 style={settingsTitle}>Datenschutz</h3>
+                    <p style={settingsText}>Datenexport oder Löschung kann beim Support angefragt werden.</p>
+                  </div>
+                </div>
+            
+                <div style={settingsCard}>
+                  <div>
+                    <h3 style={settingsTitle}>Abmelden</h3>
+                    <p style={settingsText}>Aktuelle Sitzung beenden.</p>
+                  </div>
+                  <button style={cancelButton}>Abmelden</button>
+                </div>
               </div>
             )}
         
@@ -618,3 +656,8 @@ const sectionTitle = { margin: "0 0 12px", fontSize: 16, fontWeight: 800, color:
 const formGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 };
 const textareaFull = { ...input, width: "100%", height: 100, resize: "none", fontFamily: "Arial", boxSizing: "border-box" };
 const checkOption = { display: "flex", alignItems: "center", gap: 8, padding: "10px 12px", borderRadius: 12, border: "1px solid #dbe1ea", background: "white", cursor: "pointer", fontSize: 14, color: "#334155" };
+const settingsGrid = { display: "flex", flexDirection: "column", gap: 14, marginTop: 18 };
+const settingsCard = { display: "flex", justifyContent: "space-between", alignItems: "center", background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 16, padding: 18 };
+const settingsCardColumn = { background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 16, padding: 18 };
+const settingsTitle = { margin: 0, fontSize: 16, color: "#0f172a" };
+const settingsText = { margin: "6px 0 0", color: "#64748b", fontSize: 14 };
