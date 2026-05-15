@@ -894,4 +894,4 @@ const planButton = { marginTop: "auto", paddingTop: 12, width: "100%", padding: 
 const disabledPlanButton = { marginTop: "auto", paddingTop: 12, width: "100%", padding: "11px 14px", borderRadius: 12, border: "1px solid #bfdbfe", background: "#eff6ff", color: "#2563eb", fontWeight: 700 };
 const confirmModal = { background: "white", padding: 24, borderRadius: 18, width: 420, boxShadow: "0 24px 70px rgba(15,23,42,0.25)" };
 const highlightInfo = { fontSize: 15, fontWeight: 700, color: "#0f172a", margin: "6px 0" };
-const planButtonWrap = { marginTop: "auto", paddingTop: 34 };
+const planButtonWrap = { marginTop: "auto", paddingTop: 20 };
