@@ -817,7 +817,6 @@ const settingsTitle = { margin: 0, fontSize: 16, color: "#0f172a" };
 const settingsText = { margin: "6px 0 0", color: "#64748b", fontSize: 14 };
 const settingsActions = { display: "flex", justifyContent: "flex-end", marginTop: 6 };
 const smallSaveButton = { padding: "10px 18px", borderRadius: 10, border: "none", background: "#2563eb", color: "white", cursor: "pointer", fontWeight: 700, width: "fit-content" };
-const settingsFormGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18, marginTop: 18 };
 const infoBox = { marginTop: 16, padding: 14, borderRadius: 12, background: "#eff6ff", border: "1px solid #bfdbfe", color: "#1d4ed8", fontSize: 14 };
 const toggleSwitch = (active) => ({ width: 46, height: 24, borderRadius: 999, background: active ? "#22c55e" : "#e5e7eb", display: "flex", alignItems: "center", justifyContent: active ? "flex-end" : "flex-start", padding: 2, cursor: "pointer", transition: "all 0.2s ease" });
 const toggleCircle = { width: 18, height: 18, borderRadius: "50%", background: "white", boxShadow: "0 2px 4px rgba(0,0,0,0.2)" };
@@ -825,6 +824,7 @@ const toast = { position: "fixed", right: 24, bottom: 24, background: "#dcfce7",
 const toastHidden = { transform: "translateY(40px)", opacity: 0 };
 const openingRow = { display: "grid", gridTemplateColumns: "120px 1fr 30px 1fr", gap: 10, alignItems: "center", marginTop: 10 };
 const openingDay = { fontSize: 14, color: "#334155", fontWeight: 500 };
-const settingsTwoColumn = { display: "grid", gridTemplateColumns: "360px 1fr", gap: 70, alignItems: "flex-start" };
+const settingsTwoColumn = { display: "grid", gridTemplateColumns: "320px minmax(520px, 1fr)", gap: 90, alignItems: "flex-start" };
 const settingsFormGrid = { display: "grid", gridTemplateColumns: "1fr", gap: 14, marginTop: 0 };
-const openingRowDouble = { display: "grid", gridTemplateColumns: "120px 1fr", gap: 14, alignItems: "start", marginBottom: 16 };
+const openingRowDouble = { display: "grid", gridTemplateColumns: "120px minmax(520px, 1fr)", gap: 18, alignItems: "start", marginBottom: 16 };
+
