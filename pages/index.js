@@ -368,9 +368,9 @@ export default function Home() {
         
             <div style={membershipGrid}>
               {[
-                { name: "Basic", price: "399 €", doctors: "1 Arzt", minutes: "350 Minuten / Monat", desc: "Für kleine Einzelpraxen mit geringem Anrufvolumen.", features: ["1 Arztprofil", "350 Gesprächsminuten", "Anrufübersicht", "Kalender-Anbindung"], icon: <Shield size={28} />, active: false, action: "Downgrade anfragen" },
-                { name: "Standard", price: "599 €", doctors: "bis zu 3 Ärzte", minutes: "1.050 Minuten / Monat", desc: "Für Gemeinschaftspraxen mit mehreren Behandlern.", features: ["alles aus Basic", "bis zu 3 Arztprofile", "1.050 Gesprächsminuten", "Erweiterte Auswertung"], icon: <Star size={28} />, active: true, action: "Aktuelles Paket" },
-                { name: "Premium", price: "999 €", doctors: "bis zu 10 Ärzte", minutes: "3.500 Minuten / Monat", desc: "Für große Praxen oder MVZs mit hohem Anrufaufkommen.", features: ["alles aus Standard", "bis zu 10 Arztprofile", "3.500 Gesprächsminuten", "Mehrere Standorte möglich"], icon: <Crown size={28} />, active: false, action: "Upgrade anfragen" }
+                { name: "Basic", price: "399 €", doctors: "1 Arzt", minutes: "350 Minuten / Monat", desc: "Für kleine Einzelpraxen mit geringem Anrufvolumen.", features: ["Anrufübersicht", "Kalender-Anbindung"], icon: <Shield size={28} />, active: false, action: "Downgrade anfragen" },
+                { name: "Standard", price: "599 €", doctors: "bis zu 3 Ärzte", minutes: "1.050 Minuten / Monat", desc: "Für Gemeinschaftspraxen mit mehreren Behandlern.", features: ["Anrufübersicht", "Kalender-Anbindung", "Erweiterte Auswertung", "Tagesprotokolle", "Priorisierte Verarbeitung"], icon: <Star size={28} />, active: true, action: "Aktuelles Paket" },  
+                { name: "Premium", price: "999 €", doctors: "bis zu 10 Ärzte", minutes: "3.500 Minuten / Monat", desc: "Für große Praxen oder MVZs mit hohem Anrufaufkommen.", features: ["Anrufübersicht", "Kalender-Anbindung", "Erweiterte Auswertung", "Tagesprotokolle", "Priorisierte Verarbeitung", "Mehrere Standorte möglich", "Individueller Support", "Erweiterte Statistiken"], icon: <Crown size={28} />, active: false, action: "Upgrade anfragen" }
               ].map(plan => (
                 <div key={plan.name} style={plan.active ? membershipCardActive : membershipCard}>
                   <div style={membershipIcon}>{plan.icon}</div>
