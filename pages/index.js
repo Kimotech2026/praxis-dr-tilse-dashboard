@@ -386,8 +386,19 @@ export default function Home() {
                     <h3 style={settingsTitle}>Neue Anrufe</h3>
                     <p style={settingsText}>Zeigt eine Benachrichtigung im Dashboard an, sobald ein neuer Anruf eingegangen ist. So sieht das Praxisteam sofort, wenn neue Patientenanliegen vorliegen.</p>
                   </div>
-                  <div onClick={() => setSettings({ ...settings, emailNewCalls: !settings.emailNewCalls })} style={toggleSwitch(settings.emailNewCalls)}>
-                    <div style={toggleCircle}></div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    
+                    <span style={{ fontSize: 13, color: settings.emailNewCalls ? "#16a34a" : "#94a3b8", fontWeight: 600 }}>
+                      {settings.emailNewCalls ? "AN" : "AUS"}
+                    </span>
+                  
+                    <div
+                      onClick={() => setSettings({ ...settings, emailNewCalls: !settings.emailNewCalls })}
+                      style={toggleSwitch(settings.emailNewCalls)}
+                    >
+                      <div style={toggleCircle}></div>
+                    </div>
+                  
                   </div>
                 </div>
             
@@ -770,5 +781,5 @@ const settingsActions = { display: "flex", justifyContent: "flex-end", marginTop
 const smallSaveButton = { padding: "10px 18px", borderRadius: 10, border: "none", background: "#2563eb", color: "white", cursor: "pointer", fontWeight: 700, width: "fit-content" };
 const settingsFormGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginTop: 18 };
 const infoBox = { marginTop: 16, padding: 14, borderRadius: 12, background: "#eff6ff", border: "1px solid #bfdbfe", color: "#1d4ed8", fontSize: 14 };
-const toggleSwitch = (active) => ({ width: 58, height: 30, borderRadius: 999, background: active ? "#22c55e" : "#e5e7eb", display: "flex", alignItems: "center", justifyContent: active ? "flex-end" : "flex-start", padding: 3, cursor: "pointer", transition: "all 0.2s ease" });
-const toggleCircle = { width: 24, height: 24, borderRadius: "50%", background: "white", boxShadow: "0 2px 6px rgba(15,23,42,0.25)" };
+const toggleSwitch = (active) => ({ width: 46, height: 24, borderRadius: 999, background: active ? "#22c55e" : "#e5e7eb", display: "flex", alignItems: "center", justifyContent: active ? "flex-end" : "flex-start", padding: 2, cursor: "pointer", transition: "all 0.2s ease" });
+const toggleCircle = { width: 18, height: 18, borderRadius: "50%", background: "white", boxShadow: "0 2px 4px rgba(0,0,0,0.2)" };
