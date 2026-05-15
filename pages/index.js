@@ -39,6 +39,7 @@ export default function Home() {
   const [activePage, setActivePage] = useState("Anrufe");
   const [activeCalendar, setActiveCalendar] = useState("Frau Dr. Tilse");
   const [activeSettingsTab, setActiveSettingsTab] = useState("Benachrichtigungen");
+  const [settings, setSettings] = useState({ startPage: "Anrufe", emailNewCalls: true, dailySummary: false, hideDoneCalls: false, compactView: false, entriesPerPage: "25", highlightCallbacks: true, showCalendarFirst: false, autoOpenNewCalls: true, practiceNotes: "" });
   const [showAddAppointment, setShowAddAppointment] = useState(false);
   const [statusFilter, setStatusFilter] = useState("Alle");
   const [search, setSearch] = useState("");  
@@ -74,6 +75,21 @@ export default function Home() {
   };
   const updateStatus = (i, value) => setStatusMap(prev => ({ ...prev, [i]: value }));
 
+  const saveSettings = () => {
+    localStorage.setItem("dashboardSettings", JSON.stringify(settings));
+    setActivePage(settings.startPage);
+    alert("Einstellungen gespeichert.");
+  };
+  
+  useEffect(() => {
+    const savedSettings = localStorage.getItem("dashboardSettings");
+    if (savedSettings) {
+      const parsed = JSON.parse(savedSettings);
+      setSettings(parsed);
+      setActivePage(parsed.startPage || "Anrufe");
+    }
+  }, []);
+  
   useEffect(() => {
     fetch("https://opensheet.elk.sh/1AFGmKqR2typaxKARBprS81ArcBUqXg1RX8sXwNyO1oY/Tabellenblatt1")
       .then((res) => res.json())
@@ -388,14 +404,37 @@ export default function Home() {
                 <div style={settingsCard}>
                   <div>
                     <h3 style={settingsTitle}>Startseite</h3>
-                    <p style={settingsText}>Standardmäßig geöffneter Bereich im Dashboard.</p>
+                    <p style={settingsText}>Bereich, der beim Öffnen automatisch angezeigt wird.</p>
                   </div>
-                  <select style={input}>
+                  <select value={settings.startPage} onChange={(e) => setSettings({ ...settings, startPage: e.target.value })} style={input}>
                     <option>Anrufe</option>
                     <option>Kalender</option>
                     <option>Aufgaben</option>
                   </select>
                 </div>
+            
+                <div style={settingsCard}>
+                  <div>
+                    <h3 style={settingsTitle}>Einträge pro Seite</h3>
+                    <p style={settingsText}>Wie viele Anrufe angezeigt werden sollen.</p>
+                  </div>
+                  <select value={settings.entriesPerPage} onChange={(e) => setSettings({ ...settings, entriesPerPage: e.target.value })} style={input}>
+                    <option>10</option>
+                    <option>25</option>
+                    <option>50</option>
+                    <option>100</option>
+                  </select>
+                </div>
+            
+                <div style={settingsCard}>
+                  <div>
+                    <h3 style={settingsTitle}>Erledigte ausblenden</h3>
+                    <p style={settingsText}>Erledigte Anrufe standardmäßig verstecken.</p>
+                  </div>
+                  <input type="checkbox" checked={settings.hideDoneCalls} onChange={(e) => setSettings({ ...settings, hideDoneCalls: e.target.checked })} />
+                </div>
+            
+                <button onClick={saveSettings} style={addButton}>Einstellungen speichern</button>
               </div>
             )}
         
