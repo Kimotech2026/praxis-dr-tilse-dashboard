@@ -39,7 +39,7 @@ export default function Home() {
   const [activePage, setActivePage] = useState("Anrufe");
   const [activeCalendar, setActiveCalendar] = useState("Frau Dr. Tilse");
   const [activeSettingsTab, setActiveSettingsTab] = useState("Benachrichtigungen");
-  const [settings, setSettings] = useState({ startPage: "Anrufe", emailNewCalls: true, dailySummary: false, hideDoneCalls: false, compactView: false, entriesPerPage: "25", highlightCallbacks: true, showCalendarFirst: false, autoOpenNewCalls: true, practiceNotes: "" });
+  const [settings, setSettings] = useState({ startPage: "Anrufe", emailNewCalls: true, dailySummary: false, compactView: false, entriesPerPage: "25", highlightCallbacks: true, showCalendarFirst: false, autoOpenNewCalls: true, practiceNotes: "" });
   const [showAddAppointment, setShowAddAppointment] = useState(false);
   const [statusFilter, setStatusFilter] = useState("Alle");
   const [search, setSearch] = useState("");  
@@ -437,15 +437,7 @@ export default function Home() {
                     <option>100</option>
                   </select>
                 </div>
-            
-                <div style={settingsCard}>
-                  <div>
-                    <h3 style={settingsTitle}>Erledigte ausblenden</h3>
-                    <p style={settingsText}>Erledigte Anrufe standardmäßig verstecken.</p>
-                  </div>
-                  <input type="checkbox" checked={settings.hideDoneCalls} onChange={(e) => setSettings({ ...settings, hideDoneCalls: e.target.checked })} />
-                </div>
-            
+                      
                 <div style={settingsActions}>
                   <button onClick={saveSettings} style={smallSaveButton}>Speichern</button>
                 </div>
