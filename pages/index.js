@@ -510,12 +510,20 @@ export default function Home() {
                       {["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"].map(day => (
                         <div key={day} style={openingRowDouble}>
                           <span style={openingDay}>{day}</span>
-                          <select style={input}><option>Geschlossen</option><option>07:00</option><option>08:00</option><option>09:00</option></select>
-                          <span>bis</span>
-                          <select style={input}><option>Geschlossen</option><option>12:00</option><option>13:00</option></select>
-                          <select style={input}><option>Geschlossen</option><option>14:00</option><option>15:00</option></select>
-                          <span>bis</span>
-                          <select style={input}><option>Geschlossen</option><option>16:00</option><option>17:00</option></select>
+                        
+                          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                            <div style={{ display: "grid", gridTemplateColumns: "1fr 40px 1fr", gap: 10, alignItems: "center" }}>
+                              <select style={input}>{["Geschlossen", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00"].map(t => <option key={t}>{t}</option>)}</select>
+                              <span>bis</span>
+                              <select style={input}>{["Geschlossen", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00"].map(t => <option key={t}>{t}</option>)}</select>
+                            </div>
+                        
+                            <div style={{ display: "grid", gridTemplateColumns: "1fr 40px 1fr", gap: 10, alignItems: "center" }}>
+                              <select style={input}>{["Geschlossen", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00"].map(t => <option key={t}>{t}</option>)}</select>
+                              <span>bis</span>
+                              <select style={input}>{["Geschlossen", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00"].map(t => <option key={t}>{t}</option>)}</select>
+                            </div>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -792,7 +800,7 @@ const modal = { background: "white", padding: 24, borderRadius: 20, width: 560, 
 const modalHeader = { display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 6 };
 const modalSubtext = { margin: "6px 0 0", color: "#667085", fontSize: 14 };
 const closeButton = { border: "none", background: "#f1f5f9", width: 34, height: 34, borderRadius: 10, cursor: "pointer", fontSize: 20, color: "#334155", display: "flex", alignItems: "center", justifyContent: "center" };
-const input = { padding: "14px 16px", borderRadius: 12, border: "1px solid #dbe1ea", background: "#f8fafc", fontSize: 14, outline: "none" };
+const input = { padding: "10px 24px", borderRadius: 12, border: "1px solid #dbe1ea", background: "#f8fafc", fontSize: 14, outline: "none" };
 const textarea = { ...input, height: 90, resize: "none", fontFamily: "Arial" };
 const modalActions = { display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 8 };
 const cancelButton = { padding: "10px 14px", borderRadius: 10, border: "1px solid #d1d5db", background: "white", cursor: "pointer", fontWeight: 600 };
@@ -817,6 +825,6 @@ const toast = { position: "fixed", right: 24, bottom: 24, background: "#dcfce7",
 const toastHidden = { transform: "translateY(40px)", opacity: 0 };
 const openingRow = { display: "grid", gridTemplateColumns: "120px 1fr 30px 1fr", gap: 10, alignItems: "center", marginTop: 10 };
 const openingDay = { fontSize: 14, color: "#334155", fontWeight: 500 };
-const settingsTwoColumn = { display: "grid", gridTemplateColumns: "280px 1fr", gap: 40, alignItems: "flex-start" };
-const settingsDivider = { height: 1, background: "#e5e7eb", margin: "28px 0" };
-const openingRowDouble = { display: "grid", gridTemplateColumns: "110px 1fr 30px 1fr 1fr 30px 1fr", gap: 10, alignItems: "center", marginBottom: 12 };
+const settingsTwoColumn = { display: "grid", gridTemplateColumns: "360px 1fr", gap: 70, alignItems: "flex-start" };
+const settingsFormGrid = { display: "grid", gridTemplateColumns: "1fr", gap: 14, marginTop: 0 };
+const openingRowDouble = { display: "grid", gridTemplateColumns: "120px 1fr", gap: 14, alignItems: "start", marginBottom: 16 };
