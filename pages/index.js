@@ -815,7 +815,7 @@ const settingsCard = { display: "flex", justifyContent: "space-between", alignIt
 const settingsCardColumn = { background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 16, padding: 18 };
 const settingsTitle = { margin: 0, fontSize: 16, color: "#0f172a" };
 const settingsText = { margin: "6px 0 0", color: "#64748b", fontSize: 14 };
-const settingsActions = { display: "flex", justifyContent: "flex-end", marginTop: 14 };
+const settingsActions = { display: "flex", justifyContent: "flex-end", marginTop: 24 };
 const smallSaveButton = { padding: "10px 18px", borderRadius: 10, border: "none", background: "#2563eb", color: "white", cursor: "pointer", fontWeight: 700, width: "fit-content" };
 const infoBox = { marginTop: 16, padding: 14, borderRadius: 12, background: "#eff6ff", border: "1px solid #bfdbfe", color: "#1d4ed8", fontSize: 14 };
 const toggleSwitch = (active) => ({ width: 46, height: 24, borderRadius: 999, background: active ? "#22c55e" : "#e5e7eb", display: "flex", alignItems: "center", justifyContent: active ? "flex-end" : "flex-start", padding: 2, cursor: "pointer", transition: "all 0.2s ease" });
