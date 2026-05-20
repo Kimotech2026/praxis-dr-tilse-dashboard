@@ -370,46 +370,6 @@ export default function Home() {
             </div>
           </>
         )}
-
-        {activePage === "Profil" && (
-          <div style={profileBox}>
-            <div style={profileHeader}>
-              <div style={profileAvatar}>DT</div>
-              <div>
-                <h2 style={{ margin: 0 }}>Dr. Tilse</h2>
-                <p style={settingsText}>Administrator · Hauptzugang</p>
-              </div>
-            </div>
-        
-            <div style={profileGrid}>
-              <div style={profileCard}>
-                <h3 style={settingsTitle}>Zugriffsstufe</h3>
-                <span style={adminBadge}>Admin</span>
-                <p style={settingsText}>Voller Zugriff auf Kalender, Einstellungen, Mitgliedschaft und Praxisdaten.</p>
-              </div>
-        
-              <div style={profileCard}>
-                <h3 style={settingsTitle}>Berechtigungen</h3>
-                <p>✓ Kalender verwalten</p>
-                <p>✓ Einstellungen ändern</p>
-                <p>✓ Praxisdaten ändern</p>
-                <p>✓ Mitgliedschaft einsehen</p>
-              </div>
-        
-              <div style={profileCard}>
-                <h3 style={settingsTitle}>Sitzung</h3>
-                <p style={settingsText}>Eingeloggt seit</p>
-                <strong>08:42 Uhr</strong>
-                <p style={settingsText}>Letzte Aktivität</p>
-                <strong>Gerade eben</strong>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {activePage === "Kontakte" && (
-          <div style={box}><h2>Kontakte</h2><p>Hier kommen später Patientenkontakte rein.</p></div>
-        )}
         
         {activePage === "Profil" && (
           <div style={box}>
