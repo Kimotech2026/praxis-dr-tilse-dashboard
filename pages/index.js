@@ -39,8 +39,7 @@ export default function Home() {
   const [activePage, setActivePage] = useState("Anrufe");
   const [activeCalendar, setActiveCalendar] = useState("Frau Dr. Tilse");
   const [activeSettingsTab, setActiveSettingsTab] = useState("Praxisdaten");  
-  const [settings, setSettings] = useState({ startPage: "Anrufe", emailNewCalls: true, dailySummary: false, compactView: false, entriesPerPage: "25", highlightCallbacks: true, showCalendarFirst: false, autoOpenNewCalls: true, practiceNotes: "", practiceName: "Praxis Dr. Tilse", practiceAddress: "", practiceEmail: "", practiceWebsite: "", practicePhone: "" });
-  const [showToast, setShowToast] = useState(false);
+  const [settings, setSettings] = useState({ startPage: "Anrufe", emailNewCalls: true, dailySummary: false, compactView: false, entriesPerPage: "25", highlightCallbacks: true, showCalendarFirst: false, autoOpenNewCalls: true, practiceNotes: "", practiceName: "Praxis Dr. Tilse", practiceAddress: "Königstraße 12, 23552 Lübeck", practiceEmail: "info@praxis-tilse.de", practiceWebsite: "www.praxis-tilse.de", practicePhone: "0451 / 123456" });  const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("✓ Erfolgreich aktualisiert");
   const [pendingPlan, setPendingPlan] = useState(null);
   const [showAddAppointment, setShowAddAppointment] = useState(false);
