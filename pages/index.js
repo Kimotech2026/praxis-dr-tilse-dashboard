@@ -59,6 +59,33 @@ export default function Home() {
   const [appointmentTime, setAppointmentTime] = useState("");
   const [appointmentDoctor, setAppointmentDoctor] = useState(activeCalendar);
   const [appointmentNote, setAppointmentNote] = useState("");
+
+  const users = [
+    {
+      id: "arzt",
+      password: "1234",
+      name: "Dr. Tilse",
+      role: "Administrator",
+      accessLevel: "Admin",
+      permissions: ["Kalender verwalten", "Einstellungen ändern", "Praxisdaten ändern", "Mitgliedschaft einsehen"]
+    },
+    {
+      id: "mitarbeiterin",
+      password: "1234",
+      name: "Frau Meier",
+      role: "Mitarbeiterin",
+      accessLevel: "Eingeschränkt",
+      permissions: ["Anrufe bearbeiten", "Kalender ansehen", "Aufgaben bearbeiten"]
+    }
+  ];
+  
+  const [currentUser, setCurrentUser] = useState(users.arzt);
+  const [loginId, setLoginId] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [loginError, setLoginError] = useState("");
+  const [loginTime, setLoginTime] = useState(new Date());
+  
   const parseGermanDate = (dateString) => { if (!dateString) return null; const [day, month, year] = dateString.split("."); return new Date(Number(year), Number(month) - 1, Number(day)); };
   const setQuickRange = (type) => {
     const today = new Date();
@@ -149,6 +176,57 @@ export default function Home() {
   const updateOpeningHour = (day, slotIndex, timeIndex, value) => {
     setSettings(prev => ({ ...prev, practiceOpeningHours: { ...prev.practiceOpeningHours, [day]: prev.practiceOpeningHours[day].map((slot, i) => i === slotIndex ? slot.map((time, j) => j === timeIndex ? value : time) : slot) } }));
   };
+
+  const handleLogin = () => {
+    const foundUser = users.find(
+      user => user.id === loginId && user.password === loginPassword
+    );
+  
+    if (!foundUser) {
+      setLoginError("Benutzer-ID oder Passwort falsch");
+      return;
+    }
+  
+    setCurrentUser(foundUser);
+    setIsLoggedIn(true);
+    setLoginError("");
+    setLoginId("");
+    setLoginPassword("");
+    setLoginTime(new Date());
+  };
+
+  if (!isLoggedIn) {
+    return (
+      <div style={{ height: "100vh", display: "flex", justifyContent: "center", alignItems: "center", background: "#f5f7fb" }}>
+        <div style={{ background: "white", padding: 30, borderRadius: 16, width: 320 }}>
+          <h2>Login</h2>
+  
+          <input
+            placeholder="Benutzer-ID"
+            value={loginId}
+            onChange={(e) => setLoginId(e.target.value)}
+            style={input}
+          />
+  
+          <input
+            type="password"
+            placeholder="Passwort"
+            value={loginPassword}
+            onChange={(e) => setLoginPassword(e.target.value)}
+            style={{ ...input, marginTop: 10 }}
+          />
+  
+          {loginError && (
+            <p style={{ color: "red", fontSize: 13 }}>{loginError}</p>
+          )}
+  
+          <button onClick={handleLogin} style={{ ...addButton, marginTop: 12, width: "100%" }}>
+            Einloggen
+          </button>
+        </div>
+      </div>
+    );
+  }
   
   if (!ready) return null;
   
@@ -621,7 +699,7 @@ export default function Home() {
                     <h3 style={settingsTitle}>Abmelden</h3>
                     <p style={settingsText}>Aktuelle Sitzung beenden.</p>
                   </div>
-                  <button style={cancelButton}>Abmelden</button>
+                  <button onClick={handleLogout} style={cancelButton}>Abmelden</button>
                 </div>
               </div>
             )}
