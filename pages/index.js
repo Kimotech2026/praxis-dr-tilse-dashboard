@@ -150,14 +150,10 @@ export default function Home() {
   
   return (
     <div style={layout}>
-        <aside style={sidebar}>
-        <div>
-        
-          <h2>Praxis Dr. Tilse</h2>
-              
-        </div>
-              
-        <nav>
+      <aside style={sidebar}>
+       <div>
+        <h2>Praxis Dr. Tilse</h2>
+         <nav>
           <p onClick={() => setActivePage("Anrufe")} onMouseEnter={(e) => activePage !== "Anrufe" && (e.currentTarget.style.background = "#1e293b")} onMouseLeave={(e) => activePage !== "Anrufe" && (e.currentTarget.style.background = "transparent")} style={activePage === "Anrufe" ? activeNav : { ...navItem, cursor: "pointer" }}><Phone size={18} style={icon}/> Anrufe</p>
           <p onClick={() => setActivePage("Kontakte")} onMouseEnter={(e) => activePage !== "Kontakte" && (e.currentTarget.style.background = "#1e293b")} onMouseLeave={(e) => activePage !== "Kontakte" && (e.currentTarget.style.background = "transparent")} style={activePage === "Kontakte" ? activeNav : { ...navItem, cursor: "pointer" }}><Users size={18} style={icon}/> Kontakte</p>
           <p onClick={() => setActivePage("Aufgaben")} onMouseEnter={(e) => activePage !== "Aufgaben" && (e.currentTarget.style.background = "#1e293b")} onMouseLeave={(e) => activePage !== "Aufgaben" && (e.currentTarget.style.background = "transparent")} style={activePage === "Aufgaben" ? activeNav : { ...navItem, cursor: "pointer" }}><CheckSquare size={18} style={icon}/> Aufgaben</p>
