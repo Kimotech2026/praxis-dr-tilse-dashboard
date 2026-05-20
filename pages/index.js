@@ -211,7 +211,6 @@ export default function Home() {
       <div style={{ height: "100vh", display: "flex", justifyContent: "center", alignItems: "center", background: "#f5f7fb", fontFamily: "Inter, Arial, sans-serif" }}>
         <div style={loginCard}>
           <div style={loginHeader}>
-            <div style={loginIcon}>🔐</div>
             <h2 style={loginTitle}>Anmelden</h2>
             <p style={loginText}>Bitte mit Benutzer-ID und Passwort einloggen.</p>
           </div>
