@@ -85,6 +85,13 @@ export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [loginError, setLoginError] = useState("");
   const [loginTime, setLoginTime] = useState(new Date());
+
+  useEffect(() => {
+    const link = document.createElement("link");
+    link.href = "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap";
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+  }, []);
   
   const parseGermanDate = (dateString) => { if (!dateString) return null; const [day, month, year] = dateString.split("."); return new Date(Number(year), Number(month) - 1, Number(day)); };
   const setQuickRange = (type) => {
