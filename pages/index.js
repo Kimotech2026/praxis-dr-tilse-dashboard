@@ -902,4 +902,4 @@ const disabledPlanButton = { marginTop: "auto", paddingTop: 12, width: "100%", p
 const confirmModal = { background: "white", padding: 24, borderRadius: 18, width: 420, boxShadow: "0 24px 70px rgba(15,23,42,0.25)" };
 const highlightInfo = { fontSize: 15, fontWeight: 700, color: "#0f172a", margin: "6px 0" };
 const planButtonWrap = { marginTop: "auto", paddingTop: 20 };
-const smallSelect = { width: "180px", minWidth: "180px", maxWidth: "180px", flexShrink: 0, marginLeft: "auto", padding: "10px 14px", borderRadius: 12, border: "1px solid #dbe1ea", background: "#f8fafc", fontSize: 14, outline: "none", boxSizing: "border-box" };
+const smallSelect = { width: "100px", minWidth: "100px", maxWidth: "180px", flexShrink: 0, marginLeft: "auto", padding: "10px 14px", borderRadius: 12, border: "1px solid #dbe1ea", background: "#f8fafc", fontSize: 14, outline: "none", boxSizing: "border-box" };
