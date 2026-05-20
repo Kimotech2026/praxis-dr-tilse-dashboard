@@ -477,7 +477,7 @@ export default function Home() {
                     <h3 style={settingsTitle}>Startseite</h3>
                     <p style={settingsText}>Bereich, der beim Öffnen automatisch angezeigt wird.</p>
                   </div>
-                  <select value={settings.startPage} onChange={(e) => setSettings({ ...settings, startPage: e.target.value })} style={input}>
+                  <select value={settings.startPage} onChange={(e) => setSettings({ ...settings, startPage: e.target.value })} style={smallSelect}>
                     <option>Anrufe</option>
                     <option>Kalender</option>
                     <option>Aufgaben</option>
@@ -489,7 +489,7 @@ export default function Home() {
                     <h3 style={settingsTitle}>Einträge pro Seite</h3>
                     <p style={settingsText}>Wie viele Anrufe angezeigt werden sollen.</p>
                   </div>
-                  <select value={settings.entriesPerPage} onChange={(e) => setSettings({ ...settings, entriesPerPage: e.target.value })} style={input}>
+                  <select value={settings.entriesPerPage} onChange={(e) => setSettings({ ...settings, entriesPerPage: e.target.value })} style={smallSelect}>
                     <option>10</option>
                     <option>25</option>
                     <option>50</option>
@@ -868,7 +868,7 @@ const formGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 };
 const textareaFull = { ...input, width: "100%", height: 100, resize: "none", fontFamily: "Arial", boxSizing: "border-box" };
 const checkOption = { display: "flex", alignItems: "center", gap: 8, padding: "10px 12px", borderRadius: 12, border: "1px solid #dbe1ea", background: "white", cursor: "pointer", fontSize: 14, color: "#334155" };
 const settingsGrid = { display: "flex", flexDirection: "column", gap: 14, marginTop: 18 };
-const settingsCard = { display: "flex", justifyContent: "space-between", alignItems: "center", background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 16, padding: 18 };
+const settingsCard = { display: "flex", justifyContent: "space-between", alignItems: "center", background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 16, padding: 18, gap: 24 };
 const settingsCardColumn = { background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 16, padding: 18 };
 const settingsTitle = { margin: 0, fontSize: 16, color: "#0f172a" };
 const settingsText = { margin: "6px 0 0", color: "#64748b", fontSize: 14 };
@@ -902,3 +902,4 @@ const disabledPlanButton = { marginTop: "auto", paddingTop: 12, width: "100%", p
 const confirmModal = { background: "white", padding: 24, borderRadius: 18, width: 420, boxShadow: "0 24px 70px rgba(15,23,42,0.25)" };
 const highlightInfo = { fontSize: 15, fontWeight: 700, color: "#0f172a", margin: "6px 0" };
 const planButtonWrap = { marginTop: "auto", paddingTop: 20 };
+const smallSelect = { width: 220, padding: "10px 14px", borderRadius: 12, border: "1px solid #dbe1ea", background: "#f8fafc", fontSize: 14, outline: "none", boxSizing: "border-box" };
