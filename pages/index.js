@@ -39,8 +39,7 @@ export default function Home() {
   const [activePage, setActivePage] = useState("Anrufe");
   const [activeCalendar, setActiveCalendar] = useState("Frau Dr. Tilse");
   const [activeSettingsTab, setActiveSettingsTab] = useState("Praxisdaten");  
-  const [settings, setSettings] = useState({ startPage: "Anrufe", emailNewCalls: true, dailySummary: false, compactView: false, entriesPerPage: "25", highlightCallbacks: true, showCalendarFirst: false, autoOpenNewCalls: true, practiceNotes: "", practiceName: "Praxis Dr. Tilse", practiceAddress: "Königstraße 12, 23552 Lübeck", practiceEmail: "info@praxis-tilse.de", practiceWebsite: "www.praxis-tilse.de", practicePhone: "0451 / 123456" });  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState("✓ Erfolgreich aktualisiert");
+  const [settings, setSettings] = useState({ startPage: "Anrufe", emailNewCalls: true, dailySummary: false, compactView: false, entriesPerPage: "25", highlightCallbacks: true, showCalendarFirst: false, autoOpenNewCalls: true, practiceNotes: "", practiceName: "Praxis Dr. Tilse", practiceAddress: "Königstraße 12, 23552 Lübeck", practiceEmail: "info@praxis-tilse.de", practiceWebsite: "www.praxis-tilse.de", practicePhone: "0451 / 123456", practiceOpeningHours: { Montag: [["07:00", "12:00"], ["14:00", "16:00"]], Dienstag: [["07:00", "12:00"], ["14:00", "16:00"]], Mittwoch: [["07:00", "12:00"], ["14:00", "16:00"]], Donnerstag: [["07:00", "12:00"], ["14:00", "16:00"]], Freitag: [["07:00", "12:00"], ["Geschlossen", "Geschlossen"]], Samstag: [["Geschlossen", "Geschlossen"], ["Geschlossen", "Geschlossen"]] } });  const [toastMessage, setToastMessage] = useState("✓ Erfolgreich aktualisiert");
   const [pendingPlan, setPendingPlan] = useState(null);
   const [showAddAppointment, setShowAddAppointment] = useState(false);
   const [statusFilter, setStatusFilter] = useState("Alle");
@@ -137,8 +136,14 @@ export default function Home() {
     "15:00", "15:15", "15:30", "15:45"
   ];
 
+  const timeOptions = ["Geschlossen", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00"];
+  
   const toggleExtra = (value) => {
     setAppointmentExtras(prev => prev.includes(value) ? prev.filter(x => x !== value) : [...prev, value]);
+  };
+
+  const updateOpeningHour = (day, slotIndex, timeIndex, value) => {
+    setSettings(prev => ({ ...prev, practiceOpeningHours: { ...prev.practiceOpeningHours, [day]: prev.practiceOpeningHours[day].map((slot, i) => i === slotIndex ? slot.map((time, j) => j === timeIndex ? value : time) : slot) } }));
   };
   
   return (
