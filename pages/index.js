@@ -165,7 +165,7 @@ export default function Home() {
         </nav>
         </div>
         <div style={bottomNav}>
-        <p style={bottomItem}><User size={18} style={icon}/> Profil</p>
+        <p onClick={() => setActivePage("Profil")} style={activePage === "Profil" ? activeBottomItem : bottomItem}><User size={18} style={icon}/> Profil</p>
         <p onClick={() => setActivePage("Mitgliedschaft")} style={activePage === "Mitgliedschaft" ? activeNav : bottomItem}><CreditCard size={18} style={icon}/> Mitgliedschaft</p>
         <p onClick={() => setActivePage("Einstellungen")} style={activePage === "Einstellungen" ? activeNav : bottomItem}><Settings size={18} style={icon}/> Einstellungen</p>
         </div>
@@ -410,8 +410,42 @@ export default function Home() {
           <div style={box}><h2>Kontakte</h2><p>Hier kommen später Patientenkontakte rein.</p></div>
         )}
         
-        {activePage === "Aufgaben" && (
-          <div style={box}><h2>Aufgaben</h2><p>Hier kommen offene Aufgaben rein.</p></div>
+        {activePage === "Profil" && (
+          <div style={box}>
+            <h2>Profil</h2>
+            <p style={settingsText}>Übersicht des aktuell angemeldeten Nutzers und seiner Zugriffsrechte.</p>
+        
+            <div style={profileGrid}>
+              <div style={profileCard}>
+                <h3 style={settingsTitle}>Angemeldeter Nutzer</h3>
+                <p style={settingsText}>Name</p>
+                <strong>Dr. Tilse</strong>
+        
+                <p style={settingsText}>Rolle</p>
+                <strong>Administrator</strong>
+        
+                <p style={settingsText}>Zugriffsstufe</p>
+                <span style={adminBadge}>Admin</span>
+              </div>
+        
+              <div style={profileCard}>
+                <h3 style={settingsTitle}>Berechtigungen</h3>
+                <p>✓ Kalender verwalten</p>
+                <p>✓ Einstellungen ändern</p>
+                <p>✓ Mitgliedschaft sehen</p>
+                <p>✓ Praxisdaten ändern</p>
+              </div>
+        
+              <div style={profileCard}>
+                <h3 style={settingsTitle}>Sitzung</h3>
+                <p style={settingsText}>Eingeloggt seit</p>
+                <strong>08:42 Uhr</strong>
+        
+                <p style={settingsText}>Letzte Aktivität</p>
+                <strong>Gerade eben</strong>
+              </div>
+            </div>
+          </div>
         )}
 
         {activePage === "Einstellungen" && (
@@ -912,3 +946,7 @@ const confirmModal = { background: "white", padding: 24, borderRadius: 18, width
 const highlightInfo = { fontSize: 15, fontWeight: 700, color: "#0f172a", margin: "6px 0" };
 const planButtonWrap = { marginTop: "auto", paddingTop: 20 };
 const smallSelect = { width: "110px", minWidth: "110px", maxWidth: "180px", flexShrink: 0, marginLeft: "auto", padding: "10px 14px", borderRadius: 12, border: "1px solid #dbe1ea", background: "#f8fafc", fontSize: 14, outline: "none", boxSizing: "border-box", textAlign: "center", textAlignLast: "center"};
+const activeBottomItem = { padding: 12, color: "white", background: "#2563eb", borderRadius: 10, marginBottom: 8, cursor: "pointer" };
+const profileGrid = { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 18, marginTop: 22 };
+const profileCard = { background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 16, padding: 18 };
+const adminBadge = { display: "inline-block", marginTop: 8, padding: "7px 12px", borderRadius: 999, background: "#dcfce7", color: "#166534", fontWeight: 700, fontSize: 13 };
