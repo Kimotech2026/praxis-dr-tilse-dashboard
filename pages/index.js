@@ -181,10 +181,6 @@ export default function Home() {
     const foundUser = users.find(
       user => user.id === loginId && user.password === loginPassword
     );
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-  };
     
     if (!foundUser) {
       setLoginError("Benutzer-ID oder Passwort falsch");
@@ -197,6 +193,10 @@ export default function Home() {
     setLoginId("");
     setLoginPassword("");
     setLoginTime(new Date());
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
   };
 
   if (!isLoggedIn) {
