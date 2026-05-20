@@ -79,7 +79,7 @@ export default function Home() {
     }
   ];
   
-  const [currentUser, setCurrentUser] = useState(users.arzt);
+  const [currentUser, setCurrentUser] = useState(users[0]);  
   const [loginId, setLoginId] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -181,7 +181,11 @@ export default function Home() {
     const foundUser = users.find(
       user => user.id === loginId && user.password === loginPassword
     );
-  
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+    
     if (!foundUser) {
       setLoginError("Benutzer-ID oder Passwort falsch");
       return;
@@ -458,21 +462,21 @@ export default function Home() {
               <div style={profileCard}>
                 <h3 style={settingsTitle}>Angemeldeter Nutzer</h3>
                 <p style={settingsText}>Name</p>
-                <strong>Dr. Tilse</strong>
+                <strong>{currentUser.name}</strong>
         
                 <p style={settingsText}>Rolle</p>
-                <strong>Administrator</strong>
+                <strong>{currentUser.role}</strong>
         
                 <p style={settingsText}>Zugriffsstufe</p>
-                <span style={adminBadge}>Admin</span>
+                <span style={adminBadge}>{currentUser.accessLevel}</span>
               </div>
         
               <div style={profileCard}>
                 <h3 style={settingsTitle}>Berechtigungen</h3>
-                <p>✓ Kalender verwalten</p>
-                <p>✓ Einstellungen ändern</p>
-                <p>✓ Mitgliedschaft sehen</p>
-                <p>✓ Praxisdaten ändern</p>
+              
+                {currentUser.permissions.map(item => (
+                  <p key={item}>✓ {item}</p>
+                ))}
               </div>
         
               <div style={profileCard}>
