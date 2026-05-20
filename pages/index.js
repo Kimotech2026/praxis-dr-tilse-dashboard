@@ -93,6 +93,17 @@ export default function Home() {
     link.rel = "stylesheet";
     document.head.appendChild(link);
   }, []);
+
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.innerHTML = `
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+    `;
+    document.head.appendChild(style);
+  }, []);
   
   const parseGermanDate = (dateString) => { if (!dateString) return null; const [day, month, year] = dateString.split("."); return new Date(Number(year), Number(month) - 1, Number(day)); };
   const setQuickRange = (type) => {
@@ -1020,4 +1031,4 @@ const loginIcon = { width: 52, height: 52, borderRadius: 16, background: "#eff6f
 const loginTitle = { margin: 0, fontSize: 26, fontWeight: 600, color: "#0f172a", letterSpacing: "-0.3px" };
 const loginText = { margin: "8px 0 0", color: "#64748b", fontSize: 14 };
 const loginCard = { background: "white", padding: 30, borderRadius: 20, width: 320, boxShadow: "0 20px 50px rgba(15,23,42,0.08)" };
-const loginLoader = { margin: "14px auto 0", width: 34, height: 34, borderRadius: "50%", border: "4px solid #dbeafe", borderTop: "4px solid #2563eb", animation: "spin 0.8s linear infinite" };
+const loginLoader = { margin: "16px auto 0", width: 38, height: 38, borderRadius: "50%", border: "4px solid #dbeafe", borderTopColor: "#2563eb", animation: "spin 0.8s linear infinite" };
