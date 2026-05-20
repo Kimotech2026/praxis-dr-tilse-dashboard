@@ -555,12 +555,12 @@ export default function Home() {
                       
                           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                             {[0, 1].map(slotIndex => (
-                              <div key={slotIndex} style={{ display: "grid", gridTemplateColumns: "120px 40px 120px", gap: 10, alignItems: "center" }}>
+                              <div key={slotIndex} style={{ display: "grid", gridTemplateColumns: "120px 70px 120px", gap: 10, alignItems: "center" }}>
                                 <select value={settings.practiceOpeningHours?.[day]?.[slotIndex]?.[0] || "Geschlossen"} onChange={(e) => updateOpeningHour(day, slotIndex, 0, e.target.value)} style={input}>
                                   {timeOptions.map(t => <option key={t}>{t}</option>)}
                                 </select>
                       
-                                <span>bis</span>
+                                <span style={{ textAlign: "center" }}>bis</span>
                       
                                 <select value={settings.practiceOpeningHours?.[day]?.[slotIndex]?.[1] || "Geschlossen"} onChange={(e) => updateOpeningHour(day, slotIndex, 1, e.target.value)} style={input}>
                                   {timeOptions.map(t => <option key={t}>{t}</option>)}
