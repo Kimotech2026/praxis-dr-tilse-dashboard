@@ -89,7 +89,7 @@ export default function Home() {
     const savedSettings = localStorage.getItem("dashboardSettings");
     if (savedSettings) {
       const parsed = JSON.parse(savedSettings);
-      setSettings(parsed);
+      setSettings(prev => ({ ...prev, ...parsed, practiceName: parsed.practiceName || prev.practiceName, practiceAddress: parsed.practiceAddress || prev.practiceAddress, practiceEmail: parsed.practiceEmail || prev.practiceEmail, practiceWebsite: parsed.practiceWebsite || prev.practiceWebsite, practicePhone: parsed.practicePhone || prev.practicePhone }));
       setActivePage(parsed.startPage || "Anrufe");
     }
   }, []);
