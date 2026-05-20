@@ -203,7 +203,11 @@ export default function Home() {
     return (
       <div style={{ height: "100vh", display: "flex", justifyContent: "center", alignItems: "center", background: "#f5f7fb" }}>
         <div style={{ background: "white", padding: 30, borderRadius: 16, width: 320 }}>
-          <h2>Login</h2>
+          <div style={loginHeader}>
+            <div style={loginIcon}>🔐</div>
+            <h2 style={loginTitle}>Anmelden</h2>
+            <p style={loginText}>Bitte mit Benutzer-ID und Passwort einloggen.</p>
+          </div>
   
           <input
             placeholder="Benutzer-ID"
@@ -996,3 +1000,7 @@ const adminBadge = { display: "inline-block", marginTop: 8, padding: "7px 12px",
 const profileBox = { background: "white", padding: 28, borderRadius: 18 };
 const profileHeader = { display: "flex", alignItems: "center", gap: 16, marginBottom: 26 };
 const profileAvatar = { width: 56, height: 56, borderRadius: 16, background: "linear-gradient(135deg, #2563eb, #1e40af)", color: "white", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 18 };
+const loginHeader = { textAlign: "center", marginBottom: 22 };
+const loginIcon = { width: 52, height: 52, borderRadius: 16, background: "#eff6ff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 12px", fontSize: 24 };
+const loginTitle = { margin: 0, fontSize: 24, color: "#0f172a" };
+const loginText = { margin: "8px 0 0", color: "#64748b", fontSize: 14 };
