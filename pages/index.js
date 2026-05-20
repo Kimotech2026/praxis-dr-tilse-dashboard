@@ -439,9 +439,6 @@ export default function Home() {
                   <div
                     onClick={() => {
                       setSettings({ ...settings, emailNewCalls: !settings.emailNewCalls });
-                      setToastMessage("✓ Erfolgreich aktualisiert");
-                      setShowToast(true);
-                      setTimeout(() => setShowToast(false), 1800);
                     }}
                     style={toggleSwitch(settings.emailNewCalls)}
                   >
@@ -454,7 +451,11 @@ export default function Home() {
                     <h3 style={settingsTitle}>Tagesübersicht per E-Mail</h3>
                     <p style={settingsText}>Sendet am Ende des Tages eine kompakte Zusammenfassung aller eingegangenen Anrufe, Termine, Rezeptwünsche und offenen Anliegen.</p>
                   </div>
-                  <div onClick={() => { setSettings({ ...settings, dailySummary: !settings.dailySummary }); setToastMessage("✓ Erfolgreich aktualisiert"); setShowToast(true); setTimeout(() => setShowToast(false), 1800); }} style={toggleSwitch(settings.dailySummary)}>
+                  <div 
+                      onClick={() => {
+                        setSettings({ ...settings, dailySummary: !settings.dailySummary });
+                      }}} 
+                    style={toggleSwitch(settings.dailySummary)}>
                     <div style={toggleCircle}></div>
                   </div>
                 </div>
@@ -464,7 +465,10 @@ export default function Home() {
                     <h3 style={settingsTitle}>Offene Rückrufe hervorheben</h3>
                     <p style={settingsText}>Markiert Rückruf-Anliegen besonders sichtbar, damit wichtige Patientenrückmeldungen im Praxisalltag nicht untergehen.</p>
                   </div>
-                  <div onClick={() => { setSettings({ ...settings, highlightCallbacks: !settings.highlightCallbacks }); setToastMessage("✓ Erfolgreich aktualisiert"); setShowToast(true); setTimeout(() => setShowToast(false), 1800); }} style={toggleSwitch(settings.highlightCallbacks)}>                    <div style={toggleCircle}></div>
+                  <div onClick={() => {
+                    setSettings({ ...settings, highlightCallbacks: !settings.highlightCallbacks });
+                  }} style={toggleSwitch(settings.highlightCallbacks)}>                    
+                  <div style={toggleCircle}></div>
                   </div>
                 </div>
             
