@@ -208,8 +208,8 @@ export default function Home() {
 
   if (!isLoggedIn) {
     return (
-      <div style={{ height: "100vh", display: "flex", justifyContent: "center", alignItems: "center", background: "#f5f7fb" }}>
-        <div style={{ background: "white", padding: 30, borderRadius: 16, width: 320 }}>
+      <div style={{ height: "100vh", display: "flex", justifyContent: "center", alignItems: "center", background: "#f5f7fb", fontFamily: "Inter, Arial, sans-serif" }}>
+        <div style={loginCard}>
           <div style={loginHeader}>
             <div style={loginIcon}>🔐</div>
             <h2 style={loginTitle}>Anmelden</h2>
@@ -1011,3 +1011,4 @@ const loginHeader = { textAlign: "center", marginBottom: 22 };
 const loginIcon = { width: 52, height: 52, borderRadius: 16, background: "#eff6ff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 12px", fontSize: 24 };
 const loginTitle = { margin: 0, fontSize: 26, fontWeight: 600, color: "#0f172a", letterSpacing: "-0.3px" };
 const loginText = { margin: "8px 0 0", color: "#64748b", fontSize: 14 };
+const loginCard = { background: "white", padding: 30, borderRadius: 20, width: 320, boxShadow: "0 20px 50px rgba(15,23,42,0.08)" };
