@@ -90,7 +90,6 @@ export default function Home() {
     if (savedSettings) {
       const parsed = JSON.parse(savedSettings);
       setSettings(prev => ({ ...prev, ...parsed, practiceName: parsed.practiceName || prev.practiceName, practiceAddress: parsed.practiceAddress || prev.practiceAddress, practiceEmail: parsed.practiceEmail || prev.practiceEmail, practiceWebsite: parsed.practiceWebsite || prev.practiceWebsite, practicePhone: parsed.practicePhone || prev.practicePhone, practiceOpeningHours: parsed.practiceOpeningHours || prev.practiceOpeningHours }));
-      setActivePage(parsed.startPage || "Anrufe");
     }
   }, []);
   
