@@ -903,7 +903,7 @@ export default function Home() {
 }
 
 
-const layout = { display: "flex", height: "100vh", overflow: "hidden", background: "#f5f7fb", fontFamily: "Arial" };
+const layout = { display: "flex", height: "100vh", overflow: "hidden", background: "#f5f7fb", fontFamily: "Inter, sans-serif" };
 const main = { flex: 1, padding: 32, overflow: "hidden", boxSizing: "border-box" };
 const sidebar = { width: 190, flexShrink: 0, background: "#0f172a", color: "white", padding: 18, display: "flex", flexDirection: "column", justifyContent: "space-between" };
 const navItem = { padding: 12, color: "#cbd5e1", cursor: "pointer", borderRadius: 10, transition: "all 0.2s ease" };
@@ -1002,5 +1002,5 @@ const profileHeader = { display: "flex", alignItems: "center", gap: 16, marginBo
 const profileAvatar = { width: 56, height: 56, borderRadius: 16, background: "linear-gradient(135deg, #2563eb, #1e40af)", color: "white", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 18 };
 const loginHeader = { textAlign: "center", marginBottom: 22 };
 const loginIcon = { width: 52, height: 52, borderRadius: 16, background: "#eff6ff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 12px", fontSize: 24 };
-const loginTitle = { margin: 0, fontSize: 24, color: "#0f172a" };
+const loginTitle = { margin: 0, fontSize: 26, fontWeight: 600, color: "#0f172a", letterSpacing: "-0.3px" };
 const loginText = { margin: "8px 0 0", color: "#64748b", fontSize: 14 };
