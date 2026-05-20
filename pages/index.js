@@ -550,19 +550,21 @@ export default function Home() {
                       {["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"].map(day => (
                         <div key={day} style={openingRowDouble}>
                           <span style={openingDay}>{day}</span>
-                        
+                      
                           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                            <div style={{ display: "grid", gridTemplateColumns: "120px 40px 120px", gap: 10, alignItems: "center" }}>
-                              <select style={input}>{["Geschlossen", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00"].map(t => <option key={t}>{t}</option>)}</select>
-                              <span>bis</span>
-                              <select style={input}>{["Geschlossen", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00"].map(t => <option key={t}>{t}</option>)}</select>
-                            </div>
-                        
-                            <div style={{ display: "grid", gridTemplateColumns: "120px 40px 120px", gap: 10, alignItems: "center" }}>
-                              <select style={input}>{["Geschlossen", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00"].map(t => <option key={t}>{t}</option>)}</select>
-                              <span>bis</span>
-                              <select style={input}>{["Geschlossen", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00"].map(t => <option key={t}>{t}</option>)}</select>
-                            </div>
+                            {[0, 1].map(slotIndex => (
+                              <div key={slotIndex} style={{ display: "grid", gridTemplateColumns: "120px 40px 120px", gap: 10, alignItems: "center" }}>
+                                <select value={settings.practiceOpeningHours?.[day]?.[slotIndex]?.[0] || "Geschlossen"} onChange={(e) => updateOpeningHour(day, slotIndex, 0, e.target.value)} style={input}>
+                                  {timeOptions.map(t => <option key={t}>{t}</option>)}
+                                </select>
+                      
+                                <span>bis</span>
+                      
+                                <select value={settings.practiceOpeningHours?.[day]?.[slotIndex]?.[1] || "Geschlossen"} onChange={(e) => updateOpeningHour(day, slotIndex, 1, e.target.value)} style={input}>
+                                  {timeOptions.map(t => <option key={t}>{t}</option>)}
+                                </select>
+                              </div>
+                            ))}
                           </div>
                         </div>
                       ))}
