@@ -80,7 +80,6 @@ export default function Home() {
 
   const saveSettings = () => {
     localStorage.setItem("dashboardSettings", JSON.stringify(settings));
-    setActivePage(settings.startPage);
     setToastMessage("✓ Erfolgreich aktualisiert");
     setShowToast(true);
     setTimeout(() => setShowToast(false), 1800);
