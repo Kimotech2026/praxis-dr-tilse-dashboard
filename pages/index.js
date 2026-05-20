@@ -85,6 +85,7 @@ export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [loginError, setLoginError] = useState("");
   const [loginTime, setLoginTime] = useState(new Date());
+  const [loginLoading, setLoginLoading] = useState(false);
 
   useEffect(() => {
     const link = document.createElement("link");
@@ -185,21 +186,24 @@ export default function Home() {
   };
 
   const handleLogin = () => {
-    const foundUser = users.find(
-      user => user.id === loginId && user.password === loginPassword
-    );
-    
+    const foundUser = users.find(user => user.id === loginId && user.password === loginPassword);
+  
     if (!foundUser) {
       setLoginError("Benutzer-ID oder Passwort falsch");
       return;
     }
   
-    setCurrentUser(foundUser);
-    setIsLoggedIn(true);
-    setLoginError("");
-    setLoginId("");
-    setLoginPassword("");
-    setLoginTime(new Date());
+    setLoginLoading(true);
+  
+    setTimeout(() => {
+      setCurrentUser(foundUser);
+      setIsLoggedIn(true);
+      setLoginError("");
+      setLoginId("");
+      setLoginPassword("");
+      setLoginTime(new Date());
+      setLoginLoading(false);
+    }, 1400);
   };
 
   const handleLogout = () => {
@@ -219,14 +223,16 @@ export default function Home() {
             placeholder="Benutzer-ID"
             value={loginId}
             onChange={(e) => setLoginId(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleLogin()}
             style={input}
           />
-  
+          
           <input
             type="password"
             placeholder="Passwort"
             value={loginPassword}
             onChange={(e) => setLoginPassword(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleLogin()}
             style={{ ...input, marginTop: 10 }}
           />
   
@@ -235,8 +241,11 @@ export default function Home() {
           )}
   
           <button onClick={handleLogin} style={{ ...addButton, marginTop: 12, width: "100%" }}>
-            Einloggen
+            {loginLoading ? "Wird angemeldet..." : "Einloggen"}
           </button>
+
+          {loginLoading && <div style={loginLoader}></div>}
+          
         </div>
       </div>
     );
@@ -1011,3 +1020,4 @@ const loginIcon = { width: 52, height: 52, borderRadius: 16, background: "#eff6f
 const loginTitle = { margin: 0, fontSize: 26, fontWeight: 600, color: "#0f172a", letterSpacing: "-0.3px" };
 const loginText = { margin: "8px 0 0", color: "#64748b", fontSize: 14 };
 const loginCard = { background: "white", padding: 30, borderRadius: 20, width: 320, boxShadow: "0 20px 50px rgba(15,23,42,0.08)" };
+const loginLoader = { margin: "14px auto 0", width: 34, height: 34, borderRadius: "50%", border: "4px solid #dbeafe", borderTop: "4px solid #2563eb", animation: "spin 0.8s linear infinite" };
