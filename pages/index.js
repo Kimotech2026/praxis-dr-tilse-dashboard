@@ -451,11 +451,12 @@ export default function Home() {
                     <h3 style={settingsTitle}>Tagesübersicht per E-Mail</h3>
                     <p style={settingsText}>Sendet am Ende des Tages eine kompakte Zusammenfassung aller eingegangenen Anrufe, Termine, Rezeptwünsche und offenen Anliegen.</p>
                   </div>
-                  <div 
-                      onClick={() => {
-                        setSettings({ ...settings, dailySummary: !settings.dailySummary });
-                      }}} 
-                    style={toggleSwitch(settings.dailySummary)}>
+                  <div
+                    onClick={() => {
+                      setSettings({ ...settings, dailySummary: !settings.dailySummary });
+                    }}
+                    style={toggleSwitch(settings.dailySummary)}
+                  >
                     <div style={toggleCircle}></div>
                   </div>
                 </div>
