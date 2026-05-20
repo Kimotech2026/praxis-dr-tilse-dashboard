@@ -39,7 +39,9 @@ export default function Home() {
   const [activePage, setActivePage] = useState("Anrufe");
   const [activeCalendar, setActiveCalendar] = useState("Frau Dr. Tilse");
   const [activeSettingsTab, setActiveSettingsTab] = useState("Praxisdaten");  
-  const [settings, setSettings] = useState({ startPage: "Anrufe", emailNewCalls: true, dailySummary: false, compactView: false, entriesPerPage: "25", highlightCallbacks: true, showCalendarFirst: false, autoOpenNewCalls: true, practiceNotes: "", practiceName: "Praxis Dr. Tilse", practiceAddress: "Königstraße 12, 23552 Lübeck", practiceEmail: "info@praxis-tilse.de", practiceWebsite: "www.praxis-tilse.de", practicePhone: "0451 / 123456", practiceOpeningHours: { Montag: [["07:00", "12:00"], ["14:00", "16:00"]], Dienstag: [["07:00", "12:00"], ["14:00", "16:00"]], Mittwoch: [["07:00", "12:00"], ["14:00", "16:00"]], Donnerstag: [["07:00", "12:00"], ["14:00", "16:00"]], Freitag: [["07:00", "12:00"], ["Geschlossen", "Geschlossen"]], Samstag: [["Geschlossen", "Geschlossen"], ["Geschlossen", "Geschlossen"]] } });  const [toastMessage, setToastMessage] = useState("✓ Erfolgreich aktualisiert");
+  const [settings, setSettings] = useState({ startPage: "Anrufe", emailNewCalls: true, dailySummary: false, compactView: false, entriesPerPage: "25", highlightCallbacks: true, showCalendarFirst: false, autoOpenNewCalls: true, practiceNotes: "", practiceName: "Praxis Dr. Tilse", practiceAddress: "Königstraße 12, 23552 Lübeck", practiceEmail: "info@praxis-tilse.de", practiceWebsite: "www.praxis-tilse.de", practicePhone: "0451 / 123456", practiceOpeningHours: { Montag: [["07:00", "12:00"], ["14:00", "16:00"]], Dienstag: [["07:00", "12:00"], ["14:00", "16:00"]], Mittwoch: [["07:00", "12:00"], ["14:00", "16:00"]], Donnerstag: [["07:00", "12:00"], ["14:00", "16:00"]], Freitag: [["07:00", "12:00"], ["Geschlossen", "Geschlossen"]], Samstag: [["Geschlossen", "Geschlossen"], ["Geschlossen", "Geschlossen"]] } });  
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("✓ Erfolgreich aktualisiert");
   const [pendingPlan, setPendingPlan] = useState(null);
   const [showAddAppointment, setShowAddAppointment] = useState(false);
   const [statusFilter, setStatusFilter] = useState("Alle");
@@ -88,7 +90,7 @@ export default function Home() {
     const savedSettings = localStorage.getItem("dashboardSettings");
     if (savedSettings) {
       const parsed = JSON.parse(savedSettings);
-      setSettings(prev => ({ ...prev, ...parsed, practiceName: parsed.practiceName || prev.practiceName, practiceAddress: parsed.practiceAddress || prev.practiceAddress, practiceEmail: parsed.practiceEmail || prev.practiceEmail, practiceWebsite: parsed.practiceWebsite || prev.practiceWebsite, practicePhone: parsed.practicePhone || prev.practicePhone }));
+      setSettings(prev => ({ ...prev, ...parsed, practiceName: parsed.practiceName || prev.practiceName, practiceAddress: parsed.practiceAddress || prev.practiceAddress, practiceEmail: parsed.practiceEmail || prev.practiceEmail, practiceWebsite: parsed.practiceWebsite || prev.practiceWebsite, practicePhone: parsed.practicePhone || prev.practicePhone, practiceOpeningHours: parsed.practiceOpeningHours || prev.practiceOpeningHours }));
       setActivePage(parsed.startPage || "Anrufe");
     }
   }, []);
