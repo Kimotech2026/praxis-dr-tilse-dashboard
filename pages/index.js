@@ -371,37 +371,38 @@ export default function Home() {
           </>
         )}
 
-        {activePage === "Mitgliedschaft" && (
-          <div style={box}>
-            <p style={{ color: "#64748b", marginTop: -4, marginBottom: 24 }}>Ihr aktuelles Paket: <strong>Standard</strong></p>
+        {activePage === "Profil" && (
+          <div style={profileBox}>
+            <div style={profileHeader}>
+              <div style={profileAvatar}>DT</div>
+              <div>
+                <h2 style={{ margin: 0 }}>Dr. Tilse</h2>
+                <p style={settingsText}>Administrator · Hauptzugang</p>
+              </div>
+            </div>
         
-            <div style={membershipGrid}>
-              {[
-                { name: "Basic", price: "399 €", doctors: "1 Arzt", minutes: "350 Minuten / Monat", desc: "Für kleine Einzelpraxen mit geringem Anrufvolumen.", features: ["Anrufübersicht", "Kalender-Anbindung"], icon: <Shield size={28} />, active: false, action: "Downgrade anfragen" },
-                { name: "Standard", price: "599 €", doctors: "bis zu 3 Ärzte", minutes: "1.050 Minuten / Monat", desc: "Für Gemeinschaftspraxen mit mehreren Behandlern.", features: ["Anrufübersicht", "Kalender-Anbindung", "Erweiterte Auswertung", "Tagesprotokolle", "Priorisierte Verarbeitung"], icon: <Star size={28} />, active: true, action: "Aktuelles Paket" },  
-                { name: "Premium", price: "999 €", doctors: "bis zu 10 Ärzte", minutes: "3.500 Minuten / Monat", desc: "Für große Praxen oder MVZs mit hohem Anrufaufkommen.", features: ["Anrufübersicht", "Kalender-Anbindung", "Erweiterte Auswertung", "Tagesprotokolle", "Priorisierte Verarbeitung", "Mehrere Standorte möglich", "Individueller Support", "Erweiterte Statistiken"], icon: <Crown size={28} />, active: false, action: "Upgrade anfragen" }
-              ].map(plan => (
-                <div key={plan.name} style={plan.active ? membershipCardActive : membershipCard}>
-                  <div style={membershipIcon}>{plan.icon}</div>
-                  <h3 style={membershipTitle}>{plan.name}</h3>
-                  <p style={membershipDesc}>{plan.desc}</p>
-                  <h2 style={membershipPrice}>{plan.price}<span style={membershipMonth}> / Monat</span></h2>
-                  <p style={highlightInfo}>{plan.doctors}</p>
-                  <p style={highlightInfo}>{plan.minutes}</p>
+            <div style={profileGrid}>
+              <div style={profileCard}>
+                <h3 style={settingsTitle}>Zugriffsstufe</h3>
+                <span style={adminBadge}>Admin</span>
+                <p style={settingsText}>Voller Zugriff auf Kalender, Einstellungen, Mitgliedschaft und Praxisdaten.</p>
+              </div>
         
-                  <div style={featureList}>
-                    {plan.features.map(item => (
-                      <p key={item} style={featureItem}>✓ {item}</p>
-                    ))}
-                  </div>
+              <div style={profileCard}>
+                <h3 style={settingsTitle}>Berechtigungen</h3>
+                <p>✓ Kalender verwalten</p>
+                <p>✓ Einstellungen ändern</p>
+                <p>✓ Praxisdaten ändern</p>
+                <p>✓ Mitgliedschaft einsehen</p>
+              </div>
         
-                  <div style={planButtonWrap}>
-                    <button style={plan.active ? disabledPlanButton : planButton} onClick={() => { if (!plan.active) setPendingPlan(plan.name); }}>
-                      {plan.action}
-                    </button>
-                  </div>
-                </div>
-              ))}
+              <div style={profileCard}>
+                <h3 style={settingsTitle}>Sitzung</h3>
+                <p style={settingsText}>Eingeloggt seit</p>
+                <strong>08:42 Uhr</strong>
+                <p style={settingsText}>Letzte Aktivität</p>
+                <strong>Gerade eben</strong>
+              </div>
             </div>
           </div>
         )}
@@ -947,6 +948,9 @@ const highlightInfo = { fontSize: 15, fontWeight: 700, color: "#0f172a", margin:
 const planButtonWrap = { marginTop: "auto", paddingTop: 20 };
 const smallSelect = { width: "110px", minWidth: "110px", maxWidth: "180px", flexShrink: 0, marginLeft: "auto", padding: "10px 14px", borderRadius: 12, border: "1px solid #dbe1ea", background: "#f8fafc", fontSize: 14, outline: "none", boxSizing: "border-box", textAlign: "center", textAlignLast: "center"};
 const activeBottomItem = { padding: 12, color: "white", background: "#2563eb", borderRadius: 10, marginBottom: 8, cursor: "pointer" };
-const profileGrid = { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 18, marginTop: 22 };
-const profileCard = { background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 16, padding: 18 };
+const profileGrid = { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 18 };
+const profileCard = { background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 16, padding: 20 };
 const adminBadge = { display: "inline-block", marginTop: 8, padding: "7px 12px", borderRadius: 999, background: "#dcfce7", color: "#166534", fontWeight: 700, fontSize: 13 };
+const profileBox = { background: "white", padding: 28, borderRadius: 18 };
+const profileHeader = { display: "flex", alignItems: "center", gap: 16, marginBottom: 26 };
+const profileAvatar = { width: 56, height: 56, borderRadius: 16, background: "linear-gradient(135deg, #2563eb, #1e40af)", color: "white", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 18 };
