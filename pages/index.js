@@ -521,6 +521,43 @@ export default function Home() {
           </div>
         )}
 
+        {activePage === "Mitgliedschaft" && (
+          <div style={box}>
+            <p style={{ color: "#64748b", marginTop: -4, marginBottom: 24 }}>
+              Ihr aktuelles Paket: <strong>Standard</strong>
+            </p>
+        
+            <div style={membershipGrid}>
+              {[
+                { name: "Basic", price: "399 €", doctors: "1 Arzt", minutes: "350 Minuten / Monat", desc: "Für kleine Einzelpraxen mit geringem Anrufvolumen.", features: ["Anrufübersicht", "Kalender-Anbindung"], icon: <Shield size={28} />, active: false, action: "Downgrade anfragen" },
+                { name: "Standard", price: "599 €", doctors: "bis zu 3 Ärzte", minutes: "1.050 Minuten / Monat", desc: "Für Gemeinschaftspraxen mit mehreren Behandlern.", features: ["Anrufübersicht", "Kalender-Anbindung", "Erweiterte Auswertung", "Tagesprotokolle", "Priorisierte Verarbeitung"], icon: <Star size={28} />, active: true, action: "Aktuelles Paket" },
+                { name: "Premium", price: "999 €", doctors: "bis zu 10 Ärzte", minutes: "3.500 Minuten / Monat", desc: "Für große Praxen oder MVZs mit hohem Anrufaufkommen.", features: ["Anrufübersicht", "Kalender-Anbindung", "Erweiterte Auswertung", "Tagesprotokolle", "Priorisierte Verarbeitung", "Mehrere Standorte möglich", "Individueller Support", "Erweiterte Statistiken"], icon: <Crown size={28} />, active: false, action: "Upgrade anfragen" }
+              ].map(plan => (
+                <div key={plan.name} style={plan.active ? membershipCardActive : membershipCard}>
+                  <div style={membershipIcon}>{plan.icon}</div>
+                  <h3 style={membershipTitle}>{plan.name}</h3>
+                  <p style={membershipDesc}>{plan.desc}</p>
+                  <h2 style={membershipPrice}>{plan.price}<span style={membershipMonth}> / Monat</span></h2>
+                  <p style={highlightInfo}>{plan.doctors}</p>
+                  <p style={highlightInfo}>{plan.minutes}</p>
+        
+                  <div style={featureList}>
+                    {plan.features.map(item => (
+                      <p key={item} style={featureItem}>✓ {item}</p>
+                    ))}
+                  </div>
+        
+                  <div style={planButtonWrap}>
+                    <button style={plan.active ? disabledPlanButton : planButton} onClick={() => { if (!plan.active) setPendingPlan(plan.name); }}>
+                      {plan.action}
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {activePage === "Einstellungen" && (
           <div style={box}>
         
