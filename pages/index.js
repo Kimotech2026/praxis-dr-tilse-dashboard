@@ -532,7 +532,7 @@ export default function Home() {
                 <span>Arzt</span>
                 <span>Letzter Kontakt</span>
                 <span>Status</span>
-              </div
+              </div>
 
               {contacts
                 .filter(c => {
