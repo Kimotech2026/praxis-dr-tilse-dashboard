@@ -208,6 +208,7 @@ export default function Home() {
   
     setTimeout(() => {
       setCurrentUser(foundUser);
+      setActivePage("Anrufe");
       setIsLoggedIn(true);
       setLoginError("");
       setLoginId("");
