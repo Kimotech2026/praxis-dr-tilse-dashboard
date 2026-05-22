@@ -60,6 +60,17 @@ export default function Home() {
   const [appointmentDoctor, setAppointmentDoctor] = useState(activeCalendar);
   const [appointmentNote, setAppointmentNote] = useState("");
 
+  const [contacts, setContacts] = useState([
+    { name: "Max Mustermann", existing: "Bestandspatient", doctor: "Herr Dr. Tilse", lastContact: "12.05.2026", status: "Aktiv" },
+    { name: "Anna Müller", existing: "Neupatient", doctor: "Frau Dr. Tilse", lastContact: "10.05.2026", status: "Offen" }
+  ]);
+  
+  const [contactSearch, setContactSearch] = useState("");
+  const [contactDoctorFilter, setContactDoctorFilter] = useState("Alle");
+  const [contactExistingFilter, setContactExistingFilter] = useState("Alle");
+  const [contactStatusFilter, setContactStatusFilter] = useState("Alle");
+  const [showAddContact, setShowAddContact] = useState(false);
+  
   const users = [
     {
       id: "arzt",
@@ -483,7 +494,78 @@ export default function Home() {
             </div>
           </>
         )}
+
+        {activePage === "Kontakte" && (
+          <>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
+              <p style={{ color: "#667085", margin: 0 }}>Übersicht Ihrer Patienten- und Kontaktanfragen.</p>
+              <button onClick={() => setShowAddContact(true)} style={addButton}>+ Kontakt hinzufügen</button>
+            </div>
         
+            <div style={filterRow}>
+              <input placeholder="Kontakt suchen..." value={contactSearch} onChange={(e) => setContactSearch(e.target.value)} style={searchInput} />
+        
+              <select value={contactDoctorFilter} onChange={(e) => setContactDoctorFilter(e.target.value)} style={filterSelect}>
+                <option>Alle</option>
+                <option>Herr Dr. Tilse</option>
+                <option>Frau Dr. Tilse</option>
+              </select>
+        
+              <select value={contactExistingFilter} onChange={(e) => setContactExistingFilter(e.target.value)} style={filterSelect}>
+                <option>Alle</option>
+                <option>Bestandspatient</option>
+                <option>Neupatient</option>
+              </select>
+        
+              <select value={contactStatusFilter} onChange={(e) => setContactStatusFilter(e.target.value)} style={filterSelect}>
+                <option>Alle</option>
+                <option>Aktiv</option>
+                <option>Offen</option>
+                <option>Erledigt</option>
+              </select>
+            </div>
+        
+            <div style={box}>
+              <div style={contactHeaderRow}>
+                <span>Name</span>
+                <span>Bestandspatient</span>
+                <span>Arzt</span>
+                <span>Letzter Kontakt</span>
+                <span>Status</span>
+              </div
+
+              {contacts
+                .filter(c => {
+                  const searchMatch =
+                    c.name.toLowerCase().includes(contactSearch.toLowerCase());
+              
+                  const doctorMatch =
+                    contactDoctorFilter === "Alle" ||
+                    c.doctor === contactDoctorFilter;
+              
+                  const existingMatch =
+                    contactExistingFilter === "Alle" ||
+                    c.existing === contactExistingFilter;
+              
+                  const statusMatch =
+                    contactStatusFilter === "Alle" ||
+                    c.status === contactStatusFilter;
+              
+                  return searchMatch && doctorMatch && existingMatch && statusMatch;
+                })
+                .map((c, i) => (
+                  <div key={i} style={contactRow}>
+                    <span>{c.name}</span>
+                    <span>{c.existing}</span>
+                    <span>{c.doctor}</span>
+                    <span>{c.lastContact}</span>
+                    <span>{c.status}</span>
+                  </div>
+              ))}
+            </div>
+          </>
+        )}
+
         {activePage === "Profil" && (
           <div style={box}>
             <p style={{ ...settingsText, marginTop: -4, marginBottom: 24 }}>
@@ -1071,3 +1153,5 @@ const loginTitle = { margin: 0, fontSize: 26, fontWeight: 600, color: "#0f172a",
 const loginText = { margin: "8px 0 0", color: "#64748b", fontSize: 14 };
 const loginCard = { background: "white", padding: 30, borderRadius: 20, width: 320, boxShadow: "0 20px 50px rgba(15,23,42,0.08)" };
 const loginLoader = { margin: "16px auto 0", width: 38, height: 38, borderRadius: "50%", border: "4px solid #dbeafe", borderTopColor: "#2563eb", animation: "spin 0.8s linear infinite" };
+const contactHeaderRow = { display: "grid", gridTemplateColumns: "220px 180px 200px 180px 140px", gap: 12, fontSize: 13, color: "#667085", marginBottom: 10, padding: "0 16px" };
+const contactRow = { display: "grid", gridTemplateColumns: "220px 180px 200px 180px 140px", gap: 12, padding: 16, borderBottom: "1px solid #e5e7eb" };
