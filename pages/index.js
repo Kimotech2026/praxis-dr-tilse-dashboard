@@ -486,7 +486,9 @@ export default function Home() {
         
         {activePage === "Profil" && (
           <div style={box}>
-            <p style={settingsText}>Übersicht des aktuell angemeldeten Nutzers und seiner Zugriffsrechte.</p>
+            <p style={{ ...settingsText, marginTop: -4, marginBottom: 24 }}>
+              Übersicht des aktuell angemeldeten Nutzers und seiner Zugriffsrechte.
+            </p>
         
             <div style={profileGrid}>
               <div style={profileCard}>
