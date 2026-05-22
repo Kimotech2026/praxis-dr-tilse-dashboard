@@ -808,7 +808,7 @@ export default function Home() {
         
             <iframe
               src={activeCalendar === "Frau Dr. Tilse" ? "https://calendar.google.com/calendar/embed?src=a97f878565c5dac9bd5b57532837c0cc811565a1b452232db18de9f294d2dbc8%40group.calendar.google.com&ctz=Europe%2FBerlin" : "https://calendar.google.com/calendar/embed?src=ee8c28099ea055a6a6d06eb21cd9038cd860247aabacc309edd6283b1dd9f30b%40group.calendar.google.com&ctz=Europe%2FBerlin"}
-              style={{ border: 0, width: "100%", height: 900, borderRadius: 14 }}
+              style={{ border: 0, width: "100%", height: 750, borderRadius: 14 }}
               frameBorder="0"
               scrolling="no"
             />
@@ -1059,7 +1059,7 @@ const highlightInfo = { fontSize: 15, fontWeight: 700, color: "#0f172a", margin:
 const planButtonWrap = { marginTop: "auto", paddingTop: 20 };
 const smallSelect = { width: "110px", minWidth: "110px", maxWidth: "180px", flexShrink: 0, marginLeft: "auto", padding: "10px 14px", borderRadius: 12, border: "1px solid #dbe1ea", background: "#f8fafc", fontSize: 14, outline: "none", boxSizing: "border-box", textAlign: "center", textAlignLast: "center"};
 const activeBottomItem = { padding: 12, color: "white", background: "#2563eb", borderRadius: 10, marginBottom: 8, cursor: "pointer" };
-const profileGrid = { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 18 };
+const profileGrid = { display: "flex", gridTemplateColumns: "column", gap: 18 };
 const profileCard = { background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 16, padding: 20 };
 const adminBadge = { display: "inline-block", marginTop: 8, padding: "7px 12px", borderRadius: 999, background: "#dcfce7", color: "#166534", fontWeight: 700, fontSize: 13 };
 const profileBox = { background: "white", padding: 28, borderRadius: 18 };
