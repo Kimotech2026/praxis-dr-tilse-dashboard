@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Phone, Users, CheckSquare, Calendar, User, CreditCard, Settings, Filter, Shield, Star, Crown } from "lucide-react";
+import { Phone, Users, Calendar, User, CreditCard, Settings, Filter, Shield, Star, Crown } from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -284,7 +284,6 @@ export default function Home() {
          <nav>
           <p onClick={() => setActivePage("Anrufe")} onMouseEnter={(e) => activePage !== "Anrufe" && (e.currentTarget.style.background = "#1e293b")} onMouseLeave={(e) => activePage !== "Anrufe" && (e.currentTarget.style.background = "transparent")} style={activePage === "Anrufe" ? activeNav : { ...navItem, cursor: "pointer" }}><Phone size={18} style={icon}/> Anrufe</p>
           <p onClick={() => setActivePage("Kontakte")} onMouseEnter={(e) => activePage !== "Kontakte" && (e.currentTarget.style.background = "#1e293b")} onMouseLeave={(e) => activePage !== "Kontakte" && (e.currentTarget.style.background = "transparent")} style={activePage === "Kontakte" ? activeNav : { ...navItem, cursor: "pointer" }}><Users size={18} style={icon}/> Kontakte</p>
-          <p onClick={() => setActivePage("Aufgaben")} onMouseEnter={(e) => activePage !== "Aufgaben" && (e.currentTarget.style.background = "#1e293b")} onMouseLeave={(e) => activePage !== "Aufgaben" && (e.currentTarget.style.background = "transparent")} style={activePage === "Aufgaben" ? activeNav : { ...navItem, cursor: "pointer" }}><CheckSquare size={18} style={icon}/> Aufgaben</p>
           <p onClick={() => setActivePage("Kalender")} onMouseEnter={(e) => activePage !== "Kalender" && (e.currentTarget.style.background = "#1e293b")} onMouseLeave={(e) => activePage !== "Kalender" && (e.currentTarget.style.background = "transparent")} style={activePage === "Kalender" ? activeNav : { ...navItem, cursor: "pointer" }}><Calendar size={18} style={icon}/> Kalender</p>
         </nav>
         </div>
@@ -723,7 +722,6 @@ export default function Home() {
                   <select value={settings.startPage} onChange={(e) => setSettings({ ...settings, startPage: e.target.value })} style={smallSelect}>
                     <option>Anrufe</option>
                     <option>Kalender</option>
-                    <option>Aufgaben</option>
                   </select>
                 </div>
             
@@ -746,7 +744,7 @@ export default function Home() {
               </div>
             )}
 
-            {activeSettingsTab === "Praxisdaten" && (
+            {currentUser.accessLevel === "Admin" && activeSettingsTab === "Praxisdaten" && (
               <div style={settingsGrid}>
                 <div style={settingsCardColumn}>
                   <div style={settingsTwoColumn}>
