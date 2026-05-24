@@ -71,14 +71,14 @@ export default function Home() {
   const [contactStatusFilter, setContactStatusFilter] = useState("Alle");
   const [showAddContact, setShowAddContact] = useState(false);
   
-  const users = [
+  const [users, setUsers] = useState([
     {
       id: "arzt",
       password: "1234",
       name: "Dr. Tilse",
       role: "Administrator",
       accessLevel: "Admin",
-      permissions: ["Kalender verwalten", "Einstellungen ändern", "Praxisdaten ändern", "Mitgliedschaft einsehen"]
+      permissions: ["Kalender verwalten", "Einstellungen ändern", "Praxisdaten ändern", "Mitgliedschaft einsehen", "Mitarbeiter verwalten"]
     },
     {
       id: "mitarbeiterin",
@@ -86,10 +86,16 @@ export default function Home() {
       name: "Frau Meier",
       role: "Mitarbeiterin",
       accessLevel: "Eingeschränkt",
-      permissions: ["Anrufe bearbeiten", "Kalender ansehen"]
+      permissions: ["Anrufe bearbeiten", "Kalender ansehen", "Kontakte ansehen"]
     }
-  ];
-  
+  ]);
+
+  const [newEmployeeName, setNewEmployeeName] = useState("");
+  const [newEmployeeId, setNewEmployeeId] = useState("");
+  const [newEmployeePassword, setNewEmployeePassword] = useState("");
+  const [newEmployeeRole, setNewEmployeeRole] = useState("Mitarbeiterin");
+  const [newEmployeeAccessLevel, setNewEmployeeAccessLevel] = useState("Eingeschränkt");
+  const [showAddEmployee, setShowAddEmployee] = useState(false);
   const [currentUser, setCurrentUser] = useState(users[0]);  
   const [loginId, setLoginId] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -233,6 +239,38 @@ export default function Home() {
     setIsLoggedIn(false);
   };
 
+  const getPermissionsByAccessLevel = (level) => {
+    if (level === "Admin") return ["Kalender verwalten", "Einstellungen ändern", "Praxisdaten ändern", "Mitgliedschaft einsehen", "Mitarbeiter verwalten"];
+    if (level === "Erweitert") return ["Anrufe bearbeiten", "Kalender verwalten", "Kontakte bearbeiten", "Auswertungen ansehen"];
+    return ["Anrufe bearbeiten", "Kalender ansehen", "Kontakte ansehen"];
+  };
+  
+  const handleAddEmployee = () => {
+    if (!newEmployeeName || !newEmployeeId || !newEmployeePassword) {
+      alert("Bitte Name, Benutzer-ID und Passwort ausfüllen.");
+      return;
+    }
+  
+    setUsers(prev => [
+      ...prev,
+      {
+        id: newEmployeeId,
+        password: newEmployeePassword,
+        name: newEmployeeName,
+        role: newEmployeeRole,
+        accessLevel: newEmployeeAccessLevel,
+        permissions: getPermissionsByAccessLevel(newEmployeeAccessLevel)
+      }
+    ]);
+  
+    setNewEmployeeName("");
+    setNewEmployeeId("");
+    setNewEmployeePassword("");
+    setNewEmployeeRole("Mitarbeiterin");
+    setNewEmployeeAccessLevel("Eingeschränkt");
+    setShowAddEmployee(false);
+  };
+  
   if (!isLoggedIn) {
     return (
       <div style={{ height: "100vh", display: "flex", justifyContent: "center", alignItems: "center", background: "#f5f7fb", fontFamily: "Inter, Arial, sans-serif" }}>
@@ -852,7 +890,42 @@ export default function Home() {
                     <p style={settingsText}>Datenexport oder Löschung kann beim Support angefragt werden.</p>
                   </div>
                 </div>
-            
+
+              {activeSettingsTab === "Konto" && (
+                <div style={settingsGrid}>
+              
+                  <div style={settingsCard}>
+                    <div>
+                      <h3 style={settingsTitle}>Datenschutz</h3>
+                      <p style={settingsText}>Datenexport oder Löschung kann beim Support angefragt werden.</p>
+                    </div>
+                  </div>
+              
+                  {currentUser.accessLevel === "Admin" && (
+                    <div style={settingsCard}>
+                      <div>
+                        <h3 style={settingsTitle}>Mitarbeiter hinzufügen</h3>
+                        <p style={settingsText}>
+                          Neue Nutzer mit Rolle, Zugriffsstufe und Berechtigungen anlegen.
+                        </p>
+                      </div>
+                      <button onClick={() => setShowAddEmployee(true)} style={addButton}>
+                        + Mitarbeiter hinzufügen
+                      </button>
+                    </div>
+                  )}
+              
+                  <div style={settingsCard}>
+                    <div>
+                      <h3 style={settingsTitle}>Abmelden</h3>
+                      <p style={settingsText}>Aktuelle Sitzung beenden.</p>
+                    </div>
+                    <button onClick={handleLogout} style={cancelButton}>Abmelden</button>
+                  </div>
+              
+                </div>
+              )}
+              
                 <div style={settingsCard}>
                   <div>
                     <h3 style={settingsTitle}>Abmelden</h3>
@@ -1030,6 +1103,63 @@ export default function Home() {
             </div>
           </div>
         )}  
+
+        {showAddEmployee && (
+          <div style={modalOverlay}>
+            <div style={modal}>
+              <div style={modalHeader}>
+                <h2 style={{ margin: 0 }}>Mitarbeiter hinzufügen</h2>
+                <button onClick={() => setShowAddEmployee(false)} style={closeButton}>×</button>
+              </div>
+        
+              <div style={formSection}>
+                <p style={sectionTitle}>Zugangsdaten</p>
+        
+                <div style={formGrid}>
+                  <div>
+                    <label style={formLabel}>Name</label>
+                    <input value={newEmployeeName} onChange={(e) => setNewEmployeeName(e.target.value)} placeholder="z. B. Herr Becker" style={input} />
+                  </div>
+        
+                  <div>
+                    <label style={formLabel}>Benutzer-ID</label>
+                    <input value={newEmployeeId} onChange={(e) => setNewEmployeeId(e.target.value)} placeholder="z. B. becker" style={input} />
+                  </div>
+        
+                  <div>
+                    <label style={formLabel}>Passwort</label>
+                    <input value={newEmployeePassword} onChange={(e) => setNewEmployeePassword(e.target.value)} placeholder="z. B. 1234" style={input} />
+                  </div>
+        
+                  <div>
+                    <label style={formLabel}>Funktion</label>
+                    <select value={newEmployeeRole} onChange={(e) => setNewEmployeeRole(e.target.value)} style={input}>
+                      <option>Arzt</option>
+                      <option>Ärztin</option>
+                      <option>Mitarbeiterin</option>
+                      <option>Mitarbeiter</option>
+                      <option>Praxismanagerin</option>
+                    </select>
+                  </div>
+        
+                  <div>
+                    <label style={formLabel}>Zugriffsstufe</label>
+                    <select value={newEmployeeAccessLevel} onChange={(e) => setNewEmployeeAccessLevel(e.target.value)} style={input}>
+                      <option>Eingeschränkt</option>
+                      <option>Erweitert</option>
+                      <option>Admin</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+        
+              <div style={modalActions}>
+                <button onClick={() => setShowAddEmployee(false)} style={cancelButton}>Abbrechen</button>
+                <button onClick={handleAddEmployee} style={addButton}>Mitarbeiter speichern</button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {pendingPlan && (
           <div style={modalOverlay}>
