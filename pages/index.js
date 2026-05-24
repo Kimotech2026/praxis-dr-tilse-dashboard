@@ -86,7 +86,7 @@ export default function Home() {
       name: "Frau Meier",
       role: "Mitarbeiterin",
       accessLevel: "Eingeschränkt",
-      permissions: ["Anrufe bearbeiten", "Kalender ansehen", "Aufgaben bearbeiten"]
+      permissions: ["Anrufe bearbeiten", "Kalender ansehen"]
     }
   ];
   
