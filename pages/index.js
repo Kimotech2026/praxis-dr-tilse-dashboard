@@ -650,7 +650,9 @@ export default function Home() {
           <div style={box}>
         
             <div style={tabBar}>
-              {["Praxisdaten", "Benachrichtigungen", "Dashboard", "Konto"].map(tab => (
+              {["Praxisdaten", "Benachrichtigungen", "Dashboard", "Konto"]
+                .filter(tab => currentUser.accessLevel === "Admin" || tab !== "Praxisdaten")
+                .map(tab => (
                 <button
                   key={tab}
                   onClick={() => setActiveSettingsTab(tab)}
