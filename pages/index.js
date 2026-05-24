@@ -290,7 +290,11 @@ export default function Home() {
         </div>
         <div style={bottomNav}>
         <p onClick={() => setActivePage("Profil")} style={activePage === "Profil" ? activeBottomItem : bottomItem}><User size={18} style={icon}/> Profil</p>
-        <p onClick={() => setActivePage("Mitgliedschaft")} style={activePage === "Mitgliedschaft" ? activeNav : bottomItem}><CreditCard size={18} style={icon}/> Mitgliedschaft</p>
+        {currentUser.accessLevel === "Admin" && (
+          <p onClick={() => setActivePage("Mitgliedschaft")} style={activePage === "Mitgliedschaft" ? activeNav : bottomItem}>
+            <CreditCard size={18} style={icon}/> Mitgliedschaft
+          </p>
+        )}
         <p onClick={() => setActivePage("Einstellungen")} style={activePage === "Einstellungen" ? activeNav : bottomItem}><Settings size={18} style={icon}/> Einstellungen</p>
         </div>
         </aside>
