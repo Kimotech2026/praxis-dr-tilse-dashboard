@@ -147,7 +147,7 @@ export default function Home() {
     if (savedSettings) {
       const parsed = JSON.parse(savedSettings);
       setSettings(prev => ({ ...prev, ...parsed }));
-      setActivePage(parsed.startPage || "Anrufe");
+      setActivePage(["Anrufe", "Kalender"].includes(parsed.startPage) ? parsed.startPage : "Anrufe");
     } else {
       setActivePage("Anrufe");
     }
@@ -294,7 +294,7 @@ export default function Home() {
             <CreditCard size={18} style={icon}/> Mitgliedschaft
           </p>
         )}
-        <p onClick={() => setActivePage("Einstellungen")} style={activePage === "Einstellungen" ? activeNav : bottomItem}><Settings size={18} style={icon}/> Einstellungen</p>
+        <p onClick={() => { setActivePage("Einstellungen"); setActiveSettingsTab(currentUser.accessLevel === "Admin" ? "Praxisdaten" : "Benachrichtigungen"); }} style={activePage === "Einstellungen" ? activeNav : bottomItem}><Settings size={18} style={icon}/> Einstellungen</p>
         </div>
         </aside>
   
