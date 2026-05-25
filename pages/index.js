@@ -65,6 +65,7 @@ export default function Home() {
   const [contactExistingFilter, setContactExistingFilter] = useState("Alle");
   const [showAddContact, setShowAddContact] = useState(false);
   const [contactSort, setContactSort] = useState("nameAZ");
+  const [openContactIndex, setOpenContactIndex] = useState(null);
   
   const [users, setUsers] = useState([
     {
@@ -775,7 +776,7 @@ export default function Home() {
                     <span>{c.lastContact}</span>
         
                     <button
-                      onClick={() => alert(
+                      onClick={() => setOpenContactIndex(openContactIndex === i ? null : i)}
                         c.calls.map(call =>
                           `${call.Datum} - ${call.Anliegen} - ${call.Zusammenfassung}`
                         ).join("\n\n")
@@ -790,6 +791,23 @@ export default function Home() {
                     >
                       Historie
                     </button>
+
+                        {openContactIndex === i && (
+                          <div style={contactHistoryBox}>
+                            {c.calls.map((call, index) => (
+                              <div key={index} style={contactHistoryItem}>
+                                <strong>{call.Datum || "-"} · {call.Uhrzeit || "-"}</strong>
+                                <p style={{ margin: "8px 0" }}>
+                                  <b>Anliegen:</b> {call.Anliegen || "-"}
+                                </p>
+                                <p style={{ margin: 0 }}>
+                                  {call.Zusammenfassung || "-"}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                        
                   </div>
               ))}
             </div>
@@ -1456,3 +1474,5 @@ const loginLoader = { margin: "16px auto 0", width: 38, height: 38, borderRadius
 const contactHeaderRow = { display: "grid", gridTemplateColumns: "140px 145px 130px 150px 135px 125px 130px", gap: 14, fontSize: 13, color: "#667085", marginBottom: 10, padding: "0 16px" };
 const contactRow = { display: "grid", gridTemplateColumns: "140px 145px 130px 150px 135px 125px 130px", gap: 14, padding: 16, borderBottom: "1px solid #e5e7eb", alignItems: "center" };
 const unreadBadge = { position: "absolute", top: -7, right: -7, background: "#dc2626", color: "white", borderRadius: 999, minWidth: 20, height: 20, padding: "0 6px", fontSize: 12, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 10px rgba(220,38,38,0.35)" };
+const contactHistoryBox = { gridColumn: "1 / -1", marginTop: 12, padding: 16, background: "#f8fafc", border: "1px solid #e5e7eb", borderRadius: 14, display: "flex", flexDirection: "column", gap: 12 };
+const contactHistoryItem = { background: "white", border: "1px solid #e5e7eb", borderRadius: 12, padding: 14, color: "#334155" };
