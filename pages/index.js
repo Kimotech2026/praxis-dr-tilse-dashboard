@@ -699,7 +699,8 @@ export default function Home() {
         
                   const existingMatch =
                     contactExistingFilter === "Alle" ||
-                    c.existing === contactExistingFilter;
+                    (contactExistingFilter === "Neupatient" && (!c.existing || c.existing === "-")) ||
+                    (c.existing || "").trim() === contactExistingFilter;
         
                   return searchMatch && doctorMatch && existingMatch;
                 })
