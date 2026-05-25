@@ -139,13 +139,19 @@ export default function Home() {
     if (type === "Zurücksetzen") setDateRange([null, null]);
   };
 
-  const updateStatus = (callId, value) => {
-    setData(prev =>
-      prev.map(row =>
-        row.callId === callId ? { ...row, status: value } : row
-      )
-    );
-  };
+  useEffect(() => {
+    fetch("https://opensheet.elk.sh/1AFGmKqR2typaxKARBprS81ArcBUqXg1RX8sXwNyO1oY/Tabellenblatt1")
+      .then((res) => res.json())
+      .then((sheetData) => {
+        const calls = [...sheetData].reverse().map((row, index) => ({
+          ...row,
+          callId: String(1000000000 + index),
+          status: "Neu / Ungelesen"
+        }));
+  
+        setData(calls);
+      });
+  }, []);
 
   const saveSettings = () => {
     localStorage.setItem("dashboardSettings", JSON.stringify(settings));
@@ -448,11 +454,9 @@ export default function Home() {
               </div>
               
               {data
-                .map((row) => ({
-                  row,
-                  callKey: row.callId
-                }))
-                .filter(({ row, callKey }) => {
+                .filter((row) => {
+                
+                .filter(({ row, row.callId }) => {
                   
                   const statusMatch =
                     statusFilter === "Alle" ||
@@ -487,21 +491,21 @@ export default function Home() {
                 
                   return statusMatch && searchMatch && anliegenMatch && arztMatch && dateMatch;
                 })
-                .map(({ row, callKey }) => {         
+                .map(({ row, row.callId }) => {         
                   return (
                     <div
-                      key={callKey}
+                      key={row.callId}
                     style={{
-                      ...(openIndex === callKey ? callCardOpen : callCard),
+                      ...(openIndex === row.callId ? callCardOpen : callCard),
                       ...((row.status) === "Neu / Ungelesen" && {
                         borderLeft: "4px solid #2563eb"
                       })
-                    }} onMouseEnter={(e) => { if (openIndex !== callKey) e.currentTarget.style.background = "#f8fafc"; }} onMouseLeave={(e) => { if (openIndex !== callKey) { e.currentTarget.style.background = "white"; e.currentTarget.style.borderBottom = "1px solid #e5e7eb"; } }}
+                    }} onMouseEnter={(e) => { if (openIndex !== row.callId) e.currentTarget.style.background = "#f8fafc"; }} onMouseLeave={(e) => { if (openIndex !== row.callId) { e.currentTarget.style.background = "white"; e.currentTarget.style.borderBottom = "1px solid #e5e7eb"; } }}
                     onClick={() => {
-                      setOpenIndex(openIndex === callKey ? null : callKey);
+                      setOpenIndex(openIndex === row.callId ? null : row.callId);
                     
                       if ((row.status) === "Neu / Ungelesen") {
-                        updateStatus(callKey, "Gelesen");
+                        updateStatus(row.callId, "Gelesen");
                       }
                     }}>                  
                       <div style={callTop}>
@@ -537,7 +541,7 @@ export default function Home() {
                     <select
                       value={row.status}
                       onClick={(e) => e.stopPropagation()}
-                      onChange={(e) => updateStatus(callKey, e.target.value)}
+                      onChange={(e) => updateStatus(row.callId, e.target.value)}
                       style={selectStyle}
                     >
                       <option>Neu / Ungelesen</option>
@@ -547,7 +551,7 @@ export default function Home() {
                     </select>
                   </div>
               
-                  {openIndex === callKey && (
+                  {openIndex === row.callId && (
                     <div style={details}>
                       <div style={detailCard}>
                         <span style={detailLabel}>Bestandspatient</span>
