@@ -547,17 +547,22 @@ export default function Home() {
                       ...(openIndex === row.callId ? callCardOpen : callCard),
                       ...(row.status === "Neu / Ungelesen" && {
                         borderLeft: "4px solid #2563eb"
+                        background: "#eff6ff"
                       })
                     }}
                     onMouseEnter={(e) => {
-                      if (openIndex !== row.callId) e.currentTarget.style.background = "#f8fafc";
+                      if (openIndex !== row.callId && row.status !== "Neu / Ungelesen") {
+                        e.currentTarget.style.background = "#f8fafc";
+                      }
                     }}
+
                     onMouseLeave={(e) => {
-                      if (openIndex !== row.callId) {
+                      if (openIndex !== row.callId && row.status !== "Neu / Ungelesen") {
                         e.currentTarget.style.background = "white";
                         e.currentTarget.style.borderBottom = "1px solid #e5e7eb";
                       }
                     }}
+
                     onClick={() => {
                       setOpenIndex(openIndex === row.callId ? null : row.callId);
               
