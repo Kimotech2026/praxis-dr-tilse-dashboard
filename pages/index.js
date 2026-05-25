@@ -434,7 +434,7 @@ export default function Home() {
               </div>
               
               {data
-                .map((row, originalIndex) => ({ row, originalIndex }))
+                .map((row) => ({ row, originalIndex: data.indexOf(row) }))
                 .filter(({ row, originalIndex }) => {
                   
                   const statusMatch =
@@ -549,6 +549,7 @@ export default function Home() {
                     </div>
                   )}
                 </div>
+                );
               ))}
             </div>
           </>
