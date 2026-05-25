@@ -793,13 +793,40 @@ export default function Home() {
                           <div style={contactHistoryBox}>
                             {c.calls.map((call, index) => (
                               <div key={index} style={contactHistoryItem}>
-                                <strong>{call.Datum || "-"} · {call.Uhrzeit || "-"}</strong>
-                                <p style={{ margin: "8px 0" }}>
-                                  <b>Anliegen:</b> {call.Anliegen || "-"}
-                                </p>
-                                <p style={{ margin: 0 }}>
-                                  {call.Zusammenfassung || "-"}
-                                </p>
+                                <div style={historyTopRow}>
+                                  <strong>{call.Datum || "-"} · {call.Uhrzeit || "-"}</strong>
+                                </div>
+                        
+                                <div style={historyBadges}>
+                                  {(call.Anliegen || "")
+                                    .split(",")
+                                    .map(item => item.trim())
+                                    .filter(Boolean)
+                                    .sort((a, b) => a.localeCompare(b))
+                                    .map((item, i) => (
+                                      <span
+                                        key={i}
+                                        style={{
+                                          ...badge,
+                                          background:
+                                            item === "Termin" ? "#e0f2fe" :
+                                            item === "Rezept" ? "#dcfce7" :
+                                            item === "Attest" ? "#fef9c3" : "#e5e7eb",
+                                          color:
+                                            item === "Termin" ? "#0369a1" :
+                                            item === "Rezept" ? "#166534" :
+                                            item === "Attest" ? "#854d0e" : "#374151",
+                                        }}
+                                      >
+                                        {item}
+                                      </span>
+                                    ))}
+                                </div>
+                        
+                                <div style={historySummaryBox}>
+                                  <span style={detailLabel}>Zusammenfassung</span>
+                                  <p style={{ margin: 0 }}>{call.Zusammenfassung || "-"}</p>
+                                </div>
                               </div>
                             ))}
                           </div>
@@ -1471,5 +1498,8 @@ const loginLoader = { margin: "16px auto 0", width: 38, height: 38, borderRadius
 const contactHeaderRow = { display: "grid", gridTemplateColumns: "140px 145px 130px 150px 135px 125px 130px", gap: 14, fontSize: 13, color: "#667085", marginBottom: 10, padding: "0 16px" };
 const contactRow = { display: "grid", gridTemplateColumns: "140px 145px 130px 150px 135px 125px 130px", gap: 14, padding: 16, borderBottom: "1px solid #e5e7eb", alignItems: "center" };
 const unreadBadge = { position: "absolute", top: -7, right: -7, background: "#dc2626", color: "white", borderRadius: 999, minWidth: 20, height: 20, padding: "0 6px", fontSize: 12, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 10px rgba(220,38,38,0.35)" };
-const contactHistoryBox = { gridColumn: "1 / -1", marginTop: 12, padding: 16, background: "#f8fafc", border: "1px solid #e5e7eb", borderRadius: 14, display: "flex", flexDirection: "column", gap: 12 };
-const contactHistoryItem = { background: "white", border: "1px solid #e5e7eb", borderRadius: 12, padding: 14, color: "#334155" };
+const contactHistoryBox = { gridColumn: "1 / -1", marginTop: 14, padding: 16, background: "#f8fafc", border: "1px solid #dbeafe", borderRadius: 16, display: "flex", flexDirection: "column", gap: 14 };
+const contactHistoryItem = { background: "white", border: "1px solid #e5e7eb", borderRadius: 14, padding: 16, boxShadow: "0 6px 16px rgba(15,23,42,0.04)" };
+const historyTopRow = { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10, color: "#0f172a" };
+const historyBadges = { display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 14 };
+const historySummaryBox = { background: "#f8fafc", borderRadius: 12, padding: 14 };
