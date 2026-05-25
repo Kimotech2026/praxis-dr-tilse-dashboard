@@ -1340,84 +1340,41 @@ export default function Home() {
                 </div>
                 <button onClick={() => setSelectedContact(null)} style={closeButton}>×</button>
               </div>
-
-              <div style={{
-                border: "1px solid #e5e7eb",
-                borderRadius: 16,
-                padding: 16,
-                marginTop: 10,
-                background: "#f8fafc"
-              }}>
-                <p style={{
-                  margin: "0 0 12px",
-                  fontSize: 13,
-                  fontWeight: 600,
-                  color: "#64748b",
-                  textTransform: "uppercase",
-                  letterSpacing: 0.5
-                }}>
-                  Daten
-                </p>
-              
+        
+              <div style={patientSection}>
+                <p style={patientSectionTitle}>Daten</p>
+        
                 <div style={details}>
-                <div style={detailCard}>
-                  <span style={detailLabel}>Telefonnummer</span>
-                  <strong>{selectedContact.phone || "-"}</strong>
-                </div>
-        
-                <div style={detailCard}>
-                  <span style={detailLabel}>Geburtsdatum</span>
-                  <strong>{selectedContact.birthdate || "-"}</strong>
-                </div>
-        
-                <div style={detailCard}>
-                  <span style={detailLabel}>Patientenstatus</span>
-                  <strong>{selectedContact.existing || "-"}</strong>
-                </div>
-        
-                <div style={detailCard}>
-                  <span style={detailLabel}>Letzter Kontakt</span>
-                  <strong>{selectedContact.lastContact || "-"}</strong>
+                  <div style={detailCard}><span style={detailLabel}>Telefonnummer</span><strong>{selectedContact.phone || "-"}</strong></div>
+                  <div style={detailCard}><span style={detailLabel}>Geburtsdatum</span><strong>{selectedContact.birthdate || "-"}</strong></div>
+                  <div style={detailCard}><span style={detailLabel}>Patientenstatus</span><strong>{selectedContact.existing || "-"}</strong></div>
+                  <div style={detailCard}><span style={detailLabel}>Letzter Kontakt</span><strong>{selectedContact.lastContact || "-"}</strong></div>
                 </div>
               </div>
-
-              <div style={{
-                border: "1px solid #dbeafe",
-                borderRadius: 16,
-                padding: 16,
-                marginTop: 16,
-                background: "#f8fafc"
-              }}>
-                <p style={{
-                  margin: "0 0 12px",
-                  fontSize: 13,
-                  fontWeight: 600,
-                  color: "#2563eb",
-                  textTransform: "uppercase",
-                  letterSpacing: 0.5
-                }}>
-                  Anrufhistorie
-                </p>
-              
+        
+              <div style={historySection}>
+                <p style={historySectionTitle}>Anrufhistorie</p>
+        
                 <div style={contactHistoryBox}>
-                {selectedContact.calls.map((call, index) => (
-                  <div key={index} style={contactHistoryItem}>
-                    <strong>{call.Datum || "-"} · {call.Uhrzeit || "-"}</strong>
+                  {selectedContact.calls.map((call, index) => (
+                    <div key={index} style={contactHistoryItem}>
+                      <strong>{call.Datum || "-"} · {call.Uhrzeit || "-"}</strong>
         
-                    <div style={historyBadges}>
-                      {(call.Anliegen || "").split(",").map(item => item.trim()).filter(Boolean).sort((a, b) => a.localeCompare(b)).map((item, i) => (
-                        <span key={i} style={{ ...badge, background: item === "Termin" ? "#e0f2fe" : item === "Rezept" ? "#dcfce7" : item === "Attest" ? "#fef9c3" : "#e5e7eb", color: item === "Termin" ? "#0369a1" : item === "Rezept" ? "#166534" : item === "Attest" ? "#854d0e" : "#374151" }}>
-                          {item}
-                        </span>
-                      ))}
-                    </div>
+                      <div style={historyBadges}>
+                        {(call.Anliegen || "").split(",").map(item => item.trim()).filter(Boolean).sort((a, b) => a.localeCompare(b)).map((item, i) => (
+                          <span key={i} style={{ ...badge, background: item === "Termin" ? "#e0f2fe" : item === "Rezept" ? "#dcfce7" : item === "Attest" ? "#fef9c3" : "#e5e7eb", color: item === "Termin" ? "#0369a1" : item === "Rezept" ? "#166534" : item === "Attest" ? "#854d0e" : "#374151" }}>
+                            {item}
+                          </span>
+                        ))}
+                      </div>
         
-                    <div style={historySummaryBox}>
-                      <span style={detailLabel}>Zusammenfassung</span>
-                      <p style={{ margin: 0 }}>{call.Zusammenfassung || "-"}</p>
+                      <div style={historySummaryBox}>
+                        <span style={detailLabel}>Zusammenfassung</span>
+                        <p style={{ margin: 0 }}>{call.Zusammenfassung || "-"}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -1544,3 +1501,7 @@ const contactHistoryItem = { background: "white", border: "1px solid #e5e7eb", b
 const historyTopRow = { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10, color: "#0f172a" };
 const historyBadges = { display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 14 };
 const historySummaryBox = { background: "#f8fafc", borderRadius: 12, padding: 14 };
+const patientSection = { border: "1px solid #e5e7eb", borderRadius: 16, padding: 16, marginTop: 10, background: "#f8fafc" };
+const patientSectionTitle = { margin: "0 0 12px", fontSize: 13, fontWeight: 600, color: "#64748b", textTransform: "uppercase", letterSpacing: 0.5 };
+const historySection = { border: "1px solid #dbeafe", borderRadius: 16, padding: 16, marginTop: 16, background: "#f8fafc" };
+const historySectionTitle = { margin: "0 0 12px", fontSize: 13, fontWeight: 600, color: "#2563eb", textTransform: "uppercase", letterSpacing: 0.5 };
