@@ -401,7 +401,7 @@ export default function Home() {
        <div>
         <h2>Praxis Dr. Tilse</h2>
          <nav>
-          <p onClick={() => setActivePage("Anrufe")} onMouseEnter={(e) => activePage !== "Anrufe" && (e.currentTarget.style.background = "#1e293b")} onMouseLeave={(e) => activePage !== "Anrufe" && (e.currentTarget.style.background = "transparent")} style={activePage === "Anrufe" ? activeNav : { ...navItem, cursor: "pointer" }}><Phone size={18} style={icon}/> Anrufe</p>
+          <p onClick={() => setActivePage("Anrufe")} onMouseEnter={(e) => activePage !== "Anrufe" && (e.currentTarget.style.background = "#1e293b")} onMouseLeave={(e) => activePage !== "Anrufe" && (e.currentTarget.style.background = "transparent")} style={{ ...(activePage === "Anrufe" ? activeNav : { ...navItem, cursor: "pointer" }), position: "relative" }}><Phone size={18} style={icon}/> Anrufe {data.filter(row => row.status === "Neu / Ungelesen").length > 0 && <span style={sidebarUnreadBadge}>{data.filter(row => row.status === "Neu / Ungelesen").length}</span>}</p>
           <p onClick={() => setActivePage("Kontakte")} onMouseEnter={(e) => activePage !== "Kontakte" && (e.currentTarget.style.background = "#1e293b")} onMouseLeave={(e) => activePage !== "Kontakte" && (e.currentTarget.style.background = "transparent")} style={activePage === "Kontakte" ? activeNav : { ...navItem, cursor: "pointer" }}><Users size={18} style={icon}/> Kontakte</p>
           <p onClick={() => setActivePage("Kalender")} onMouseEnter={(e) => activePage !== "Kalender" && (e.currentTarget.style.background = "#1e293b")} onMouseLeave={(e) => activePage !== "Kalender" && (e.currentTarget.style.background = "transparent")} style={activePage === "Kalender" ? activeNav : { ...navItem, cursor: "pointer" }}><Calendar size={18} style={icon}/> Kalender</p>
         </nav>
@@ -1507,3 +1507,4 @@ const historySection = { border: "1px solid #dbeafe", borderRadius: 16, padding:
 const historySectionTitle = { margin: "0 0 12px", fontSize: 13, fontWeight: 600, color: "#2563eb", textTransform: "uppercase", letterSpacing: 0.5 };
 const patientDataGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 };
 const historyList = { display: "flex", flexDirection: "column", gap: 14, marginTop: 14 };
+const sidebarUnreadBadge = { position: "absolute", top: 8, right: 8, background: "#dc2626", color: "white", borderRadius: 999, minWidth: 20, height: 20, padding: "0 6px", fontSize: 12, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center" };
