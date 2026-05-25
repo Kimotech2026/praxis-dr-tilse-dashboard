@@ -468,20 +468,23 @@ export default function Home() {
                 
                   return statusMatch && searchMatch && anliegenMatch && arztMatch && dateMatch;
                 })
-                .map((row, i) => (
-                  <div
-                    key={i}
+                .map((row) => {
+                  const originalIndex = data.indexOf(row);
+                
+                  return (
+                    <div
+                      key={originalIndex}
                     style={{
-                      ...(openIndex === i ? callCardOpen : callCard),
-                      ...((statusMap[i] || "Neu / Ungelesen") === "Neu / Ungelesen" && {
+                      ...(openIndex === originalIndex ? callCardOpen : callCard),
+                      ...((statusMap[originalIndex] || "Neu / Ungelesen") === "Neu / Ungelesen" && {
                         borderLeft: "4px solid #2563eb"
                       })
-                    }} onMouseEnter={(e) => { if (openIndex !== i) e.currentTarget.style.background = "#f8fafc"; }} onMouseLeave={(e) => { if (openIndex !== i) { e.currentTarget.style.background = "white"; e.currentTarget.style.borderBottom = "1px solid #e5e7eb"; } }} 
+                    }} onMouseEnter={(e) => { if (openIndex !== originalIndex) e.currentTarget.style.background = "#f8fafc"; }} onMouseLeave={(e) => { if (openIndex !== originalIndex) { e.currentTarget.style.background = "white"; e.currentTarget.style.borderBottom = "1px solid #e5e7eb"; } }}
                     onClick={() => {
-                      setOpenIndex(openIndex === i ? null : i);
+                      setOpenIndex(openIndex === originalIndex ? null : originalIndex);
                     
-                      if ((statusMap[i] || "Neu / Ungelesen") === "Neu / Ungelesen") {
-                        updateStatus(i, "Gelesen");
+                      if ((statusMap[originalIndex] || "Neu / Ungelesen") === "Neu / Ungelesen") {
+                        updateStatus(originalIndex, "Gelesen");
                       }
                     }}>                  
                       <div style={callTop}>
@@ -527,7 +530,7 @@ export default function Home() {
                     </select>
                   </div>
               
-                  {openIndex === i && (
+                  {openIndex === originalIndex && (
                     <div style={details}>
                       <div style={detailCard}>
                         <span style={detailLabel}>Bestandspatient</span>
