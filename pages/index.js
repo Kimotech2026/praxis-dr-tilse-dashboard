@@ -506,6 +506,7 @@ export default function Home() {
                 <span>Name</span>
                 <span>Anliegen</span>
                 <span>Arzt</span>
+                <span>Status</span>
               </div>
               
               {data
