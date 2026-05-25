@@ -173,8 +173,8 @@ export default function Home() {
         setData(
           [...sheetData].reverse().map((row, index) => ({
             ...row,
-            callId: `${row.Datum}-${row.Uhrzeit}-${row.Name}-${index}`,
-            status: "Neu / Ungelesen"  
+            callId: String(1000000000 + index),
+            status: "Neu / Ungelesen"
           }))
         )
       );
