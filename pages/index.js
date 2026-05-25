@@ -165,10 +165,6 @@ export default function Home() {
   }, []);
 
   useEffect(() => { const saved = JSON.parse(localStorage.getItem("manualContacts") || "[]"); setManualContacts(saved); }, []);
-    if (saved.length) {
-      setContacts(prev => [...prev, ...saved]);
-    }
-  }, []);
   
   useEffect(() => {
     if (!data.length) return;
