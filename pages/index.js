@@ -777,10 +777,7 @@ export default function Home() {
         
                     <button
                       onClick={() => setOpenContactIndex(openContactIndex === i ? null : i)}
-                        c.calls.map(call =>
-                          `${call.Datum} - ${call.Anliegen} - ${call.Zusammenfassung}`
-                        ).join("\n\n")
-                      )}
+                      
                       style={{
                         padding: "6px 10px",
                         borderRadius: 8,
