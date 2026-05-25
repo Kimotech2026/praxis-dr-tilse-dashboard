@@ -680,9 +680,9 @@ export default function Home() {
                         style={selectStyle}
                       >
                         <option>Neu / Ungelesen</option>
+                        <option>Gelesen</option>
                         <option>In Bearbeitung</option>
                         <option>Erledigt</option>
-                        <option>Gelesen</option>
                       </select>
                     </div>
               
