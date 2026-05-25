@@ -776,7 +776,7 @@ export default function Home() {
                     <span>{c.doctor}</span>
                     <span>{c.lastContact}</span>
         
-                    <button onClick={() => setSelectedContact(c)} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #bbf7d0", background: "#ecfdf5", color: "#166534", cursor: "pointer", fontWeight: 600 }}>
+                    <button onClick={() => setSelectedContact(c)} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #bfdbfe", background: "#eff6ff", color: "#1d4ed8", cursor: "pointer", fontWeight: 600 }}>
                       Historie
                     </button>
                         
