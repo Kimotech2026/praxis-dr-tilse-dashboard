@@ -44,6 +44,7 @@ export default function Home() {
   const [pendingPlan, setPendingPlan] = useState(null);
   const [showAddAppointment, setShowAddAppointment] = useState(false);
   const [statusFilter, setStatusFilter] = useState("Alle");
+  const [keepVisibleIds, setKeepVisibleIds] = useState([]);
   const [search, setSearch] = useState("");  
   const [anliegenFilter, setAnliegenFilter] = useState("Alle");
   const [arztFilter, setArztFilter] = useState("Alle");
@@ -389,7 +390,7 @@ export default function Home() {
 
             <div style={tabBar}>
               {["Alle", "Neu / Ungelesen", "In Bearbeitung", "Erledigt", "Gelesen"].map(tab => (
-                <button key={tab} onClick={() => setStatusFilter(tab)} style={statusFilter === tab ? activeTab : tabItem}>
+                <button key={tab} onClick={() => { setKeepVisibleIds([]); setStatusFilter(tab); }} style={statusFilter === tab ? activeTab : tabItem}>
                   {tab}
                 </button>
               ))}
@@ -467,8 +468,9 @@ export default function Home() {
                 .filter((row) => {
                   const statusMatch =
                     statusFilter === "Alle" ||
-                    row.status === statusFilter;
-              
+                    row.status === statusFilter ||
+                    (statusFilter === "Neu / Ungelesen" && keepVisibleIds.includes(row.callId));
+                                
                   const searchMatch =
                     (row.Name || "").toLowerCase().includes(search.toLowerCase()) ||
                     (row.Arzt || "").toLowerCase().includes(search.toLowerCase()) ||
@@ -515,6 +517,10 @@ export default function Home() {
                       setOpenIndex(openIndex === row.callId ? null : row.callId);
               
                       if (row.status === "Neu / Ungelesen") {
+                        if (statusFilter === "Neu / Ungelesen") {
+                          setKeepVisibleIds(prev => [...prev, row.callId]);
+                        }
+                      
                         updateStatus(row.callId, "Gelesen");
                       }
                     }}
