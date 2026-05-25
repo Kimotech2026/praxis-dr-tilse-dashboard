@@ -767,17 +767,7 @@ export default function Home() {
                 })
                 
                 .map((c, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      ...contactRow,
-                      ...(openContactIndex === i && {
-                        background: "#eff6ff",
-                        border: "1px solid #bfdbfe",
-                        borderRadius: 14
-                      })
-                    }}
-                  >
+                  <div key={i} style={contactRow}>
                     <span style={{ fontWeight: 700 }}>{c.name}</span>
                     <span>{c.phone || "-"}</span>
                     <span>{c.birthdate || "-"}</span>
