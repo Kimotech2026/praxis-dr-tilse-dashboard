@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Phone, Users, Calendar, User, CreditCard, Settings, Filter, Shield, Star, Crown } from "lucide-react";
+import { Phone, Users, Calendar, User, CreditCard, Settings, Filter, Shield, Star, Crown, ArrowUpDown } from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -64,6 +64,7 @@ export default function Home() {
   const [contactDoctorFilter, setContactDoctorFilter] = useState("Alle");
   const [contactExistingFilter, setContactExistingFilter] = useState("Alle");
   const [showAddContact, setShowAddContact] = useState(false);
+  const [contactSort, setContactSort] = useState("nameAZ");
   
   const [users, setUsers] = useState([
     {
@@ -694,6 +695,8 @@ export default function Home() {
                   <option value="Sonstige">Sonstige</option>
                 </select>
               </div>
+
+              
         
               <div style={anliegenWrapper}>
                 <Users size={16} style={filterIcon} />
@@ -708,6 +711,16 @@ export default function Home() {
                   <option value="Neupatient">Neupatient</option>
                 </select>
               </div>
+
+              <div style={anliegenWrapper}>
+                <ArrowUpDown size={16} style={filterIcon} />
+                <select value={contactSort} onChange={(e) => setContactSort(e.target.value)} style={filterSelect}>
+                  <option value="nameAZ">Name A-Z</option>
+                  <option value="nameZA">Name Z-A</option>
+                  <option value="newest">Letzter Kontakt zuerst</option>
+                  <option value="oldest">Ältester Kontakt zuerst</option>
+                </select>
+              </div>
             </div>
         
             <div style={box}>
@@ -720,7 +733,19 @@ export default function Home() {
                 <span>Anrufhistorie</span>
               </div>
         
-              {contacts
+              {[...contacts]
+                .sort((a, b) => {
+                  if (contactSort === "nameAZ") return a.name.localeCompare(b.name);
+                  if (contactSort === "nameZA") return b.name.localeCompare(a.name);
+              
+                  const dateA = parseGermanDate(a.lastContact);
+                  const dateB = parseGermanDate(b.lastContact);
+              
+                  if (contactSort === "newest") return dateB - dateA;
+                  if (contactSort === "oldest") return dateA - dateB;
+              
+                  return 0;
+                })
                 .filter(c => {
                   const searchMatch = c.name.toLowerCase().includes(contactSearch.toLowerCase());
         
@@ -736,6 +761,7 @@ export default function Home() {
         
                   return searchMatch && doctorMatch && existingMatch;
                 })
+                
                 .map((c, i) => (
                   <div key={i} style={contactRow}>
                     <span style={{ fontWeight: 700 }}>{c.name}</span>
