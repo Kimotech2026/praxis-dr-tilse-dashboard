@@ -67,6 +67,12 @@ export default function Home() {
   const [contactSort, setContactSort] = useState("nameAZ");
   const [openContactIndex, setOpenContactIndex] = useState(null);
   const [selectedContact, setSelectedContact] = useState(null);
+  const [manualContacts, setManualContacts] = useState([]);
+const [newContactName, setNewContactName] = useState("");
+const [newContactPhone, setNewContactPhone] = useState("");
+const [newContactBirthdate, setNewContactBirthdate] = useState("");
+const [newContactExisting, setNewContactExisting] = useState("Bestandspatient");
+const [newContactDoctor, setNewContactDoctor] = useState("Frau Dr. Tilse");
   
   const [users, setUsers] = useState([
     {
@@ -350,6 +356,24 @@ export default function Home() {
     setNewEmployeeRole("Mitarbeiterin");
     setNewEmployeeAccessLevel("Eingeschränkt");
     setShowAddEmployee(false);
+  };
+
+  const handleAddContact = () => {
+    if (!newContactName || !newContactPhone) {
+      alert("Bitte Name und Telefonnummer ausfüllen.");
+      return;
+    }
+  
+    const newContact = { name: newContactName, phone: newContactPhone, birthdate: newContactBirthdate, existing: newContactExisting, doctor: newContactDoctor, lastContact: "-", calls: [] };
+  
+    setManualContacts(prev => [...prev, newContact]);
+  
+    setNewContactName("");
+    setNewContactPhone("");
+    setNewContactBirthdate("");
+    setNewContactExisting("Bestandspatient");
+    setNewContactDoctor("Frau Dr. Tilse");
+    setShowAddContact(false);
   };
   
   if (!isLoggedIn) {
@@ -732,7 +756,7 @@ export default function Home() {
                 <span>Anrufhistorie</span>
               </div>
         
-              {[...contacts]
+              {[...manualContacts, ...contacts]
                 .sort((a, b) => {
                   if (contactSort === "nameAZ") return a.name.localeCompare(b.name);
                   if (contactSort === "nameZA") return b.name.localeCompare(a.name);
@@ -1333,16 +1357,16 @@ export default function Home() {
               </div>
         
               <div style={formGrid}>
-                <input placeholder="Name" style={input} />
-                <input placeholder="Telefonnummer" style={input} />
-                <input placeholder="Geburtsdatum" style={input} />
+                <input placeholder="Name" value={newContactName} onChange={(e) => setNewContactName(e.target.value)} style={input} />
+                <input placeholder="Telefonnummer" value={newContactPhone} onChange={(e) => setNewContactPhone(e.target.value)} style={input} />
+                <input placeholder="TT.MM.JJJJ" value={newContactBirthdate} onChange={(e) => setNewContactBirthdate(e.target.value.replace(/\D/g, "").replace(/(\d{2})(\d)/, "$1.$2").replace(/(\d{2})\.(\d{2})(\d)/, "$1.$2.$3").slice(0, 10))} style={input} />
         
-                <select style={input}>
+                <select value={newContactExisting} onChange={(e) => setNewContactExisting(e.target.value)} style={input}>
                   <option>Bestandspatient</option>
                   <option>Neupatient</option>
                 </select>
         
-                <select style={input}>
+                <select value={newContactDoctor} onChange={(e) => setNewContactDoctor(e.target.value)} style={input}>
                   <option>Frau Dr. Tilse</option>
                   <option>Herr Dr. Tilse</option>
                 </select>
@@ -1350,7 +1374,7 @@ export default function Home() {
         
               <div style={modalActions}>
                 <button onClick={() => setShowAddContact(false)} style={cancelButton}>Abbrechen</button>
-                <button onClick={() => setShowAddContact(false)} style={addButton}>Speichern</button>
+                <button onClick={handleAddContact} style={addButton}>Speichern</button>
               </div>
             </div>
           </div>
