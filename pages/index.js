@@ -660,11 +660,12 @@ export default function Home() {
               <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
                 <User size={16} style={{ position: "absolute", left: 10, color: contactDoctorFilter !== "Alle" ? "#2563eb" : "#64748b" }} />
                 <select
-                  value={contactDoctorFilter}
-                  onChange={(e) => setContactDoctorFilter(e.target.value)}
+                  value={contactDoctorFilter === "Alle" ? "" : contactDoctorFilter}
+                  onChange={(e) => setContactDoctorFilter(e.target.value || "Alle")}
                   style={contactDoctorFilter !== "Alle" ? filterActive : filterSelect}
                 >
-                  <option value="Alle">Ärzte filtern</option>
+                  <option value="" disabled hidden>Ärzte filtern</option>
+                  <option value="Alle">Alle</option>
                   <option value="Herr Dr. Tilse">Herr Dr. Tilse</option>
                   <option value="Frau Dr. Tilse">Frau Dr. Tilse</option>
                   <option value="Sonstige">Sonstige</option>
@@ -674,11 +675,12 @@ export default function Home() {
               <div style={anliegenWrapper}>
                 <Users size={16} style={filterIcon} />
                 <select
-                  value={contactExistingFilter}
-                  onChange={(e) => setContactExistingFilter(e.target.value)}
+                  value={contactExistingFilter === "Alle" ? "" : contactExistingFilter}
+                  onChange={(e) => setContactExistingFilter(e.target.value || "Alle")}
                   style={contactExistingFilter !== "Alle" ? filterActive : filterSelect}
                 >
-                  <option value="Alle">Patientenstatus</option>
+                  <option value="" disabled hidden>Patientenstatus</option>
+                  <option value="Alle">Alle</option>
                   <option value="Bestandspatient">Bestandspatient</option>
                   <option value="Neupatient">Neupatient</option>
                 </select>
