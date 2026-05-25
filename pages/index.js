@@ -59,12 +59,7 @@ export default function Home() {
   const [appointmentTime, setAppointmentTime] = useState("");
   const [appointmentDoctor, setAppointmentDoctor] = useState(activeCalendar);
   const [appointmentNote, setAppointmentNote] = useState("");
-
-  const [contacts, setContacts] = useState([
-    { name: "Max Mustermann", existing: "Bestandspatient", doctor: "Herr Dr. Tilse", lastContact: "12.05.2026", status: "Aktiv" },
-    { name: "Anna Müller", existing: "Neupatient", doctor: "Frau Dr. Tilse", lastContact: "10.05.2026", status: "Offen" }
-  ]);
-  
+  const [contacts, setContacts] = useState([]);
   const [contactSearch, setContactSearch] = useState("");
   const [contactDoctorFilter, setContactDoctorFilter] = useState("Alle");
   const [contactExistingFilter, setContactExistingFilter] = useState("Alle");
@@ -160,6 +155,51 @@ export default function Home() {
         setData(calls);
       });
   }, []);
+
+  useEffect(() => {
+    if (!data.length) return;
+  
+    const grouped = {};
+  
+    data.forEach(call => {
+      const phone = call.Telefonnummer || "Unbekannt";
+  
+      if (!grouped[phone]) {
+        grouped[phone] = {
+          name: call.Name,
+          phone,
+          existing: call.Bestandspatient,
+          doctor: call.Arzt,
+          calls: []
+        };
+      }
+  
+      grouped[phone].calls.push(call);
+    });
+  
+    const contactsArray = Object.values(grouped).map(contact => {
+      const sortedCalls = contact.calls.sort((a, b) => {
+        const dateA = parseGermanDate(a.Datum);
+        const dateB = parseGermanDate(b.Datum);
+        return dateB - dateA;
+      });
+  
+      return {
+        name: contact.name,
+        existing: contact.existing,
+        doctor: contact.doctor,
+        lastContact: sortedCalls[0]?.Datum,
+        calls: sortedCalls
+      };
+    });
+  
+    // alphabetisch sortieren
+    contactsArray.sort((a, b) =>
+      a.name.localeCompare(b.name)
+    );
+  
+    setContacts(contactsArray);
+  }, [data]);
 
   const updateStatus = (callId, value) => {
     setData(prev => {
@@ -461,7 +501,6 @@ export default function Home() {
                 <span>Name</span>
                 <span>Anliegen</span>
                 <span>Arzt</span>
-                <span>Status</span>
               </div>
               
               {data
@@ -667,7 +706,23 @@ export default function Home() {
                     <span>{c.existing}</span>
                     <span>{c.doctor}</span>
                     <span>{c.lastContact}</span>
-                    <span>{c.status}</span>
+                  
+                    <button
+                      onClick={() => alert(
+                        c.calls.map(call =>
+                          `${call.Datum} - ${call.Anliegen} - ${call.Zusammenfassung}`
+                        ).join("\n\n")
+                      )}
+                      style={{
+                        padding: "6px 10px",
+                        borderRadius: 8,
+                        border: "1px solid #dbe1ea",
+                        background: "#f8fafc",
+                        cursor: "pointer"
+                      }}
+                    >
+                      Historie
+                    </button>
                   </div>
               ))}
             </div>
