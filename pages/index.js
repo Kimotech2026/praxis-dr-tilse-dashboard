@@ -166,7 +166,7 @@ export default function Home() {
       if (!grouped[phone]) {
         grouped[phone] = {
           name: call.Name,
-          phone,
+          phone: phone,
           existing: call.Bestandspatient,
           doctor: call.Arzt,
           calls: []
@@ -682,6 +682,7 @@ export default function Home() {
             <div style={box}>
               <div style={contactHeaderRow}>
                 <span>Name</span>
+                <span>Rufnummer</span>
                 <span>Bestandspatient</span>
                 <span>Arzt</span>
                 <span>Letzter Kontakt</span>
@@ -706,7 +707,8 @@ export default function Home() {
                 })
                 .map((c, i) => (
                   <div key={i} style={contactRow}>
-                    <span>{c.name}</span>
+                    <span style={{ fontWeight: 700 }}>{c.name}</span>
+                    <span>{c.phone || "-"}</span>
                     <span>{c.existing}</span>
                     <span>{c.doctor}</span>
                     <span>{c.lastContact}</span>
