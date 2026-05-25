@@ -161,7 +161,12 @@ export default function Home() {
     const grouped = {};
   
     data.forEach(call => {
-      const phone = call.Telefonnummer || "Unbekannt";
+      const phone =
+        call.Telefonnummer ||
+        call.Rufnummer ||
+        call["Telefonnummer "] ||
+        call["Rufnummer "] ||
+        "Unbekannt";
   
       if (!grouped[phone]) {
         grouped[phone] = {
