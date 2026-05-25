@@ -546,7 +546,7 @@ export default function Home() {
                     style={{
                       ...(openIndex === row.callId ? callCardOpen : callCard),
                       ...(row.status === "Neu / Ungelesen" && {
-                        borderLeft: "4px solid #2563eb"
+                        borderLeft: "4px solid #2563eb",
                         background: "#eff6ff"
                       })
                     }}
