@@ -477,7 +477,15 @@ export default function Home() {
                         background: "#eff6ff",
                         borderLeft: "4px solid #2563eb"
                       })
-                    }} onMouseEnter={(e) => { if (openIndex !== i) e.currentTarget.style.background = "#f8fafc"; }} onMouseLeave={(e) => { if (openIndex !== i) { e.currentTarget.style.background = "white"; e.currentTarget.style.borderBottom = "1px solid #e5e7eb"; } }} onClick={() => setOpenIndex(openIndex === i ? null : i)}>                  <div style={callTop}>
+                    }} onMouseEnter={(e) => { if (openIndex !== i) e.currentTarget.style.background = "#f8fafc"; }} onMouseLeave={(e) => { if (openIndex !== i) { e.currentTarget.style.background = "white"; e.currentTarget.style.borderBottom = "1px solid #e5e7eb"; } }} 
+                    onClick={() => {
+                      setOpenIndex(openIndex === i ? null : i);
+                    
+                      if ((statusMap[i] || "Neu / Ungelesen") === "Neu / Ungelesen") {
+                        updateStatus(i, "Gelesen");
+                      }
+                    }}>                  
+                      <div style={callTop}>
                     <div>
                       <strong>{row.Uhrzeit || "-"}</strong>
                       <div style={dateText}>{row.Datum || "-"}</div>
