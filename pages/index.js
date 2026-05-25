@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Phone, Users, Calendar, User, CreditCard, Settings, Filter, Shield, Star, Crown, ArrowUpDown } from "lucide-react";
+import { Phone, Users, Calendar, User, CreditCard, Settings, Filter, Shield, Star, Crown, ArrowUpDown, ChevronDown, ChevronUp } from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -66,7 +66,6 @@ export default function Home() {
   const [showAddContact, setShowAddContact] = useState(false);
   const [contactSort, setContactSort] = useState("nameAZ");
   const [openContactIndex, setOpenContactIndex] = useState(null);
-  const [openHistoryIndex, setOpenHistoryIndex] = useState(null);
   
   const [users, setUsers] = useState([
     {
@@ -776,40 +775,48 @@ export default function Home() {
                     <span>{c.doctor}</span>
                     <span>{c.lastContact}</span>
         
-                    <button
-                      onClick={() => setOpenContactIndex(openContactIndex === i ? null : i)}
-                      
-                      style={{
-                        padding: "6px 10px",
-                        borderRadius: 8,
-                        border: "1px solid #dbe1ea",
-                        background: "#f8fafc",
-                        cursor: "pointer"
-                      }}
-                    >
-                      Historie
+                    <button onClick={() => setOpenContactIndex(openContactIndex === i ? null : i)} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #dbe1ea", background: openContactIndex === i ? "#eff6ff" : "#f8fafc", color: openContactIndex === i ? "#2563eb" : "#334155", cursor: "pointer", fontWeight: 600, display: "flex", alignItems: "center", gap: 6 }}>
+                      Historie {openContactIndex === i ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                     </button>
 
                         {openContactIndex === i && (
                           <div style={contactHistoryBox}>
                             {c.calls.map((call, index) => (
-                              <div key={index} style={contactHistoryItem} onClick={() => setOpenHistoryIndex(openHistoryIndex === index ? null : index)}>
-                                <strong>{call.Datum || "-"} · {call.Uhrzeit || "-"}</strong>
-                        
-                                <div style={historyBadges}>
-                                  {(call.Anliegen || "").split(",").map(item => item.trim()).filter(Boolean).sort((a, b) => a.localeCompare(b)).map((item, i) => (
-                                    <span key={i} style={{ ...badge, background: item === "Termin" ? "#e0f2fe" : item === "Rezept" ? "#dcfce7" : item === "Attest" ? "#fef9c3" : "#e5e7eb", color: item === "Termin" ? "#0369a1" : item === "Rezept" ? "#166534" : item === "Attest" ? "#854d0e" : "#374151" }}>
-                                      {item}
-                                    </span>
-                                  ))}
+                              <div key={index} style={contactHistoryItem}>
+                                <div style={historyTopRow}>
+                                  <strong>{call.Datum || "-"} · {call.Uhrzeit || "-"}</strong>
                                 </div>
                         
-                                {openHistoryIndex === index && (
-                                  <div style={historySummaryBox}>
-                                    <span style={detailLabel}>Zusammenfassung</span>
-                                    <p style={{ margin: 0 }}>{call.Zusammenfassung || "-"}</p>
-                                  </div>
-                                )}
+                                <div style={historyBadges}>
+                                  {(call.Anliegen || "")
+                                    .split(",")
+                                    .map(item => item.trim())
+                                    .filter(Boolean)
+                                    .sort((a, b) => a.localeCompare(b))
+                                    .map((item, i) => (
+                                      <span
+                                        key={i}
+                                        style={{
+                                          ...badge,
+                                          background:
+                                            item === "Termin" ? "#e0f2fe" :
+                                            item === "Rezept" ? "#dcfce7" :
+                                            item === "Attest" ? "#fef9c3" : "#e5e7eb",
+                                          color:
+                                            item === "Termin" ? "#0369a1" :
+                                            item === "Rezept" ? "#166534" :
+                                            item === "Attest" ? "#854d0e" : "#374151",
+                                        }}
+                                      >
+                                        {item}
+                                      </span>
+                                    ))}
+                                </div>
+                        
+                                <div style={historySummaryBox}>
+                                  <span style={detailLabel}>Zusammenfassung</span>
+                                  <p style={{ margin: 0 }}>{call.Zusammenfassung || "-"}</p>
+                                </div>
                               </div>
                             ))}
                           </div>
