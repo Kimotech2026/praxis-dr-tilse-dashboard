@@ -1355,7 +1355,7 @@ export default function Home() {
               <div style={historySection}>
                 <p style={historySectionTitle}>Anrufhistorie</p>
         
-                <div style={contactHistoryBox}>
+                <div style={historyList}>
                   {selectedContact.calls.map((call, index) => (
                     <div key={index} style={contactHistoryItem}>
                       <strong>{call.Datum || "-"} · {call.Uhrzeit || "-"}</strong>
@@ -1506,3 +1506,4 @@ const patientSectionTitle = { margin: "0 0 12px", fontSize: 13, fontWeight: 600,
 const historySection = { border: "1px solid #dbeafe", borderRadius: 16, padding: 16, marginTop: 16, background: "#f8fafc" };
 const historySectionTitle = { margin: "0 0 12px", fontSize: 13, fontWeight: 600, color: "#2563eb", textTransform: "uppercase", letterSpacing: 0.5 };
 const patientDataGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 };
+const historyList = { display: "flex", flexDirection: "column", gap: 14, marginTop: 14 };
