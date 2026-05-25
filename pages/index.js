@@ -127,6 +127,25 @@ export default function Home() {
     `;
     document.head.appendChild(style);
   }, []);
+
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key !== "Escape") return;
+  
+      setConfirmAction(null);
+      setSelectedContact(null);
+      setShowAddContact(false);
+      setShowAddAppointment(false);
+      setShowAddEmployee(false);
+      setPendingPlan(null);
+    };
+  
+    window.addEventListener("keydown", handleEsc);
+  
+    return () => {
+      window.removeEventListener("keydown", handleEsc);
+    };
+  }, []);
   
   const parseGermanDate = (dateString) => { if (!dateString) return null; const [day, month, year] = dateString.split("."); return new Date(Number(year), Number(month) - 1, Number(day)); };
   const setQuickRange = (type) => {
