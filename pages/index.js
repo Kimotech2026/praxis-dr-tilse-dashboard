@@ -1341,9 +1341,25 @@ export default function Home() {
                 <button onClick={() => setSelectedContact(null)} style={closeButton}>×</button>
               </div>
 
-              <h3 style={{ margin: "10px 0 6px", fontSize: 16 }}>Patientenakte</h3>
-          
-              <div style={details}>
+              <div style={{
+                border: "1px solid #e5e7eb",
+                borderRadius: 16,
+                padding: 16,
+                marginTop: 10,
+                background: "#f8fafc"
+              }}>
+                <p style={{
+                  margin: "0 0 12px",
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: "#64748b",
+                  textTransform: "uppercase",
+                  letterSpacing: 0.5
+                }}>
+                  Daten
+                </p>
+              
+                <div style={details}>
                 <div style={detailCard}>
                   <span style={detailLabel}>Telefonnummer</span>
                   <strong>{selectedContact.phone || "-"}</strong>
@@ -1365,9 +1381,25 @@ export default function Home() {
                 </div>
               </div>
 
-              <h3 style={{ margin: "18px 0 6px", fontSize: 16 }}>Anrufhistorie</h3>
-          
-              <div style={contactHistoryBox}>
+              <div style={{
+                border: "1px solid #dbeafe",
+                borderRadius: 16,
+                padding: 16,
+                marginTop: 16,
+                background: "#f8fafc"
+              }}>
+                <p style={{
+                  margin: "0 0 12px",
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: "#2563eb",
+                  textTransform: "uppercase",
+                  letterSpacing: 0.5
+                }}>
+                  Anrufhistorie
+                </p>
+              
+                <div style={contactHistoryBox}>
                 {selectedContact.calls.map((call, index) => (
                   <div key={index} style={contactHistoryItem}>
                     <strong>{call.Datum || "-"} · {call.Uhrzeit || "-"}</strong>
