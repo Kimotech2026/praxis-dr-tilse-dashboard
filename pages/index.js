@@ -1324,6 +1324,38 @@ export default function Home() {
           </div>
         )}
 
+        {showAddContact && (
+          <div style={modalOverlay}>
+            <div style={modal}>
+              <div style={modalHeader}>
+                <h2 style={{ margin: 0 }}>Kontakt hinzufügen</h2>
+                <button onClick={() => setShowAddContact(false)} style={closeButton}>×</button>
+              </div>
+        
+              <div style={formGrid}>
+                <input placeholder="Name" style={input} />
+                <input placeholder="Telefonnummer" style={input} />
+                <input placeholder="Geburtsdatum" style={input} />
+        
+                <select style={input}>
+                  <option>Bestandspatient</option>
+                  <option>Neupatient</option>
+                </select>
+        
+                <select style={input}>
+                  <option>Frau Dr. Tilse</option>
+                  <option>Herr Dr. Tilse</option>
+                </select>
+              </div>
+        
+              <div style={modalActions}>
+                <button onClick={() => setShowAddContact(false)} style={cancelButton}>Abbrechen</button>
+                <button onClick={() => setShowAddContact(false)} style={addButton}>Speichern</button>
+              </div>
+            </div>
+          </div>
+        )}
+
         {selectedContact && (
           <div style={modalOverlay}>
             <div style={{ ...modal, width: 760, maxHeight: "85vh", overflowY: "auto" }}>
