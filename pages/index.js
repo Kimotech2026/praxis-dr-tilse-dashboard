@@ -148,7 +148,7 @@ export default function Home() {
         const savedStatuses = JSON.parse(localStorage.getItem("callStatuses") || "{}");
   
         const calls = [...sheetData].reverse().map((row, index) => {
-          const callId = String(1000000000 + index);
+          const callId = btoa(row.Name + row.Datum + row.Uhrzeit);
   
           return {
             ...row,
