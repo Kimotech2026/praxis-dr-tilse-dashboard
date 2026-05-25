@@ -1382,11 +1382,7 @@ export default function Home() {
                   <h2 style={{ margin: "2px 0 0", fontSize: 30, fontWeight: 800 }}>{selectedContact.name}</h2>
                 </div>
         
-                <div style={{ display: "flex", gap: 8 }}>
-                  <button onClick={() => { if (!setConfirmAction("Kontakt wirklich bearbeiten?")) return; const manualIndex = manualContacts.findIndex(c => String(c.phone).replace(/\s/g, "") === String(selectedContact.phone).replace(/\s/g, "")); setEditingContactIndex(manualIndex); setNewContactName(selectedContact.name); setNewContactPhone(selectedContact.phone); setNewContactBirthdate(selectedContact.birthdate); setNewContactExisting(selectedContact.existing); setNewContactDoctor(selectedContact.doctor); setSelectedContact(null); setShowAddContact(true); }} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #d1d5db", background: "white", cursor: "pointer", fontWeight: 400 }}>Bearbeiten</button>
-                  <button onClick={() => { if (!setConfirmAction("Kontakt wirklich löschen? Diese Daten gehen verloren.")) return; const updated = manualContacts.filter(c => String(c.phone).replace(/\s/g, "") !== String(selectedContact.phone).replace(/\s/g, "")); setManualContacts(updated); localStorage.setItem("manualContacts", JSON.stringify(updated)); setSelectedContact(null); }} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #fecaca", background: "#fef2f2", color: "#dc2626", cursor: "pointer", fontWeight: 400 }}>Löschen</button>
-                  <button onClick={() => setSelectedContact(null)} style={closeButton}>×</button>
-                </div>
+                <button onClick={() => setSelectedContact(null)} style={closeButton}>×</button>
               </div>
         
               <div style={patientSection}>
@@ -1407,15 +1403,6 @@ export default function Home() {
                   {(selectedContact.calls || []).map((call, index) => (
                     <div key={index} style={contactHistoryItem}>
                       <strong>{call.Datum || "-"} · {call.Uhrzeit || "-"}</strong>
-        
-                      <div style={historyBadges}>
-                        {(call.Anliegen || "").split(",").map(item => item.trim()).filter(Boolean).sort((a, b) => a.localeCompare(b)).map((item, i) => (
-                          <span key={i} style={{ ...badge, background: item === "Termin" ? "#e0f2fe" : item === "Rezept" ? "#dcfce7" : item === "Attest" ? "#fef9c3" : "#e5e7eb", color: item === "Termin" ? "#0369a1" : item === "Rezept" ? "#166534" : item === "Attest" ? "#854d0e" : "#374151", border: item === "Termin" ? "1px solid #7dd3fc" : item === "Rezept" ? "1px solid #86efac" : item === "Attest" ? "1px solid #fde047" : "1px solid #d1d5db" }}>
-                            {item}
-                          </span>
-                        ))}
-                      </div>
-        
                       <div style={historySummaryBox}>
                         <span style={detailLabel}>Zusammenfassung</span>
                         <p style={{ margin: 0 }}>{call.Zusammenfassung || "-"}</p>
@@ -1423,6 +1410,16 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
+              </div>
+        
+              <div style={{ display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 20 }}>
+                <button style={{ padding: "8px 12px", borderRadius: 8, border: "1px solid #d1d5db", background: "white", cursor: "pointer", fontWeight: 400 }}>
+                  Bearbeiten
+                </button>
+        
+                <button style={{ padding: "8px 12px", borderRadius: 8, border: "1px solid #fecaca", background: "#fef2f2", color: "#dc2626", cursor: "pointer", fontWeight: 400 }}>
+                  Löschen
+                </button>
               </div>
             </div>
           </div>
