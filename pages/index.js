@@ -575,17 +575,22 @@ export default function Home() {
                           <span style={detailLabel}>Bestandspatient</span>
                           <strong>{row.Bestandspatient || "-"}</strong>
                         </div>
-              
+                        
                         <div style={detailCard}>
                           <span style={detailLabel}>Geburtsdatum</span>
                           <strong>{row.Geburtsdatum || "-"}</strong>
                         </div>
-              
+                        
+                        <div style={detailCard}>
+                          <span style={detailLabel}>Telefonnummer</span>
+                          <strong>{row.Telefonnummer || "-"}</strong>
+                        </div>
+                        
                         <div style={detailCard}>
                           <span style={detailLabel}>Anruf-ID</span>
                           <strong>{row.callId}</strong>
                         </div>
-              
+                        
                         <div style={detailCardWide}>
                           <span style={detailLabel}>Zusammenfassung</span>
                           <p>{row.Zusammenfassung || "-"}</p>
