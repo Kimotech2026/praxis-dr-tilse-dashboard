@@ -63,7 +63,6 @@ export default function Home() {
   const [contactSearch, setContactSearch] = useState("");
   const [contactDoctorFilter, setContactDoctorFilter] = useState("Alle");
   const [contactExistingFilter, setContactExistingFilter] = useState("Alle");
-  const [contactStatusFilter, setContactStatusFilter] = useState("Alle");
   const [showAddContact, setShowAddContact] = useState(false);
   
   const [users, setUsers] = useState([
@@ -652,24 +651,32 @@ export default function Home() {
             <div style={filterRow}>
               <input placeholder="Kontakt suchen..." value={contactSearch} onChange={(e) => setContactSearch(e.target.value)} style={searchInput} />
         
-              <select value={contactDoctorFilter} onChange={(e) => setContactDoctorFilter(e.target.value)} style={filterSelect}>
-                <option>Alle</option>
-                <option>Herr Dr. Tilse</option>
-                <option>Frau Dr. Tilse</option>
-              </select>
+              <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+                <User size={16} style={{ position: "absolute", left: 10, color: contactDoctorFilter !== "Alle" ? "#2563eb" : "#64748b" }} />
+                <select
+                  value={contactDoctorFilter}
+                  onChange={(e) => setContactDoctorFilter(e.target.value)}
+                  style={contactDoctorFilter !== "Alle" ? filterActive : filterSelect}
+                >
+                  <option value="Alle">Arzt filtern</option>
+                  <option value="Herr Dr. Tilse">Herr Dr. Tilse</option>
+                  <option value="Frau Dr. Tilse">Frau Dr. Tilse</option>
+                  <option value="Sonstige">Sonstige</option>
+                </select>
+              </div>
         
-              <select value={contactExistingFilter} onChange={(e) => setContactExistingFilter(e.target.value)} style={filterSelect}>
-                <option>Alle</option>
-                <option>Bestandspatient</option>
-                <option>Neupatient</option>
-              </select>
-        
-              <select value={contactStatusFilter} onChange={(e) => setContactStatusFilter(e.target.value)} style={filterSelect}>
-                <option>Alle</option>
-                <option>Aktiv</option>
-                <option>Offen</option>
-                <option>Erledigt</option>
-              </select>
+              <div style={anliegenWrapper}>
+                <Users size={16} style={filterIcon} />
+                <select
+                  value={contactExistingFilter}
+                  onChange={(e) => setContactExistingFilter(e.target.value)}
+                  style={contactExistingFilter !== "Alle" ? filterActive : filterSelect}
+                >
+                  <option value="Alle">Patientenstatus</option>
+                  <option value="Bestandspatient">Bestandspatient</option>
+                  <option value="Neupatient">Neupatient</option>
+                </select>
+              </div>
             </div>
         
             <div style={box}>
@@ -678,27 +685,23 @@ export default function Home() {
                 <span>Bestandspatient</span>
                 <span>Arzt</span>
                 <span>Letzter Kontakt</span>
-                <span>Status</span>
+                <span>Anrufhistorie</span>
               </div>
-
+        
               {contacts
                 .filter(c => {
-                  const searchMatch =
-                    c.name.toLowerCase().includes(contactSearch.toLowerCase());
-              
+                  const searchMatch = c.name.toLowerCase().includes(contactSearch.toLowerCase());
+        
                   const doctorMatch =
                     contactDoctorFilter === "Alle" ||
-                    c.doctor === contactDoctorFilter;
-              
+                    c.doctor === contactDoctorFilter ||
+                    (contactDoctorFilter === "Sonstige" && (!c.doctor || c.doctor === "-"));
+        
                   const existingMatch =
                     contactExistingFilter === "Alle" ||
                     c.existing === contactExistingFilter;
-              
-                  const statusMatch =
-                    contactStatusFilter === "Alle" ||
-                    c.status === contactStatusFilter;
-              
-                  return searchMatch && doctorMatch && existingMatch && statusMatch;
+        
+                  return searchMatch && doctorMatch && existingMatch;
                 })
                 .map((c, i) => (
                   <div key={i} style={contactRow}>
@@ -706,7 +709,7 @@ export default function Home() {
                     <span>{c.existing}</span>
                     <span>{c.doctor}</span>
                     <span>{c.lastContact}</span>
-                  
+        
                     <button
                       onClick={() => alert(
                         c.calls.map(call =>
