@@ -730,7 +730,7 @@ export default function Home() {
                 <span>Name</span>
                 <span>Telefonnummer</span>
                 <span>Geburtsdatum</span>
-                <span>Bestandspatient</span>
+                <span>Patientenstatus</span>
                 <span>Arzt</span>
                 <span>Letzter Kontakt</span>
                 <span>Anrufhistorie</span>
