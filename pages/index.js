@@ -434,8 +434,8 @@ export default function Home() {
               </div>
               
               {data
-                .filter((row) => {
-                  const originalIndex = data.indexOf(row);
+                .map((row, originalIndex) => ({ row, originalIndex }))
+                .filter(({ row, originalIndex }) => {
                   
                   const statusMatch =
                     statusFilter === "Alle" ||
@@ -470,9 +470,7 @@ export default function Home() {
                 
                   return statusMatch && searchMatch && anliegenMatch && arztMatch && dateMatch;
                 })
-                .map((row) => {
-                  const originalIndex = data.indexOf(row);
-                
+                .map(({ row, originalIndex }) => {            
                   return (
                     <div
                       key={originalIndex}
