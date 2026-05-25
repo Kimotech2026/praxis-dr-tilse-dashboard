@@ -1650,7 +1650,6 @@ const patientSectionTitle = { margin: "0 0 12px", fontSize: 13, fontWeight: 600,
 const historySection = { border: "1px solid #dbeafe", borderRadius: 16, padding: 16, marginTop: 16, background: "#f8fafc" };
 const historySectionTitle = { margin: "0 0 12px", fontSize: 13, fontWeight: 600, color: "#2563eb", textTransform: "uppercase", letterSpacing: 0.5 };
 const patientDataGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 };
-const historyList = { display: "flex", flexDirection: "column", gap: 14, marginTop: 14 };
 const sidebarUnreadBadge = { position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)", background: "#dc2626", color: "white", borderRadius: 999, minWidth: 24, height: 24, padding: "0 7px", fontSize: 13, fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 10px rgba(220,38,38,0.35)" };
 const contactAddGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, alignItems: "end" };
 const deleteButton = { padding: "10px 14px", borderRadius: 10, border: "none", background: "#dc2626", color: "white", cursor: "pointer", fontWeight: 500 };
