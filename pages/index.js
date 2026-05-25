@@ -66,6 +66,7 @@ export default function Home() {
   const [showAddContact, setShowAddContact] = useState(false);
   const [contactSort, setContactSort] = useState("nameAZ");
   const [openContactIndex, setOpenContactIndex] = useState(null);
+  const [selectedContact, setSelectedContact] = useState(null);
   
   const [users, setUsers] = useState([
     {
@@ -775,52 +776,9 @@ export default function Home() {
                     <span>{c.doctor}</span>
                     <span>{c.lastContact}</span>
         
-                    <button onClick={() => setOpenContactIndex(openContactIndex === i ? null : i)} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #dbe1ea", background: openContactIndex === i ? "#eff6ff" : "#f8fafc", color: openContactIndex === i ? "#2563eb" : "#334155", cursor: "pointer", fontWeight: 600, display: "flex", alignItems: "center", gap: 6 }}>
-                      Historie {openContactIndex === i ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                    <button onClick={() => setSelectedContact(c)} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #dbe1ea", background: "#f8fafc", color: "#334155", cursor: "pointer", fontWeight: 600 }}>
+                      Historie
                     </button>
-
-                        {openContactIndex === i && (
-                          <div style={contactHistoryBox}>
-                            {c.calls.map((call, index) => (
-                              <div key={index} style={contactHistoryItem}>
-                                <div style={historyTopRow}>
-                                  <strong>{call.Datum || "-"} · {call.Uhrzeit || "-"}</strong>
-                                </div>
-                        
-                                <div style={historyBadges}>
-                                  {(call.Anliegen || "")
-                                    .split(",")
-                                    .map(item => item.trim())
-                                    .filter(Boolean)
-                                    .sort((a, b) => a.localeCompare(b))
-                                    .map((item, i) => (
-                                      <span
-                                        key={i}
-                                        style={{
-                                          ...badge,
-                                          background:
-                                            item === "Termin" ? "#e0f2fe" :
-                                            item === "Rezept" ? "#dcfce7" :
-                                            item === "Attest" ? "#fef9c3" : "#e5e7eb",
-                                          color:
-                                            item === "Termin" ? "#0369a1" :
-                                            item === "Rezept" ? "#166534" :
-                                            item === "Attest" ? "#854d0e" : "#374151",
-                                        }}
-                                      >
-                                        {item}
-                                      </span>
-                                    ))}
-                                </div>
-                        
-                                <div style={historySummaryBox}>
-                                  <span style={detailLabel}>Zusammenfassung</span>
-                                  <p style={{ margin: 0 }}>{call.Zusammenfassung || "-"}</p>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        )}
                         
                   </div>
               ))}
@@ -1371,6 +1329,63 @@ export default function Home() {
             </div>
           </div>
         )}
+
+        {selectedContact && (
+          <div style={modalOverlay}>
+            <div style={{ ...modal, width: 760, maxHeight: "85vh", overflowY: "auto" }}>
+              <div style={modalHeader}>
+                <div>
+                  <h2 style={{ margin: 0 }}>{selectedContact.name}</h2>
+                  <p style={modalSubtext}>Patientenakte und Anrufhistorie</p>
+                </div>
+                <button onClick={() => setSelectedContact(null)} style={closeButton}>×</button>
+              </div>
+        
+              <div style={details}>
+                <div style={detailCard}>
+                  <span style={detailLabel}>Telefonnummer</span>
+                  <strong>{selectedContact.phone || "-"}</strong>
+                </div>
+        
+                <div style={detailCard}>
+                  <span style={detailLabel}>Geburtsdatum</span>
+                  <strong>{selectedContact.birthdate || "-"}</strong>
+                </div>
+        
+                <div style={detailCard}>
+                  <span style={detailLabel}>Patientenstatus</span>
+                  <strong>{selectedContact.existing || "-"}</strong>
+                </div>
+        
+                <div style={detailCard}>
+                  <span style={detailLabel}>Letzter Kontakt</span>
+                  <strong>{selectedContact.lastContact || "-"}</strong>
+                </div>
+              </div>
+        
+              <div style={contactHistoryBox}>
+                {selectedContact.calls.map((call, index) => (
+                  <div key={index} style={contactHistoryItem}>
+                    <strong>{call.Datum || "-"} · {call.Uhrzeit || "-"}</strong>
+        
+                    <div style={historyBadges}>
+                      {(call.Anliegen || "").split(",").map(item => item.trim()).filter(Boolean).sort((a, b) => a.localeCompare(b)).map((item, i) => (
+                        <span key={i} style={{ ...badge, background: item === "Termin" ? "#e0f2fe" : item === "Rezept" ? "#dcfce7" : item === "Attest" ? "#fef9c3" : "#e5e7eb", color: item === "Termin" ? "#0369a1" : item === "Rezept" ? "#166534" : item === "Attest" ? "#854d0e" : "#374151" }}>
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+        
+                    <div style={historySummaryBox}>
+                      <span style={detailLabel}>Zusammenfassung</span>
+                      <p style={{ margin: 0 }}>{call.Zusammenfassung || "-"}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
           
         <div style={{ ...toast, ...(showToast ? {} : toastHidden) }}>
           {toastMessage}
@@ -1421,7 +1436,7 @@ const quickDateButton = { padding: "10px 12px", borderRadius: 10, border: "1px s
 const dateMenu = { position: "absolute", top: 48, right: 0, zIndex: 20, display: "flex", gap: 16, background: "white", padding: 12, borderRadius: 14, boxShadow: "0 12px 30px rgba(15,23,42,0.18)", border: "1px solid #e5e7eb" };
 const dateShortcuts = { display: "flex", flexDirection: "column", gap: 8, minWidth: 140 };
 const addButton = {  padding: "10px 14px",  borderRadius: 10,  border: "none",  background: "#2563eb",  color: "white",  cursor: "pointer",  fontWeight: 700};
-const modalOverlay = { position: "fixed", inset: 0, background: "rgba(15,23,42,0.45)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 50 };
+const modalOverlay = { position: "fixed", inset: 0, background: "rgba(15,23,42,0.45)", backdropFilter: "blur(6px)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 50 };
 const modal = { background: "white", padding: 24, borderRadius: 20, width: 560, display: "flex", flexDirection: "column", gap: 14, boxShadow: "0 24px 70px rgba(15,23,42,0.25)", animation: "fadeIn 0.2s ease" };
 const modalHeader = { display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 6 };
 const modalSubtext = { margin: "6px 0 0", color: "#667085", fontSize: 14 };
