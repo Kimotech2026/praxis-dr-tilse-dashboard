@@ -807,7 +807,7 @@ export default function Home() {
                           Historie
                         </button>
                 
-                        {manualIndex !== -1 && (
+                        {true && (
                           <>
                             <button
                               onClick={(e) => {
