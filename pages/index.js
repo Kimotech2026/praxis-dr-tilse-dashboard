@@ -164,8 +164,7 @@ export default function Home() {
       });
   }, []);
 
-  useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem("manualContacts") || "[]");
+  useEffect(() => { const saved = JSON.parse(localStorage.getItem("manualContacts") || "[]"); setManualContacts(saved); }, []);
     if (saved.length) {
       setContacts(prev => [...prev, ...saved]);
     }
@@ -373,11 +372,7 @@ export default function Home() {
   
     const newContact = { name: newContactName, phone: newContactPhone, birthdate: newContactBirthdate, existing: newContactExisting, doctor: newContactDoctor, lastContact: "-", calls: [] };
   
-    setContacts(prev => {
-      const updated = [...prev, newContact].sort((a, b) => a.name.localeCompare(b.name));
-      localStorage.setItem("manualContacts", JSON.stringify(updated.filter(c => c.calls.length === 0)));
-      return updated;
-    });
+    setManualContacts(prev => { const updated = [...prev, newContact].sort((a, b) => a.name.localeCompare(b.name)); localStorage.setItem("manualContacts", JSON.stringify(updated)); return updated; });
   
     setNewContactName("");
     setNewContactPhone("");
@@ -1561,4 +1556,4 @@ const historySectionTitle = { margin: "0 0 12px", fontSize: 13, fontWeight: 600,
 const patientDataGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 };
 const historyList = { display: "flex", flexDirection: "column", gap: 14, marginTop: 14 };
 const sidebarUnreadBadge = { position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)", background: "#dc2626", color: "white", borderRadius: 999, minWidth: 24, height: 24, padding: "0 7px", fontSize: 13, fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 10px rgba(220,38,38,0.35)" };
-const contactAddGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 };
+const contactAddGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, alignItems: "end" };
