@@ -490,7 +490,7 @@ export default function Home() {
             </div>
 
             <div style={tabBar}>
-              {["Alle", "Neu / Ungelesen", "In Bearbeitung", "Erledigt", "Gelesen"].map(tab => {
+              {["Alle", "Neu / Ungelesen", "Gelesen", "In Bearbeitung", "Erledigt"].map(tab => {
                 const unreadCount = data.filter(row => row.status === "Neu / Ungelesen").length;
               
                 return (
