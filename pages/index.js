@@ -1335,12 +1335,14 @@ export default function Home() {
             <div style={{ ...modal, width: 760, maxHeight: "85vh", overflowY: "auto" }}>
               <div style={modalHeader}>
                 <div>
-                  <h2 style={{ margin: 0 }}>{selectedContact.name}</h2>
-                  <p style={modalSubtext}>Patientenakte und Anrufhistorie</p>
+                  <p style={{ margin: 0, fontSize: 13, color: "#64748b" }}>Patient</p>
+                  <h2 style={{ margin: "2px 0 0" }}>{selectedContact.name}</h2>
                 </div>
                 <button onClick={() => setSelectedContact(null)} style={closeButton}>×</button>
               </div>
-        
+
+              <h3 style={{ margin: "10px 0 6px", fontSize: 16 }}>Patientenakte</h3>
+          
               <div style={details}>
                 <div style={detailCard}>
                   <span style={detailLabel}>Telefonnummer</span>
@@ -1362,7 +1364,9 @@ export default function Home() {
                   <strong>{selectedContact.lastContact || "-"}</strong>
                 </div>
               </div>
-        
+
+              <h3 style={{ margin: "18px 0 6px", fontSize: 16 }}>Anrufhistorie</h3>
+          
               <div style={contactHistoryBox}>
                 {selectedContact.calls.map((call, index) => (
                   <div key={index} style={contactHistoryItem}>
