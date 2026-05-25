@@ -1362,7 +1362,7 @@ export default function Home() {
         
                       <div style={historyBadges}>
                         {(call.Anliegen || "").split(",").map(item => item.trim()).filter(Boolean).sort((a, b) => a.localeCompare(b)).map((item, i) => (
-                          <span key={i} style={{ ...badge, background: item === "Termin" ? "#e0f2fe" : item === "Rezept" ? "#dcfce7" : item === "Attest" ? "#fef9c3" : "#e5e7eb", color: item === "Termin" ? "#0369a1" : item === "Rezept" ? "#166534" : item === "Attest" ? "#854d0e" : "#374151" }}>
+                          <span key={i} style={{ ...badge, background: item === "Termin" ? "#e0f2fe" : item === "Rezept" ? "#dcfce7" : item === "Attest" ? "#fef9c3" : "#e5e7eb", color: item === "Termin" ? "#0369a1" : item === "Rezept" ? "#166534" : item === "Attest" ? "#854d0e" : "#374151", border: item === "Termin" ? "1px solid #7dd3fc" : item === "Rezept" ? "1px solid #86efac" : item === "Attest" ? "1px solid #fde047" : "1px solid #d1d5db" }}>
                             {item}
                           </span>
                         ))}
