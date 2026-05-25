@@ -882,62 +882,39 @@ export default function Home() {
               </div>
             )}
 
-            {activeSettingsTab === "Konto" && (
-              <div style={settingsGrid}>
-                <div style={settingsCard}>
-                  <div>
-                    <h3 style={settingsTitle}>Datenschutz</h3>
-                    <p style={settingsText}>Datenexport oder Löschung kann beim Support angefragt werden.</p>
-                  </div>
-                </div>
-
-              {activeSettingsTab === "Konto" && (
-                <div style={settingsGrid}>
-              
-                  <div style={settingsCard}>
-                    <div>
-                      <h3 style={settingsTitle}>Datenschutz</h3>
-                      <p style={settingsText}>Datenexport oder Löschung kann beim Support angefragt werden.</p>
-                    </div>
-                  </div>
-              
-                  {currentUser.accessLevel === "Admin" && (
-                    <div style={settingsCard}>
-                      <div>
-                        <h3 style={settingsTitle}>Mitarbeiter hinzufügen</h3>
-                        <p style={settingsText}>
-                          Neue Nutzer mit Rolle, Zugriffsstufe und Berechtigungen anlegen.
-                        </p>
-                      </div>
-                      <button onClick={() => setShowAddEmployee(true)} style={addButton}>
-                        + Mitarbeiter hinzufügen
-                      </button>
-                    </div>
-                  )}
-              
-                  <div style={settingsCard}>
-                    <div>
-                      <h3 style={settingsTitle}>Abmelden</h3>
-                      <p style={settingsText}>Aktuelle Sitzung beenden.</p>
-                    </div>
-                    <button onClick={handleLogout} style={cancelButton}>Abmelden</button>
-                  </div>
-              
-                </div>
-              )}
-              
-                <div style={settingsCard}>
-                  <div>
-                    <h3 style={settingsTitle}>Abmelden</h3>
-                    <p style={settingsText}>Aktuelle Sitzung beenden.</p>
-                  </div>
-                  <button onClick={handleLogout} style={cancelButton}>Abmelden</button>
-                </div>
-              </div>
-            )}
+                    {activeSettingsTab === "Konto" && (
+                      <div style={settingsGrid}>
+                        <div style={settingsCard}>
+                          <div>
+                            <h3 style={settingsTitle}>Datenschutz</h3>
+                            <p style={settingsText}>Datenexport oder Löschung kann beim Support angefragt werden.</p>
+                          </div>
+                        </div>
         
-          </div>
-        )}
+                        {currentUser.accessLevel === "Admin" && (
+                          <div style={settingsCard}>
+                            <div>
+                              <h3 style={settingsTitle}>Mitarbeiter hinzufügen</h3>
+                              <p style={settingsText}>Neue Nutzer mit Rolle, Zugriffsstufe und Berechtigungen anlegen.</p>
+                            </div>
+                            <button onClick={() => setShowAddEmployee(true)} style={addButton}>
+                              + Mitarbeiter hinzufügen
+                            </button>
+                          </div>
+                        )}
+        
+                        <div style={settingsCard}>
+                          <div>
+                            <h3 style={settingsTitle}>Abmelden</h3>
+                            <p style={settingsText}>Aktuelle Sitzung beenden.</p>
+                          </div>
+                          <button onClick={handleLogout} style={cancelButton}>Abmelden</button>
+                        </div>
+                      </div>
+                    )}
+        
+                  </div>
+                )}
 
         {activePage === "Kalender" && (
           <div style={box}>
