@@ -1380,11 +1380,15 @@ export default function Home() {
                   <p style={{ margin: 0, fontSize: 13, color: "#64748b" }}>Patient</p>
                   <h2 style={{ margin: "2px 0 0", fontSize: 30, fontWeight: 800 }}>{selectedContact.name}</h2>
                 </div>
+        
                 <div style={{ display: "flex", gap: 8 }}>
                   <button onClick={() => { if (!confirm("Kontakt wirklich bearbeiten?")) return; const manualIndex = manualContacts.findIndex(c => String(c.phone).replace(/\s/g, "") === String(selectedContact.phone).replace(/\s/g, "")); setEditingContactIndex(manualIndex); setNewContactName(selectedContact.name); setNewContactPhone(selectedContact.phone); setNewContactBirthdate(selectedContact.birthdate); setNewContactExisting(selectedContact.existing); setNewContactDoctor(selectedContact.doctor); setSelectedContact(null); setShowAddContact(true); }} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #d1d5db", background: "white", cursor: "pointer", fontWeight: 600 }}>Bearbeiten</button>
                   <button onClick={() => { if (!confirm("Kontakt wirklich löschen? Diese Daten gehen verloren.")) return; const updated = manualContacts.filter(c => String(c.phone).replace(/\s/g, "") !== String(selectedContact.phone).replace(/\s/g, "")); setManualContacts(updated); localStorage.setItem("manualContacts", JSON.stringify(updated)); setSelectedContact(null); }} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #fecaca", background: "#fef2f2", color: "#dc2626", cursor: "pointer", fontWeight: 600 }}>Löschen</button>
                   <button onClick={() => setSelectedContact(null)} style={closeButton}>×</button>
                 </div>
+              </div>
+        
+              <div style={patientSection}>
                 <p style={patientSectionTitle}>Daten</p>
         
                 <div style={patientDataGrid}>
@@ -1399,7 +1403,7 @@ export default function Home() {
                 <p style={historySectionTitle}>Anrufhistorie</p>
         
                 <div style={historyList}>
-                  {selectedContact.calls.map((call, index) => (
+                  {(selectedContact.calls || []).map((call, index) => (
                     <div key={index} style={contactHistoryItem}>
                       <strong>{call.Datum || "-"} · {call.Uhrzeit || "-"}</strong>
         
