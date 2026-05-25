@@ -435,9 +435,11 @@ export default function Home() {
               
               {data
                 .filter((row) => {
+                  const originalIndex = data.indexOf(row);
+                  
                   const statusMatch =
                     statusFilter === "Alle" ||
-                    (statusMap[data.indexOf(row)] || "Neu / Ungelesen") === statusFilter;
+                    (statusMap[originalIndex] || "Neu / Ungelesen") === statusFilter;
                 
                   const searchMatch =
                     (row.Name || "").toLowerCase().includes(search.toLowerCase()) ||
@@ -518,9 +520,9 @@ export default function Home() {
                     <span>{row.Arzt || "-"}</span>
               
                     <select
-                      value={statusMap[i] || "Neu / Ungelesen"}
+                      value={statusMap[originalIndex] || "Neu / Ungelesen"}
                       onClick={(e) => e.stopPropagation()}
-                      onChange={(e) => updateStatus(i, e.target.value)}
+                      onChange={(e) => updateStatus(originalIndex, e.target.value)}
                       style={selectStyle}
                     >
                       <option>Neu / Ungelesen</option>
