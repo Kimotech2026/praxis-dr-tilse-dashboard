@@ -1399,4 +1399,4 @@ const loginText = { margin: "8px 0 0", color: "#64748b", fontSize: 14 };
 const loginCard = { background: "white", padding: 30, borderRadius: 20, width: 320, boxShadow: "0 20px 50px rgba(15,23,42,0.08)" };
 const loginLoader = { margin: "16px auto 0", width: 38, height: 38, borderRadius: "50%", border: "4px solid #dbeafe", borderTopColor: "#2563eb", animation: "spin 0.8s linear infinite" };
 const contactHeaderRow = { display: "grid", gridTemplateColumns: "150px 150px 160px 150px 130px 140px", gap: 10, fontSize: 13, color: "#667085", marginBottom: 10, padding: "0 16px" };
-const contactRow = { display: "grid", gridTemplateColumns: "150px 150px 160px 150px 130px 140px", gap: 10, padding: 16, borderBottom: "1px solid #e5e7eb", alignItems: "center" };
+const contactRow = { display: "grid", gridTemplateColumns: "150px 150px 160px 150px 130px 140px", gap: 14, padding: 16, borderBottom: "1px solid #e5e7eb", alignItems: "center" };
