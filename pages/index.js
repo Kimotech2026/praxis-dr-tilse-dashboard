@@ -175,6 +175,7 @@ export default function Home() {
           phone: phone,
           existing: call.Bestandspatient,
           doctor: call.Arzt,
+          birthdate: call.Geburtsdatum,
           calls: []
         };
       }
@@ -194,6 +195,7 @@ export default function Home() {
         phone: contact.phone,
         existing: contact.existing,
         doctor: contact.doctor,
+        birthdate: contact.birthdate,
         lastContact: sortedCalls[0]?.Datum,
         calls: sortedCalls
       };
@@ -727,6 +729,7 @@ export default function Home() {
               <div style={contactHeaderRow}>
                 <span>Name</span>
                 <span>Telefonnummer</span>
+                <span>Geburtsdatum</span>
                 <span>Bestandspatient</span>
                 <span>Arzt</span>
                 <span>Letzter Kontakt</span>
@@ -766,6 +769,7 @@ export default function Home() {
                   <div key={i} style={contactRow}>
                     <span style={{ fontWeight: 700 }}>{c.name}</span>
                     <span>{c.phone || "-"}</span>
+                    <span>{c.birthdate || "-"}</span>
                     <span>{c.existing}</span>
                     <span>{c.doctor}</span>
                     <span>{c.lastContact}</span>
@@ -1449,6 +1453,6 @@ const loginTitle = { margin: 0, fontSize: 26, fontWeight: 600, color: "#0f172a",
 const loginText = { margin: "8px 0 0", color: "#64748b", fontSize: 14 };
 const loginCard = { background: "white", padding: 30, borderRadius: 20, width: 320, boxShadow: "0 20px 50px rgba(15,23,42,0.08)" };
 const loginLoader = { margin: "16px auto 0", width: 38, height: 38, borderRadius: "50%", border: "4px solid #dbeafe", borderTopColor: "#2563eb", animation: "spin 0.8s linear infinite" };
-const contactHeaderRow = { display: "grid", gridTemplateColumns: "150px 150px 160px 150px 130px 140px", gap: 24, fontSize: 13, color: "#667085", marginBottom: 10, padding: "0 16px" };
-const contactRow = { display: "grid", gridTemplateColumns: "150px 150px 160px 150px 130px 140px", gap: 24, padding: 16, borderBottom: "1px solid #e5e7eb", alignItems: "center" };
+const contactHeaderRow = { display: "grid", gridTemplateColumns: "140px 145px 130px 150px 135px 125px 130px", gap: 14, fontSize: 13, color: "#667085", marginBottom: 10, padding: "0 16px" };
+const contactRow = { display: "grid", gridTemplateColumns: "140px 145px 130px 150px 135px 125px 130px", gap: 14, padding: 16, borderBottom: "1px solid #e5e7eb", alignItems: "center" };
 const unreadBadge = { position: "absolute", top: -7, right: -7, background: "#dc2626", color: "white", borderRadius: 999, minWidth: 20, height: 20, padding: "0 6px", fontSize: 12, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 10px rgba(220,38,38,0.35)" };
