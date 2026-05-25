@@ -1336,7 +1336,7 @@ export default function Home() {
               <div style={modalHeader}>
                 <div>
                   <p style={{ margin: 0, fontSize: 13, color: "#64748b" }}>Patient</p>
-                  <h2 style={{ margin: "2px 0 0" }}>{selectedContact.name}</h2>
+                  <h2 style={{ margin: "2px 0 0", fontSize: 30, fontWeight: 800 }}>{selectedContact.name}</h2>
                 </div>
                 <button onClick={() => setSelectedContact(null)} style={closeButton}>×</button>
               </div>
@@ -1344,7 +1344,7 @@ export default function Home() {
               <div style={patientSection}>
                 <p style={patientSectionTitle}>Daten</p>
         
-                <div style={details}>
+                <div style={patientDataGrid}>
                   <div style={detailCard}><span style={detailLabel}>Telefonnummer</span><strong>{selectedContact.phone || "-"}</strong></div>
                   <div style={detailCard}><span style={detailLabel}>Geburtsdatum</span><strong>{selectedContact.birthdate || "-"}</strong></div>
                   <div style={detailCard}><span style={detailLabel}>Patientenstatus</span><strong>{selectedContact.existing || "-"}</strong></div>
@@ -1405,7 +1405,7 @@ const badge = { width: 90, minWidth: 90, height: 28, flexShrink: 0, display: "in
 const highlightCard = {  background: "linear-gradient(135deg, #2563eb, #1e40af)",  color: "white",  padding: 24,  borderRadius: 16,  boxShadow: "0 12px 30px rgba(37,99,235,0.30)"};
 const headerRow = { display: "grid", gridTemplateColumns: "90px 220px 360px 1fr 140px", gap: 12, fontSize: 13, color: "#667085", marginBottom: 10, padding: "0 16px" };
 const details = { marginTop: 16, padding: 16, background: "white", borderRadius: 14, border: "1px solid #e5e7eb", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 };
-const detailCard = { background: "#f8fafc", padding: 14, borderRadius: 12 };
+const detailCard = { background: "white", padding: 14, borderRadius: 12 };
 const detailCardWide = { background: "#f8fafc", padding: 14, borderRadius: 12, gridColumn: "1 / -1" };
 const detailLabel = { display: "block", color: "#64748b", fontSize: 12, marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.4 };
 const selectStyle = { padding: "8px 10px", borderRadius: 10, border: "1px solid #d1d5db", background: "#f3f4f6", cursor: "pointer", fontWeight: 400 };
@@ -1505,3 +1505,4 @@ const patientSection = { border: "1px solid #e5e7eb", borderRadius: 16, padding:
 const patientSectionTitle = { margin: "0 0 12px", fontSize: 13, fontWeight: 600, color: "#64748b", textTransform: "uppercase", letterSpacing: 0.5 };
 const historySection = { border: "1px solid #dbeafe", borderRadius: 16, padding: 16, marginTop: 16, background: "#f8fafc" };
 const historySectionTitle = { margin: "0 0 12px", fontSize: 13, fontWeight: 600, color: "#2563eb", textTransform: "uppercase", letterSpacing: 0.5 };
+const patientDataGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 };
