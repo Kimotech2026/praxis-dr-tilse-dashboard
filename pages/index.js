@@ -163,7 +163,14 @@ export default function Home() {
   useEffect(() => {
     fetch("https://opensheet.elk.sh/1AFGmKqR2typaxKARBprS81ArcBUqXg1RX8sXwNyO1oY/Tabellenblatt1")
       .then((res) => res.json())
-      .then((data) => setData([...data].reverse()));
+      .then((data) =>
+        setData(
+          data.map((row, index) => ({
+            ...row,
+            callId: String(1000000000 + index)
+          })).reverse()
+        )
+      );
   }, []);
   
   useEffect(() => {
@@ -436,7 +443,8 @@ export default function Home() {
               {data
                 .map((row) => ({
                   row,
-                  callKey: `${row.Datum}-${row.Uhrzeit}-${row.Name}-${row.Arzt}-${row.Anliegen}`
+                  callKey: row.callId
+
                 }))
                 .filter(({ row, callKey }) => {
                   
@@ -544,7 +552,12 @@ export default function Home() {
                         <span style={detailLabel}>Geburtsdatum</span>
                         <strong>{row.Geburtsdatum || "-"}</strong>
                       </div>
-              
+
+                      <div style={detailCard}>
+                        <span style={detailLabel}>Anruf-ID</span>
+                        <strong>{row.callId}</strong>
+                      </div>
+                                          
                       <div style={detailCardWide}>
                         <span style={detailLabel}>Zusammenfassung</span>
                         <p>{row.Zusammenfassung || "-"}</p>
