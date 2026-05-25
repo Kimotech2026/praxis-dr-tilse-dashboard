@@ -658,7 +658,7 @@ export default function Home() {
                   onChange={(e) => setContactDoctorFilter(e.target.value)}
                   style={contactDoctorFilter !== "Alle" ? filterActive : filterSelect}
                 >
-                  <option value="Alle">Alle</option>
+                  <option value="Alle">Ärzte filtern</option>
                   <option value="Herr Dr. Tilse">Herr Dr. Tilse</option>
                   <option value="Frau Dr. Tilse">Frau Dr. Tilse</option>
                   <option value="Sonstige">Sonstige</option>
@@ -672,7 +672,7 @@ export default function Home() {
                   onChange={(e) => setContactExistingFilter(e.target.value)}
                   style={contactExistingFilter !== "Alle" ? filterActive : filterSelect}
                 >
-                  <option value="Alle">Alle</option>
+                  <option value="Alle">Patientenstatus</option>
                   <option value="Bestandspatient">Bestandspatient</option>
                   <option value="Neupatient">Neupatient</option>
                 </select>
