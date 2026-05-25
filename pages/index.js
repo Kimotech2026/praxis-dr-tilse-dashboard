@@ -792,22 +792,49 @@ export default function Home() {
                   return searchMatch && doctorMatch && existingMatch;
                 })
                 
-                .map((c, i) => (
-                  <div key={i} style={contactRow}>
-                    <span style={{ fontWeight: 700 }}>{c.name}</span>
-                    <span>{c.phone || "-"}</span>
-                    <span>{c.birthdate || "-"}</span>
-                    <span>{c.existing}</span>
-                    <span>{c.doctor}</span>
-                    <span>{c.lastContact}</span>
-        
-                    <button onClick={() => setSelectedContact(c)} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #bfdbfe", background: "#eff6ff", color: "#1d4ed8", cursor: "pointer", fontWeight: 600 }}>Historie</button>
-                    <button onClick={() => { setEditingContactIndex(i); setNewContactName(c.name); setNewContactPhone(c.phone); setNewContactBirthdate(c.birthdate); setNewContactExisting(c.existing); setNewContactDoctor(c.doctor); setShowAddContact(true); }} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #d1d5db", background: "white", cursor: "pointer", fontWeight: 600 }}>Bearbeiten</button>
-                    <button onClick={() => { const updated = manualContacts.filter((_, index) => index !== i); setManualContacts(updated); localStorage.setItem("manualContacts", JSON.stringify(updated)); }} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #fecaca", background: "#fef2f2", color: "#dc2626", cursor: "pointer", fontWeight: 600 }}>Löschen</button>
-                      Historie
-                    </button>
-                        
-                  </div>
+                .map((c, i) => {
+                  const manualIndex = manualContacts.findIndex(m => m.phone === c.phone);
+                
+                  return (
+                    <div key={i} style={contactRow}>
+                      <span style={{ fontWeight: 700 }}>{c.name}</span>
+                      <span>{c.phone || "-"}</span>
+                      <span>{c.birthdate || "-"}</span>
+                      <span>{c.existing}</span>
+                      <span>{c.doctor}</span>
+                      <span>{c.lastContact}</span>
+                
+                      <div style={{ display: "flex", gap: 6 }}>
+                        <button onClick={() => setSelectedContact(c)} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #bfdbfe", background: "#eff6ff", color: "#1d4ed8", cursor: "pointer", fontWeight: 600 }}>
+                          Historie
+                        </button>
+                
+                        {manualIndex !== -1 && (
+                          <>
+                            <button onClick={() => {
+                              setEditingContactIndex(manualIndex);
+                              setNewContactName(c.name);
+                              setNewContactPhone(c.phone);
+                              setNewContactBirthdate(c.birthdate);
+                              setNewContactExisting(c.existing);
+                              setNewContactDoctor(c.doctor);
+                              setShowAddContact(true);
+                            }} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #d1d5db", background: "white", cursor: "pointer", fontWeight: 600 }}>
+                              Bearbeiten
+                            </button>
+                
+                            <button onClick={() => {
+                              const updated = manualContacts.filter((_, index) => index !== manualIndex);
+                              setManualContacts(updated);
+                              localStorage.setItem("manualContacts", JSON.stringify(updated));
+                            }} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #fecaca", background: "#fef2f2", color: "#dc2626", cursor: "pointer", fontWeight: 600 }}>
+                              Löschen
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  );
               ))}
             </div>
           </>
