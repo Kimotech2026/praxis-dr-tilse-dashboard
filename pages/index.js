@@ -796,38 +796,6 @@ export default function Home() {
                         <button onClick={() => setSelectedContact(c)} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #bfdbfe", background: "#eff6ff", color: "#1d4ed8", cursor: "pointer", fontWeight: 600 }}>
                           Historie
                         </button>
-                
-                        {true && (
-                          <>
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setEditingContactIndex(manualIndex);
-                                setNewContactName(c.name);
-                                setNewContactPhone(c.phone);
-                                setNewContactBirthdate(c.birthdate);
-                                setNewContactExisting(c.existing);
-                                setNewContactDoctor(c.doctor);
-                                setShowAddContact(true);
-                              }}
-                              style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #d1d5db", background: "white", cursor: "pointer", fontWeight: 600 }}
-                            >
-                              Bearbeiten
-                            </button>
-                            
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                const updated = manualContacts.filter((_, index) => index !== manualIndex);
-                                setManualContacts(updated);
-                                localStorage.setItem("manualContacts", JSON.stringify(updated));
-                              }}
-                              style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #fecaca", background: "#fef2f2", color: "#dc2626", cursor: "pointer", fontWeight: 600 }}
-                            >
-                              Löschen
-                            </button>
-                          </>
-                        )}
                       </div>
                     </div>
                   );
@@ -1412,7 +1380,44 @@ export default function Home() {
                   <p style={{ margin: 0, fontSize: 13, color: "#64748b" }}>Patient</p>
                   <h2 style={{ margin: "2px 0 0", fontSize: 30, fontWeight: 800 }}>{selectedContact.name}</h2>
                 </div>
-                <button onClick={() => setSelectedContact(null)} style={closeButton}>×</button>
+                <div style={{ display: "flex", gap: 8 }}>
+  
+                  <button
+                    onClick={() => {
+                      if (!confirm("Kontakt wirklich bearbeiten?")) return;
+                
+                      setNewContactName(selectedContact.name);
+                      setNewContactPhone(selectedContact.phone);
+                      setNewContactBirthdate(selectedContact.birthdate);
+                      setNewContactExisting(selectedContact.existing);
+                      setNewContactDoctor(selectedContact.doctor);
+                
+                      setSelectedContact(null);
+                      setShowAddContact(true);
+                    }}
+                    style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #d1d5db", background: "white", cursor: "pointer", fontWeight: 600 }}
+                  >
+                    Bearbeiten
+                  </button>
+                
+                  <button
+                    onClick={() => {
+                      if (!confirm("Kontakt wirklich löschen? Diese Daten gehen verloren.")) return;
+                
+                      const updated = manualContacts.filter(c => c.phone !== selectedContact.phone);
+                      setManualContacts(updated);
+                      localStorage.setItem("manualContacts", JSON.stringify(updated));
+                
+                      setSelectedContact(null);
+                    }}
+                    style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #fecaca", background: "#fef2f2", color: "#dc2626", cursor: "pointer", fontWeight: 600 }}
+                  >
+                    Löschen
+                  </button>
+                
+                  <button onClick={() => setSelectedContact(null)} style={closeButton}>×</button>
+                
+                </div>
               </div>
         
               <div style={patientSection}>
