@@ -1367,26 +1367,12 @@ export default function Home() {
                 <button onClick={() => setShowAddContact(false)} style={closeButton}>×</button>
               </div>
         
-              <div style={formGrid}>
-                <input placeholder="Name" value={newContactName} onChange={(e) => setNewContactName(e.target.value)} style={input} />
-                <input placeholder="Telefonnummer" value={newContactPhone} onChange={(e) => setNewContactPhone(e.target.value)} style={input} />
-                <input placeholder="TT.MM.JJJJ" value={newContactBirthdate} onChange={(e) => setNewContactBirthdate(e.target.value.replace(/\D/g, "").replace(/(\d{2})(\d)/, "$1.$2").replace(/(\d{2})\.(\d{2})(\d)/, "$1.$2.$3").slice(0, 10))} style={input} />
-        
-                <div>
-                  <label style={formLabel}>Patientenstatus</label>
-                  <select value={newContactExisting} onChange={(e) => setNewContactExisting(e.target.value)} style={input}>
-                    <option>Bestandspatient</option>
-                    <option>Neupatient</option>
-                  </select>
-                </div>
-                
-                <div>
-                  <label style={formLabel}>Zuständiger Arzt</label>
-                  <select value={newContactDoctor} onChange={(e) => setNewContactDoctor(e.target.value)} style={input}>
-                    <option>Frau Dr. Tilse</option>
-                    <option>Herr Dr. Tilse</option>
-                  </select>
-                </div>
+              <div style={contactAddGrid}>
+                <div><label style={formLabel}>Name</label><input value={newContactName} onChange={(e) => setNewContactName(e.target.value)} style={input} /></div>
+                <div><label style={formLabel}>Telefonnummer</label><input value={newContactPhone} onChange={(e) => setNewContactPhone(e.target.value)} style={input} /></div>
+                <div><label style={formLabel}>Geburtsdatum</label><input placeholder="TT.MM.JJJJ" value={newContactBirthdate} onChange={(e) => setNewContactBirthdate(e.target.value.replace(/\D/g, "").replace(/(\d{2})(\d)/, "$1.$2").replace(/(\d{2})\.(\d{2})(\d)/, "$1.$2.$3").slice(0, 10))} style={input} /></div>
+                <div><label style={formLabel}>Patientenstatus</label><select value={newContactExisting} onChange={(e) => setNewContactExisting(e.target.value)} style={input}><option>Bestandspatient</option><option>Neupatient</option></select></div>
+                <div><label style={formLabel}>Zuständiger Arzt</label><select value={newContactDoctor} onChange={(e) => setNewContactDoctor(e.target.value)} style={input}><option>Frau Dr. Tilse</option><option>Herr Dr. Tilse</option></select></div>
               </div>
         
               <div style={modalActions}>
@@ -1575,3 +1561,4 @@ const historySectionTitle = { margin: "0 0 12px", fontSize: 13, fontWeight: 600,
 const patientDataGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 };
 const historyList = { display: "flex", flexDirection: "column", gap: 14, marginTop: 14 };
 const sidebarUnreadBadge = { position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)", background: "#dc2626", color: "white", borderRadius: 999, minWidth: 24, height: 24, padding: "0 7px", fontSize: 13, fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 10px rgba(220,38,38,0.35)" };
+const contactAddGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 };
