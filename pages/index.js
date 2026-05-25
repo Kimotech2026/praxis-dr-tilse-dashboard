@@ -143,16 +143,40 @@ export default function Home() {
     fetch("https://opensheet.elk.sh/1AFGmKqR2typaxKARBprS81ArcBUqXg1RX8sXwNyO1oY/Tabellenblatt1")
       .then((res) => res.json())
       .then((sheetData) => {
-        const calls = [...sheetData].reverse().map((row, index) => ({
-          ...row,
-          callId: String(1000000000 + index),
-          status: "Neu / Ungelesen"
-        }));
+  
+        const savedStatuses = JSON.parse(localStorage.getItem("callStatuses") || "{}");
+  
+        const calls = [...sheetData].reverse().map((row, index) => {
+          const callId = String(1000000000 + index);
+  
+          return {
+            ...row,
+            callId,
+            status: savedStatuses[callId] || "Neu / Ungelesen"
+          };
+        });
   
         setData(calls);
       });
   }, []);
 
+  const updateStatus = (callId, value) => {
+    setData(prev => {
+      const updated = prev.map(row =>
+        row.callId === callId ? { ...row, status: value } : row
+      );
+  
+      const statusMap = {};
+      updated.forEach(row => {
+        statusMap[row.callId] = row.status;
+      });
+  
+      localStorage.setItem("callStatuses", JSON.stringify(statusMap));
+  
+      return updated;
+    });
+  };
+  
   const saveSettings = () => {
     localStorage.setItem("dashboardSettings", JSON.stringify(settings));
     setToastMessage("✓ Erfolgreich aktualisiert");
@@ -170,20 +194,6 @@ export default function Home() {
       setActivePage("Anrufe");
     }
     setReady(true);
-  }, []);
-  
-  useEffect(() => {
-    fetch("https://opensheet.elk.sh/1AFGmKqR2typaxKARBprS81ArcBUqXg1RX8sXwNyO1oY/Tabellenblatt1")
-      .then((res) => res.json())
-      .then((sheetData) =>
-        setData(
-          [...sheetData].reverse().map((row, index) => ({
-            ...row,
-            callId: String(1000000000 + index),
-            status: "Neu / Ungelesen"
-          }))
-        )
-      );
   }, []);
   
   useEffect(() => {
@@ -455,128 +465,129 @@ export default function Home() {
               
               {data
                 .filter((row) => {
-                
-                .filter(({ row, row.callId }) => {
-                  
                   const statusMatch =
                     statusFilter === "Alle" ||
-                    (row.status) === statusFilter;
-                
+                    row.status === statusFilter;
+              
                   const searchMatch =
                     (row.Name || "").toLowerCase().includes(search.toLowerCase()) ||
                     (row.Arzt || "").toLowerCase().includes(search.toLowerCase()) ||
                     (row.Anliegen || "").toLowerCase().includes(search.toLowerCase());
-                
-                  const anliegenList = (row.Anliegen || "").split(",").map(x => x.trim());
-                
+              
                   const anliegenMatch =
                     anliegenFilter === "Alle" ||
                     (anliegenFilter === "Sonstige" && (!row.Anliegen || row.Anliegen === "-")) ||
                     (row.Anliegen || "").split(",").map(x => x.trim()).includes(anliegenFilter);
-                
+              
                   const arztMatch =
                     arztFilter === "Alle" ||
                     (arztFilter === "Sonstige" && (!row.Arzt || row.Arzt === "-")) ||
                     (row.Arzt || "") === arztFilter;
-                
+              
                   const dateMatch =
                     (!startDate && !endDate) ||
                     (() => {
                       const rowDate = parseGermanDate(row.Datum);
-                      return (
-                        (!startDate || rowDate >= startDate) &&
-                        (!endDate || rowDate <= endDate)
-                      );
+                      return rowDate && (!startDate || rowDate >= startDate) && (!endDate || rowDate <= endDate);
                     })();
-                
+              
                   return statusMatch && searchMatch && anliegenMatch && arztMatch && dateMatch;
                 })
-                .map(({ row, row.callId }) => {         
-                  return (
-                    <div
-                      key={row.callId}
+                .map((row) => (
+                  <div
+                    key={row.callId}
                     style={{
                       ...(openIndex === row.callId ? callCardOpen : callCard),
-                      ...((row.status) === "Neu / Ungelesen" && {
+                      ...(row.status === "Neu / Ungelesen" && {
                         borderLeft: "4px solid #2563eb"
                       })
-                    }} onMouseEnter={(e) => { if (openIndex !== row.callId) e.currentTarget.style.background = "#f8fafc"; }} onMouseLeave={(e) => { if (openIndex !== row.callId) { e.currentTarget.style.background = "white"; e.currentTarget.style.borderBottom = "1px solid #e5e7eb"; } }}
+                    }}
+                    onMouseEnter={(e) => {
+                      if (openIndex !== row.callId) e.currentTarget.style.background = "#f8fafc";
+                    }}
+                    onMouseLeave={(e) => {
+                      if (openIndex !== row.callId) {
+                        e.currentTarget.style.background = "white";
+                        e.currentTarget.style.borderBottom = "1px solid #e5e7eb";
+                      }
+                    }}
                     onClick={() => {
                       setOpenIndex(openIndex === row.callId ? null : row.callId);
-                    
-                      if ((row.status) === "Neu / Ungelesen") {
+              
+                      if (row.status === "Neu / Ungelesen") {
                         updateStatus(row.callId, "Gelesen");
                       }
-                    }}>                  
-                      <div style={callTop}>
-                    <div>
-                      <strong>{row.Uhrzeit || "-"}</strong>
-                      <div style={dateText}>{row.Datum || "-"}</div>
+                    }}
+                  >
+                    <div style={callTop}>
+                      <div>
+                        <strong>{row.Uhrzeit || "-"}</strong>
+                        <div style={dateText}>{row.Datum || "-"}</div>
+                      </div>
+              
+                      <span>{row.Name || "-"}</span>
+              
+                      <span style={{ display: "flex", gap: 6, flexWrap: "nowrap" }}>
+                        {(row.Anliegen || "").split(",").map((item, i) => (
+                          <span
+                            key={i}
+                            style={{
+                              ...badge,
+                              background:
+                                item.trim() === "Termin" ? "#e0f2fe" :
+                                item.trim() === "Rezept" ? "#dcfce7" :
+                                item.trim() === "Attest" ? "#fef9c3" : "#e5e7eb",
+                              color:
+                                item.trim() === "Termin" ? "#0369a1" :
+                                item.trim() === "Rezept" ? "#166534" :
+                                item.trim() === "Attest" ? "#854d0e" : "#374151",
+                            }}
+                          >
+                            {item.trim() || "-"}
+                          </span>
+                        ))}
+                      </span>
+              
+                      <span>{row.Arzt || "-"}</span>
+              
+                      <select
+                        value={row.status}
+                        onClick={(e) => e.stopPropagation()}
+                        onChange={(e) => updateStatus(row.callId, e.target.value)}
+                        style={selectStyle}
+                      >
+                        <option>Neu / Ungelesen</option>
+                        <option>In Bearbeitung</option>
+                        <option>Erledigt</option>
+                        <option>Gelesen</option>
+                      </select>
                     </div>
-                    <span>{row.Name || "-"}</span>
               
-                    <span style={{ display: "flex", gap: 6, flexWrap: "nowrap" }}>
-                      {(row.Anliegen || "").split(",").map((item, i) => (
-                        <span
-                          key={i}
-                          style={{
-                            ...badge,
-                            background:
-                              item.trim() === "Termin" ? "#e0f2fe" :
-                              item.trim() === "Rezept" ? "#dcfce7" :
-                              item.trim() === "Attest" ? "#fef9c3" : "#e5e7eb",
-                            color:
-                              item.trim() === "Termin" ? "#0369a1" :
-                              item.trim() === "Rezept" ? "#166534" :
-                              item.trim() === "Attest" ? "#854d0e" : "#374151",
-                          }}
-                        >
-                          {item.trim()}
-                        </span>
-                      ))}
-                    </span>
+                    {openIndex === row.callId && (
+                      <div style={details}>
+                        <div style={detailCard}>
+                          <span style={detailLabel}>Bestandspatient</span>
+                          <strong>{row.Bestandspatient || "-"}</strong>
+                        </div>
               
-                    <span>{row.Arzt || "-"}</span>
+                        <div style={detailCard}>
+                          <span style={detailLabel}>Geburtsdatum</span>
+                          <strong>{row.Geburtsdatum || "-"}</strong>
+                        </div>
               
-                    <select
-                      value={row.status}
-                      onClick={(e) => e.stopPropagation()}
-                      onChange={(e) => updateStatus(row.callId, e.target.value)}
-                      style={selectStyle}
-                    >
-                      <option>Neu / Ungelesen</option>
-                      <option>In Bearbeitung</option>
-                      <option>Erledigt</option>
-                      <option>Gelesen</option>
-                    </select>
+                        <div style={detailCard}>
+                          <span style={detailLabel}>Anruf-ID</span>
+                          <strong>{row.callId}</strong>
+                        </div>
+              
+                        <div style={detailCardWide}>
+                          <span style={detailLabel}>Zusammenfassung</span>
+                          <p>{row.Zusammenfassung || "-"}</p>
+                        </div>
+                      </div>
+                    )}
                   </div>
-              
-                  {openIndex === row.callId && (
-                    <div style={details}>
-                      <div style={detailCard}>
-                        <span style={detailLabel}>Bestandspatient</span>
-                        <strong>{row.Bestandspatient || "-"}</strong>
-                      </div>
-              
-                      <div style={detailCard}>
-                        <span style={detailLabel}>Geburtsdatum</span>
-                        <strong>{row.Geburtsdatum || "-"}</strong>
-                      </div>
-
-                      <div style={detailCard}>
-                        <span style={detailLabel}>Anruf-ID</span>
-                        <strong>{row.callId}</strong>
-                      </div>
-                                          
-                      <div style={detailCardWide}>
-                        <span style={detailLabel}>Zusammenfassung</span>
-                        <p>{row.Zusammenfassung || "-"}</p>
-                      </div>
-                    </div>
-                  )}
-                </div>
-                );
-              ))}
+                ))}
             </div>
           </>
         )}
