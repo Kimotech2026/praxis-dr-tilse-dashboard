@@ -1348,7 +1348,7 @@ export default function Home() {
                   <div style={detailCard}><span style={detailLabel}>Telefonnummer</span><strong>{selectedContact.phone || "-"}</strong></div>
                   <div style={detailCard}><span style={detailLabel}>Geburtsdatum</span><strong>{selectedContact.birthdate || "-"}</strong></div>
                   <div style={detailCard}><span style={detailLabel}>Patientenstatus</span><strong>{selectedContact.existing || "-"}</strong></div>
-                  <div style={detailCard}><span style={detailLabel}>Letzter Kontakt</span><strong>{selectedContact.lastContact || "-"}</strong></div>
+                  <div style={detailCard}><span style={detailLabel}>Zuständiger Arzt</span><strong>{selectedContact.doctor || "-"}</strong></div>
                 </div>
               </div>
         
