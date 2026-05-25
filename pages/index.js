@@ -579,7 +579,12 @@ export default function Home() {
                       <span>{row.Name || "-"}</span>
               
                       <span style={{ display: "flex", gap: 6, flexWrap: "nowrap" }}>
-                        {(row.Anliegen || "").split(",").map((item, i) => (
+                        {(row.Anliegen || "")
+                          .split(",")
+                          .map(item => item.trim())
+                          .filter(Boolean)
+                          .sort((a, b) => a.localeCompare(b))
+                          .map((item, i) => (
                           <span
                             key={i}
                             style={{
