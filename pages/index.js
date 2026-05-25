@@ -682,7 +682,7 @@ export default function Home() {
             <div style={box}>
               <div style={contactHeaderRow}>
                 <span>Name</span>
-                <span>Rufnummer</span>
+                <span>Telefonnummer</span>
                 <span>Bestandspatient</span>
                 <span>Arzt</span>
                 <span>Letzter Kontakt</span>
