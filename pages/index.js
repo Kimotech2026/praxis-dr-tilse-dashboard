@@ -474,7 +474,6 @@ export default function Home() {
                     style={{
                       ...(openIndex === i ? callCardOpen : callCard),
                       ...((statusMap[i] || "Neu / Ungelesen") === "Neu / Ungelesen" && {
-                        background: "#eff6ff",
                         borderLeft: "4px solid #2563eb"
                       })
                     }} onMouseEnter={(e) => { if (openIndex !== i) e.currentTarget.style.background = "#f8fafc"; }} onMouseLeave={(e) => { if (openIndex !== i) { e.currentTarget.style.background = "white"; e.currentTarget.style.borderBottom = "1px solid #e5e7eb"; } }} 
