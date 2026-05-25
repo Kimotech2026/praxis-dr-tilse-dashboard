@@ -1413,11 +1413,17 @@ export default function Home() {
               </div>
         
               <div style={{ display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 20 }}>
-                <button style={{ padding: "8px 12px", borderRadius: 8, border: "1px solid #d1d5db", background: "white", cursor: "pointer", fontWeight: 400 }}>
+                <button
+                  onClick={() => setConfirmAction("edit")}
+                  style={{ padding: "8px 12px", borderRadius: 8, border: "1px solid #d1d5db", background: "white", cursor: "pointer", fontWeight: 400 }}
+                >
                   Bearbeiten
                 </button>
-        
-                <button style={{ padding: "8px 12px", borderRadius: 8, border: "1px solid #fecaca", background: "#fef2f2", color: "#dc2626", cursor: "pointer", fontWeight: 400 }}>
+                
+                <button
+                  onClick={() => setConfirmAction("delete")}
+                  style={{ padding: "8px 12px", borderRadius: 8, border: "1px solid #fecaca", background: "#fef2f2", color: "#dc2626", cursor: "pointer", fontWeight: 400 }}
+                >
                   Löschen
                 </button>
               </div>
