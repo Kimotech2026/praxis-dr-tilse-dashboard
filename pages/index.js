@@ -74,6 +74,7 @@ export default function Home() {
   const [newContactExisting, setNewContactExisting] = useState("Bestandspatient");
   const [newContactDoctor, setNewContactDoctor] = useState("Frau Dr. Tilse");
   const [editingContactIndex, setEditingContactIndex] = useState(null);
+  const [confirmAction, setConfirmAction] = useState(null);
 
   
   const [users, setUsers] = useState([
@@ -1382,8 +1383,8 @@ export default function Home() {
                 </div>
         
                 <div style={{ display: "flex", gap: 8 }}>
-                  <button onClick={() => { if (!confirm("Kontakt wirklich bearbeiten?")) return; const manualIndex = manualContacts.findIndex(c => String(c.phone).replace(/\s/g, "") === String(selectedContact.phone).replace(/\s/g, "")); setEditingContactIndex(manualIndex); setNewContactName(selectedContact.name); setNewContactPhone(selectedContact.phone); setNewContactBirthdate(selectedContact.birthdate); setNewContactExisting(selectedContact.existing); setNewContactDoctor(selectedContact.doctor); setSelectedContact(null); setShowAddContact(true); }} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #d1d5db", background: "white", cursor: "pointer", fontWeight: 600 }}>Bearbeiten</button>
-                  <button onClick={() => { if (!confirm("Kontakt wirklich löschen? Diese Daten gehen verloren.")) return; const updated = manualContacts.filter(c => String(c.phone).replace(/\s/g, "") !== String(selectedContact.phone).replace(/\s/g, "")); setManualContacts(updated); localStorage.setItem("manualContacts", JSON.stringify(updated)); setSelectedContact(null); }} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #fecaca", background: "#fef2f2", color: "#dc2626", cursor: "pointer", fontWeight: 600 }}>Löschen</button>
+                  <button onClick={() => { if (!setConfirmAction("Kontakt wirklich bearbeiten?")) return; const manualIndex = manualContacts.findIndex(c => String(c.phone).replace(/\s/g, "") === String(selectedContact.phone).replace(/\s/g, "")); setEditingContactIndex(manualIndex); setNewContactName(selectedContact.name); setNewContactPhone(selectedContact.phone); setNewContactBirthdate(selectedContact.birthdate); setNewContactExisting(selectedContact.existing); setNewContactDoctor(selectedContact.doctor); setSelectedContact(null); setShowAddContact(true); }} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #d1d5db", background: "white", cursor: "pointer", fontWeight: 600 }}>Bearbeiten</button>
+                  <button onClick={() => { if (!setConfirmAction("Kontakt wirklich löschen? Diese Daten gehen verloren.")) return; const updated = manualContacts.filter(c => String(c.phone).replace(/\s/g, "") !== String(selectedContact.phone).replace(/\s/g, "")); setManualContacts(updated); localStorage.setItem("manualContacts", JSON.stringify(updated)); setSelectedContact(null); }} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #fecaca", background: "#fef2f2", color: "#dc2626", cursor: "pointer", fontWeight: 600 }}>Löschen</button>
                   <button onClick={() => setSelectedContact(null)} style={closeButton}>×</button>
                 </div>
               </div>
@@ -1422,6 +1423,61 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {confirmAction && selectedContact && (
+          <div style={modalOverlay}>
+            <div style={confirmModal}>
+              <h3 style={{ marginTop: 0 }}>
+                {confirmAction === "delete" ? "Kontakt löschen?" : "Kontakt bearbeiten?"}
+              </h3>
+        
+              <p style={settingsText}>
+                {confirmAction === "delete"
+                  ? "Dieser Kontakt wird dauerhaft gelöscht. Diese Aktion kann nicht rückgängig gemacht werden."
+                  : "Möchten Sie diesen Kontakt wirklich bearbeiten?"}
+              </p>
+        
+              <div style={modalActions}>
+                <button onClick={() => setConfirmAction(null)} style={cancelButton}>
+                  Abbrechen
+                </button>
+        
+                <button
+                  style={confirmAction === "delete" ? deleteButton : addButton}
+                  onClick={() => {
+                    const manualIndex = manualContacts.findIndex(c =>
+                      String(c.phone).replace(/\s/g, "") === String(selectedContact.phone).replace(/\s/g, "")
+                    );
+        
+                    if (confirmAction === "edit") {
+                      setEditingContactIndex(manualIndex);
+                      setNewContactName(selectedContact.name);
+                      setNewContactPhone(selectedContact.phone);
+                      setNewContactBirthdate(selectedContact.birthdate);
+                      setNewContactExisting(selectedContact.existing);
+                      setNewContactDoctor(selectedContact.doctor);
+                      setSelectedContact(null);
+                      setShowAddContact(true);
+                    }
+        
+                    if (confirmAction === "delete") {
+                      const updated = manualContacts.filter(c =>
+                        String(c.phone).replace(/\s/g, "") !== String(selectedContact.phone).replace(/\s/g, "")
+                      );
+                      setManualContacts(updated);
+                      localStorage.setItem("manualContacts", JSON.stringify(updated));
+                      setSelectedContact(null);
+                    }
+        
+                    setConfirmAction(null);
+                  }}
+                >
+                  {confirmAction === "delete" ? "Ja, löschen" : "Ja, bearbeiten"}
+                </button>
               </div>
             </div>
           </div>
@@ -1556,3 +1612,4 @@ const patientDataGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 
 const historyList = { display: "flex", flexDirection: "column", gap: 14, marginTop: 14 };
 const sidebarUnreadBadge = { position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)", background: "#dc2626", color: "white", borderRadius: 999, minWidth: 24, height: 24, padding: "0 7px", fontSize: 13, fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 10px rgba(220,38,38,0.35)" };
 const contactAddGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, alignItems: "end" };
+const deleteButton = { padding: "10px 14px", borderRadius: 10, border: "none", background: "#dc2626", color: "white", cursor: "pointer", fontWeight: 700 };
