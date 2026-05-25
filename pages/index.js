@@ -784,7 +784,14 @@ export default function Home() {
                 .sort((a, b) => { if (contactSort === "nameAZ") return a.name.localeCompare(b.name); if (contactSort === "nameZA") return b.name.localeCompare(a.name); return 0; })
                 
                 .filter(c => {
-                  const searchMatch = c.name.toLowerCase().includes(contactSearch.toLowerCase());
+                  const searchValue = contactSearch.toLowerCase();
+                  
+                  const searchMatch =
+                    (c.name || "").toLowerCase().includes(searchValue) ||
+                    (c.phone || "").toLowerCase().includes(searchValue) ||
+                    (c.birthdate || "").toLowerCase().includes(searchValue) ||
+                    (c.existing || "").toLowerCase().includes(searchValue) ||
+                    (c.doctor || "").toLowerCase().includes(searchValue);
         
                   const doctorMatch =
                     contactDoctorFilter === "Alle" ||
