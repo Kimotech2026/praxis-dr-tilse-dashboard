@@ -73,6 +73,8 @@ export default function Home() {
   const [newContactBirthdate, setNewContactBirthdate] = useState("");
   const [newContactExisting, setNewContactExisting] = useState("Bestandspatient");
   const [newContactDoctor, setNewContactDoctor] = useState("Frau Dr. Tilse");
+  const [editingContactIndex, setEditingContactIndex] = useState(null);
+
   
   const [users, setUsers] = useState([
     {
@@ -361,15 +363,18 @@ export default function Home() {
   };
 
   const handleAddContact = () => {
-    if (!newContactName || !newContactPhone) {
-      alert("Bitte Name und Telefonnummer ausfüllen.");
-      return;
-    }
+    if (!newContactName || !newContactPhone) { alert("Bitte Name und Telefonnummer ausfüllen."); return; }
   
     const newContact = { name: newContactName, phone: newContactPhone, birthdate: newContactBirthdate, existing: newContactExisting, doctor: newContactDoctor, lastContact: "-", calls: [] };
   
-    setManualContacts(prev => { const updated = [...prev, newContact].sort((a, b) => a.name.localeCompare(b.name)); localStorage.setItem("manualContacts", JSON.stringify(updated)); return updated; });
+    setManualContacts(prev => {
+      const updated = editingContactIndex !== null ? prev.map((c, i) => i === editingContactIndex ? newContact : c) : [...prev, newContact];
+      const sorted = updated.sort((a, b) => a.name.localeCompare(b.name));
+      localStorage.setItem("manualContacts", JSON.stringify(sorted));
+      return sorted;
+    });
   
+    setEditingContactIndex(null);
     setNewContactName("");
     setNewContactPhone("");
     setNewContactBirthdate("");
@@ -796,7 +801,9 @@ export default function Home() {
                     <span>{c.doctor}</span>
                     <span>{c.lastContact}</span>
         
-                    <button onClick={() => setSelectedContact(c)} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #bfdbfe", background: "#eff6ff", color: "#1d4ed8", cursor: "pointer", fontWeight: 600 }}>
+                    <button onClick={() => setSelectedContact(c)} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #bfdbfe", background: "#eff6ff", color: "#1d4ed8", cursor: "pointer", fontWeight: 600 }}>Historie</button>
+                    <button onClick={() => { setEditingContactIndex(i); setNewContactName(c.name); setNewContactPhone(c.phone); setNewContactBirthdate(c.birthdate); setNewContactExisting(c.existing); setNewContactDoctor(c.doctor); setShowAddContact(true); }} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #d1d5db", background: "white", cursor: "pointer", fontWeight: 600 }}>Bearbeiten</button>
+                    <button onClick={() => { const updated = manualContacts.filter((_, index) => index !== i); setManualContacts(updated); localStorage.setItem("manualContacts", JSON.stringify(updated)); }} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #fecaca", background: "#fef2f2", color: "#dc2626", cursor: "pointer", fontWeight: 600 }}>Löschen</button>
                       Historie
                     </button>
                         
