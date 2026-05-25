@@ -434,11 +434,23 @@ export default function Home() {
             </div>
 
             <div style={tabBar}>
-              {["Alle", "Neu / Ungelesen", "In Bearbeitung", "Erledigt", "Gelesen"].map(tab => (
-                <button key={tab} onClick={() => { setKeepVisibleIds([]); setStatusFilter(tab); }} style={statusFilter === tab ? activeTab : tabItem}>
-                  {tab}
-                </button>
-              ))}
+              {["Alle", "Neu / Ungelesen", "In Bearbeitung", "Erledigt", "Gelesen"].map(tab => {
+                const unreadCount = data.filter(row => row.status === "Neu / Ungelesen").length;
+              
+                return (
+                  <button
+                    key={tab}
+                    onClick={() => { setKeepVisibleIds([]); setStatusFilter(tab); }}
+                    style={{ ...(statusFilter === tab ? activeTab : tabItem), position: "relative" }}
+                  >
+                    {tab}
+              
+                    {tab === "Neu / Ungelesen" && unreadCount > 0 && (
+                      <span style={unreadBadge}>{unreadCount}</span>
+                    )}
+                  </button>
+                );
+              })}
             </div>
             
             <div style={filterRow}>
@@ -1413,3 +1425,4 @@ const loginCard = { background: "white", padding: 30, borderRadius: 20, width: 3
 const loginLoader = { margin: "16px auto 0", width: 38, height: 38, borderRadius: "50%", border: "4px solid #dbeafe", borderTopColor: "#2563eb", animation: "spin 0.8s linear infinite" };
 const contactHeaderRow = { display: "grid", gridTemplateColumns: "150px 150px 160px 150px 130px 140px", gap: 24, fontSize: 13, color: "#667085", marginBottom: 10, padding: "0 16px" };
 const contactRow = { display: "grid", gridTemplateColumns: "150px 150px 160px 150px 130px 140px", gap: 24, padding: 16, borderBottom: "1px solid #e5e7eb", alignItems: "center" };
+const unreadBadge = { position: "absolute", top: -7, right: -7, background: "#dc2626", color: "white", borderRadius: 999, minWidth: 20, height: 20, padding: "0 6px", fontSize: 12, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 10px rgba(220,38,38,0.35)" };
