@@ -434,12 +434,15 @@ export default function Home() {
               </div>
               
               {data
-                .map((row) => ({ row, originalIndex: data.indexOf(row) }))
-                .filter(({ row, originalIndex }) => {
+                .map((row) => ({
+                  row,
+                  callKey: `${row.Datum}-${row.Uhrzeit}-${row.Name}-${row.Arzt}-${row.Anliegen}`
+                }))
+                .filter(({ row, callKey }) => {
                   
                   const statusMatch =
                     statusFilter === "Alle" ||
-                    (statusMap[originalIndex] || "Neu / Ungelesen") === statusFilter;
+                    (statusMap[callKey] || "Neu / Ungelesen") === statusFilter;
                 
                   const searchMatch =
                     (row.Name || "").toLowerCase().includes(search.toLowerCase()) ||
@@ -470,21 +473,21 @@ export default function Home() {
                 
                   return statusMatch && searchMatch && anliegenMatch && arztMatch && dateMatch;
                 })
-                .map(({ row, originalIndex }) => {            
+                .map(({ row, callKey }) => {         
                   return (
                     <div
-                      key={originalIndex}
+                      key={callKey}
                     style={{
-                      ...(openIndex === originalIndex ? callCardOpen : callCard),
-                      ...((statusMap[originalIndex] || "Neu / Ungelesen") === "Neu / Ungelesen" && {
+                      ...(openIndex === callKey ? callCardOpen : callCard),
+                      ...((statusMap[callKey] || "Neu / Ungelesen") === "Neu / Ungelesen" && {
                         borderLeft: "4px solid #2563eb"
                       })
-                    }} onMouseEnter={(e) => { if (openIndex !== originalIndex) e.currentTarget.style.background = "#f8fafc"; }} onMouseLeave={(e) => { if (openIndex !== originalIndex) { e.currentTarget.style.background = "white"; e.currentTarget.style.borderBottom = "1px solid #e5e7eb"; } }}
+                    }} onMouseEnter={(e) => { if (openIndex !== callKey) e.currentTarget.style.background = "#f8fafc"; }} onMouseLeave={(e) => { if (openIndex !== callKey) { e.currentTarget.style.background = "white"; e.currentTarget.style.borderBottom = "1px solid #e5e7eb"; } }}
                     onClick={() => {
-                      setOpenIndex(openIndex === originalIndex ? null : originalIndex);
+                      setOpenIndex(openIndex === callKey ? null : callKey);
                     
-                      if ((statusMap[originalIndex] || "Neu / Ungelesen") === "Neu / Ungelesen") {
-                        updateStatus(originalIndex, "Gelesen");
+                      if ((statusMap[callKey] || "Neu / Ungelesen") === "Neu / Ungelesen") {
+                        updateStatus(callKey, "Gelesen");
                       }
                     }}>                  
                       <div style={callTop}>
@@ -518,9 +521,9 @@ export default function Home() {
                     <span>{row.Arzt || "-"}</span>
               
                     <select
-                      value={statusMap[originalIndex] || "Neu / Ungelesen"}
+                      value={statusMap[callKey] || "Neu / Ungelesen"}
                       onClick={(e) => e.stopPropagation()}
-                      onChange={(e) => updateStatus(originalIndex, e.target.value)}
+                      onChange={(e) => updateStatus(callKey, e.target.value)}
                       style={selectStyle}
                     >
                       <option>Neu / Ungelesen</option>
@@ -530,7 +533,7 @@ export default function Home() {
                     </select>
                   </div>
               
-                  {openIndex === originalIndex && (
+                  {openIndex === callKey && (
                     <div style={details}>
                       <div style={detailCard}>
                         <span style={detailLabel}>Bestandspatient</span>
