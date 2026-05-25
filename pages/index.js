@@ -1420,22 +1420,30 @@ export default function Home() {
         
                 <div style={historyList}>
                   {(selectedContact.calls || []).map((call, index) => (
-                    <div key={index} style={contactHistoryItem}>
-                      <strong>{call.Datum || "-"} · {call.Uhrzeit || "-"}</strong>
-                      <div style={historyBadges}>
-                        {(call.Anliegen || "").split(",").map(item => item.trim()).filter(Boolean).sort((a, b) => a.localeCompare(b)).map((item, i) => (
-                          <span key={i} style={{ ...badge,
-                            background: item === "Termin" ? "#e0f2fe" : item === "Rezept" ? "#dcfce7" : item === "Attest" ? "#fef9c3" : "#e5e7eb",
-                            color: item === "Termin" ? "#0369a1" : item === "Rezept" ? "#166534" : item === "Attest" ? "#854d0e" : "#374151",
-                            border: item === "Termin" ? "1px solid #7dd3fc" : item === "Rezept" ? "1px solid #86efac" : item === "Attest" ? "1px solid #fde047" : "1px solid #d1d5db"
-                          }}>
-                            {item}
-                          </span>
-                        ))}
+                    <div key={index} style={timelineItem}>
+                      <div style={timelineLeft}>
+                        <div style={timelineDot}></div>
+                        <strong>{call.Datum || "-"}</strong>
+                        <span>{call.Uhrzeit || "-"}</span>
                       </div>
-                      <div style={historySummaryBox}>
-                        <span style={detailLabel}>Zusammenfassung</span>
-                        <p style={{ margin: 0 }}>{call.Zusammenfassung || "-"}</p>
+                  
+                      <div style={timelineContent}>
+                        <div style={historyBadges}>
+                          {(call.Anliegen || "").split(",").map(item => item.trim()).filter(Boolean).sort((a, b) => a.localeCompare(b)).map((item, i) => (
+                            <span key={i} style={{ ...badge,
+                              background: item === "Termin" ? "#e0f2fe" : item === "Rezept" ? "#dcfce7" : item === "Attest" ? "#fef9c3" : "#e5e7eb",
+                              color: item === "Termin" ? "#0369a1" : item === "Rezept" ? "#166534" : item === "Attest" ? "#854d0e" : "#374151",
+                              border: item === "Termin" ? "1px solid #7dd3fc" : item === "Rezept" ? "1px solid #86efac" : item === "Attest" ? "1px solid #fde047" : "1px solid #d1d5db"
+                            }}>
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+                  
+                        <div style={historySummaryBox}>
+                          <span style={detailLabel}>Zusammenfassung</span>
+                          <p style={{ margin: 0 }}>{call.Zusammenfassung || "-"}</p>
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -1646,3 +1654,7 @@ const historyList = { display: "flex", flexDirection: "column", gap: 14, marginT
 const sidebarUnreadBadge = { position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)", background: "#dc2626", color: "white", borderRadius: 999, minWidth: 24, height: 24, padding: "0 7px", fontSize: 13, fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 10px rgba(220,38,38,0.35)" };
 const contactAddGrid = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, alignItems: "end" };
 const deleteButton = { padding: "10px 14px", borderRadius: 10, border: "none", background: "#dc2626", color: "white", cursor: "pointer", fontWeight: 500 };
+const timelineItem = { display: "grid", gridTemplateColumns: "130px 1fr", gap: 18, position: "relative" };
+const timelineLeft = { borderRight: "2px solid #dbeafe", paddingRight: 18, position: "relative", display: "flex", flexDirection: "column", alignItems: "flex-end", color: "#0f172a" };
+const timelineDot = { position: "absolute", right: -7, top: 4, width: 12, height: 12, borderRadius: "50%", background: "#2563eb", border: "3px solid white", boxShadow: "0 0 0 2px #bfdbfe" };
+const timelineContent = { background: "white", border: "1px solid #e5e7eb", borderRadius: 14, padding: 16, boxShadow: "0 6px 16px rgba(15,23,42,0.04)" };
