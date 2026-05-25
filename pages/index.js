@@ -68,11 +68,11 @@ export default function Home() {
   const [openContactIndex, setOpenContactIndex] = useState(null);
   const [selectedContact, setSelectedContact] = useState(null);
   const [manualContacts, setManualContacts] = useState([]);
-const [newContactName, setNewContactName] = useState("");
-const [newContactPhone, setNewContactPhone] = useState("");
-const [newContactBirthdate, setNewContactBirthdate] = useState("");
-const [newContactExisting, setNewContactExisting] = useState("Bestandspatient");
-const [newContactDoctor, setNewContactDoctor] = useState("Frau Dr. Tilse");
+  const [newContactName, setNewContactName] = useState("");
+  const [newContactPhone, setNewContactPhone] = useState("");
+  const [newContactBirthdate, setNewContactBirthdate] = useState("");
+  const [newContactExisting, setNewContactExisting] = useState("Bestandspatient");
+  const [newContactDoctor, setNewContactDoctor] = useState("Frau Dr. Tilse");
   
   const [users, setUsers] = useState([
     {
@@ -164,6 +164,13 @@ const [newContactDoctor, setNewContactDoctor] = useState("Frau Dr. Tilse");
       });
   }, []);
 
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem("manualContacts") || "[]");
+    if (saved.length) {
+      setContacts(prev => [...prev, ...saved]);
+    }
+  }, []);
+  
   useEffect(() => {
     if (!data.length) return;
   
@@ -366,7 +373,11 @@ const [newContactDoctor, setNewContactDoctor] = useState("Frau Dr. Tilse");
   
     const newContact = { name: newContactName, phone: newContactPhone, birthdate: newContactBirthdate, existing: newContactExisting, doctor: newContactDoctor, lastContact: "-", calls: [] };
   
-    setManualContacts(prev => [...prev, newContact]);
+    setContacts(prev => {
+      const updated = [...prev, newContact].sort((a, b) => a.name.localeCompare(b.name));
+      localStorage.setItem("manualContacts", JSON.stringify(updated.filter(c => c.calls.length === 0)));
+      return updated;
+    });
   
     setNewContactName("");
     setNewContactPhone("");
@@ -1361,15 +1372,21 @@ const [newContactDoctor, setNewContactDoctor] = useState("Frau Dr. Tilse");
                 <input placeholder="Telefonnummer" value={newContactPhone} onChange={(e) => setNewContactPhone(e.target.value)} style={input} />
                 <input placeholder="TT.MM.JJJJ" value={newContactBirthdate} onChange={(e) => setNewContactBirthdate(e.target.value.replace(/\D/g, "").replace(/(\d{2})(\d)/, "$1.$2").replace(/(\d{2})\.(\d{2})(\d)/, "$1.$2.$3").slice(0, 10))} style={input} />
         
-                <select value={newContactExisting} onChange={(e) => setNewContactExisting(e.target.value)} style={input}>
-                  <option>Bestandspatient</option>
-                  <option>Neupatient</option>
-                </select>
-        
-                <select value={newContactDoctor} onChange={(e) => setNewContactDoctor(e.target.value)} style={input}>
-                  <option>Frau Dr. Tilse</option>
-                  <option>Herr Dr. Tilse</option>
-                </select>
+                <div>
+                  <label style={formLabel}>Patientenstatus</label>
+                  <select value={newContactExisting} onChange={(e) => setNewContactExisting(e.target.value)} style={input}>
+                    <option>Bestandspatient</option>
+                    <option>Neupatient</option>
+                  </select>
+                </div>
+                
+                <div>
+                  <label style={formLabel}>Zuständiger Arzt</label>
+                  <select value={newContactDoctor} onChange={(e) => setNewContactDoctor(e.target.value)} style={input}>
+                    <option>Frau Dr. Tilse</option>
+                    <option>Herr Dr. Tilse</option>
+                  </select>
+                </div>
               </div>
         
               <div style={modalActions}>
