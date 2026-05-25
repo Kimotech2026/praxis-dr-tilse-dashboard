@@ -746,8 +746,6 @@ export default function Home() {
                 <select value={contactSort} onChange={(e) => setContactSort(e.target.value)} style={filterSelect}>
                   <option value="nameAZ">Name A-Z</option>
                   <option value="nameZA">Name Z-A</option>
-                  <option value="newest">Letzter Kontakt zuerst</option>
-                  <option value="oldest">Ältester Kontakt zuerst</option>
                 </select>
               </div>
             </div>
