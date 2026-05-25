@@ -183,7 +183,7 @@ export default function Home() {
         return dateB - dateA;
       });
   
-      eturn {
+      return {
         name: contact.name,
         phone: contact.phone,
         existing: contact.existing,
