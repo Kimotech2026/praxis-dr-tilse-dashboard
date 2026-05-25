@@ -35,7 +35,6 @@ function CountUp({ value }) {
 export default function Home() {
   const [data, setData] = useState([]);
   const [openIndex, setOpenIndex] = useState(null);
-  const [statusMap, setStatusMap] = useState({});
   const [activePage, setActivePage] = useState("");
   const [ready, setReady] = useState(false);  const [activeCalendar, setActiveCalendar] = useState("Frau Dr. Tilse");
   const [activeSettingsTab, setActiveSettingsTab] = useState("Praxisdaten");  
@@ -139,7 +138,14 @@ export default function Home() {
     if (type === "Letzter Monat") { start.setMonth(today.getMonth() - 1, 1); end.setMonth(today.getMonth(), 0); setDateRange([start, end]); }
     if (type === "Zurücksetzen") setDateRange([null, null]);
   };
-  const updateStatus = (i, value) => setStatusMap(prev => ({ ...prev, [i]: value }));
+
+  const updateStatus = (callId, value) => {
+    setData(prev =>
+      prev.map(row =>
+        row.callId === callId ? { ...row, status: value } : row
+      )
+    );
+  };
 
   const saveSettings = () => {
     localStorage.setItem("dashboardSettings", JSON.stringify(settings));
@@ -163,12 +169,13 @@ export default function Home() {
   useEffect(() => {
     fetch("https://opensheet.elk.sh/1AFGmKqR2typaxKARBprS81ArcBUqXg1RX8sXwNyO1oY/Tabellenblatt1")
       .then((res) => res.json())
-      .then((data) =>
+      .then((sheetData) =>
         setData(
-          data.map((row, index) => ({
+          [...sheetData].reverse().map((row, index) => ({
             ...row,
-            callId: String(1000000000 + index)
-          })).reverse()
+            callId: String(1000000000 + index),
+            status: "Neu / Ungelesen"
+          }))
         )
       );
   }, []);
@@ -444,13 +451,12 @@ export default function Home() {
                 .map((row) => ({
                   row,
                   callKey: row.callId
-
                 }))
                 .filter(({ row, callKey }) => {
                   
                   const statusMatch =
                     statusFilter === "Alle" ||
-                    (statusMap[callKey] || "Neu / Ungelesen") === statusFilter;
+                    (row.status) === statusFilter;
                 
                   const searchMatch =
                     (row.Name || "").toLowerCase().includes(search.toLowerCase()) ||
@@ -487,14 +493,14 @@ export default function Home() {
                       key={callKey}
                     style={{
                       ...(openIndex === callKey ? callCardOpen : callCard),
-                      ...((statusMap[callKey] || "Neu / Ungelesen") === "Neu / Ungelesen" && {
+                      ...((row.status) === "Neu / Ungelesen" && {
                         borderLeft: "4px solid #2563eb"
                       })
                     }} onMouseEnter={(e) => { if (openIndex !== callKey) e.currentTarget.style.background = "#f8fafc"; }} onMouseLeave={(e) => { if (openIndex !== callKey) { e.currentTarget.style.background = "white"; e.currentTarget.style.borderBottom = "1px solid #e5e7eb"; } }}
                     onClick={() => {
                       setOpenIndex(openIndex === callKey ? null : callKey);
                     
-                      if ((statusMap[callKey] || "Neu / Ungelesen") === "Neu / Ungelesen") {
+                      if ((row.status) === "Neu / Ungelesen") {
                         updateStatus(callKey, "Gelesen");
                       }
                     }}>                  
@@ -529,7 +535,7 @@ export default function Home() {
                     <span>{row.Arzt || "-"}</span>
               
                     <select
-                      value={statusMap[callKey] || "Neu / Ungelesen"}
+                      value={row.status}
                       onClick={(e) => e.stopPropagation()}
                       onChange={(e) => updateStatus(callKey, e.target.value)}
                       style={selectStyle}
