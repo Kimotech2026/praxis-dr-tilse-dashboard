@@ -761,18 +761,8 @@ export default function Home() {
               </div>
         
               {[...manualContacts, ...contacts]
-                .sort((a, b) => {
-                  if (contactSort === "nameAZ") return a.name.localeCompare(b.name);
-                  if (contactSort === "nameZA") return b.name.localeCompare(a.name);
-              
-                  const dateA = parseGermanDate(a.lastContact);
-                  const dateB = parseGermanDate(b.lastContact);
-              
-                  if (contactSort === "newest") return dateB - dateA;
-                  if (contactSort === "oldest") return dateA - dateB;
-              
-                  return 0;
-                })
+                .sort((a, b) => { if (contactSort === "nameAZ") return a.name.localeCompare(b.name); if (contactSort === "nameZA") return b.name.localeCompare(a.name); return 0; })
+                
                 .filter(c => {
                   const searchMatch = c.name.toLowerCase().includes(contactSearch.toLowerCase());
         
