@@ -793,8 +793,10 @@ export default function Home() {
                 })
                 
                 .map((c, i) => {
-                  const manualIndex = manualContacts.findIndex(m => m.phone === c.phone);
-                
+                  const manualIndex = manualContacts.findIndex(m =>
+                    String(m.phone).replace(/\s/g, "") === String(c.phone).replace(/\s/g, "")
+                  );
+                                  
                   return (
                     <div key={i} style={contactRow}>
                       <span style={{ fontWeight: 700 }}>{c.name}</span>
@@ -811,23 +813,31 @@ export default function Home() {
                 
                         {manualIndex !== -1 && (
                           <>
-                            <button onClick={() => {
-                              setEditingContactIndex(manualIndex);
-                              setNewContactName(c.name);
-                              setNewContactPhone(c.phone);
-                              setNewContactBirthdate(c.birthdate);
-                              setNewContactExisting(c.existing);
-                              setNewContactDoctor(c.doctor);
-                              setShowAddContact(true);
-                            }} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #d1d5db", background: "white", cursor: "pointer", fontWeight: 600 }}>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setEditingContactIndex(manualIndex);
+                                setNewContactName(c.name);
+                                setNewContactPhone(c.phone);
+                                setNewContactBirthdate(c.birthdate);
+                                setNewContactExisting(c.existing);
+                                setNewContactDoctor(c.doctor);
+                                setShowAddContact(true);
+                              }}
+                              style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #d1d5db", background: "white", cursor: "pointer", fontWeight: 600 }}
+                            >
                               Bearbeiten
                             </button>
-                
-                            <button onClick={() => {
-                              const updated = manualContacts.filter((_, index) => index !== manualIndex);
-                              setManualContacts(updated);
-                              localStorage.setItem("manualContacts", JSON.stringify(updated));
-                            }} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #fecaca", background: "#fef2f2", color: "#dc2626", cursor: "pointer", fontWeight: 600 }}>
+                            
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                const updated = manualContacts.filter((_, index) => index !== manualIndex);
+                                setManualContacts(updated);
+                                localStorage.setItem("manualContacts", JSON.stringify(updated));
+                              }}
+                              style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #fecaca", background: "#fef2f2", color: "#dc2626", cursor: "pointer", fontWeight: 600 }}
+                            >
                               Löschen
                             </button>
                           </>
