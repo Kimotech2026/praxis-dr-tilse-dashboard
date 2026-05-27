@@ -138,6 +138,8 @@ export default function Home() {
   useEffect(() => {
     const style = document.createElement("style");
     style.innerHTML = `
+      html, body, #root { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+  
       @keyframes spin {
         from { transform: rotate(0deg); }
         to { transform: rotate(360deg); }
@@ -1918,9 +1920,9 @@ export default function Home() {
 }
 
 
-const layout = { display: "flex", height: "100vh", overflow: "hidden", background: "#f5f7fb", fontFamily: "Inter, sans-serif" };
+const layout = { display: "flex", height: "100vh", width: "100vw", overflow: "hidden", background: "#f5f7fb", fontFamily: "Inter, sans-serif", margin: 0 };
 const main = { flex: 1, padding: 24, overflow: "auto", boxSizing: "border-box" };
-const sidebar = { width: 190, flexShrink: 0, background: "#0f172a", color: "white", padding: 18, display: "flex", flexDirection: "column", justifyContent: "space-between" };
+const sidebar = { width: 190, height: "100vh", boxSizing: "border-box", flexShrink: 0, background: "#0f172a", color: "white", padding: 18, display: "flex", flexDirection: "column", justifyContent: "space-between" };
 const navItem = { padding: 12, color: "#cbd5e1", cursor: "pointer", borderRadius: 10, transition: "all 0.2s ease" };
 const activeNav = { padding: 12, background: "#2563eb", borderRadius: 10, color: "white", cursor: "pointer", transition: "all 0.2s ease" };
 const cards = { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 14, margin: "14px 0" };
