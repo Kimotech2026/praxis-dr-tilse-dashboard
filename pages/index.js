@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Phone, Users, Calendar, User, CreditCard, Settings, Filter, Shield, Star, Crown, ArrowUpDown, ChevronDown, ChevronUp } from "lucide-react";
+import { Phone, Users, Calendar, User, CreditCard, Settings, Filter, Shield, Star, Crown, ArrowUpDown, Eye, EyeOff } from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -78,7 +78,8 @@ export default function Home() {
   const [editingUserIndex, setEditingUserIndex] = useState(null);
   const [selectedPermissions, setSelectedPermissions] = useState([]);
   const [confirmDeleteUserIndex, setConfirmDeleteUserIndex] = useState(null);
-
+  const [newEmployeePasswordRepeat, setNewEmployeePasswordRepeat] = useState("");
+  const [showEmployeePassword, setShowEmployeePassword] = useState(false);
   
   const [users, setUsers] = useState([
     {
@@ -403,7 +404,12 @@ export default function Home() {
       alert("Bitte alles ausfüllen.");
       return;
     }
-  
+
+    if (newEmployeePassword !== newEmployeePasswordRepeat) {
+      alert("Die Passwörter stimmen nicht überein.");
+      return;
+    }
+    
     const newUser = {
       id: newEmployeeId,
       password: newEmployeePassword,
@@ -433,6 +439,8 @@ export default function Home() {
     setNewEmployeePassword("");
     setShowAddEmployee(false);
     setSelectedPermissions([]);
+    setNewEmployeePasswordRepeat("");
+    setShowEmployeePassword(false);  
     setToastMessage("✓ Erfolgreich aktualisiert");
     setShowToast(true);
     setTimeout(() => setShowToast(false), 1800);
@@ -1227,6 +1235,7 @@ export default function Home() {
                                 setNewEmployeeName(user.name);
                                 setNewEmployeeId(user.id);
                                 setNewEmployeePassword(user.password);
+                                setNewEmployeePasswordRepeat(user.password);
                                 setNewEmployeeRole(user.role);
                                 setNewEmployeeAccessLevel(user.accessLevel);
                                 setSelectedPermissions(user.permissions || []);
@@ -1452,7 +1461,42 @@ export default function Home() {
         
                   <div>
                     <label style={formLabel}>Passwort</label>
-                    <input value={newEmployeePassword} onChange={(e) => setNewEmployeePassword(e.target.value)} placeholder="z. B. 1234" style={input} />
+                    <div style={{ position: "relative" }}>
+                      <input
+                        type={showEmployeePassword ? "text" : "password"}
+                        value={newEmployeePassword}
+                        onChange={(e) => setNewEmployeePassword(e.target.value)}
+                        placeholder="Passwort eingeben"
+                        style={{ ...input, paddingRight: 42 }}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowEmployeePassword(!showEmployeePassword)}
+                        style={{
+                          position: "absolute",
+                          right: 10,
+                          top: "50%",
+                          transform: "translateY(-50%)",
+                          border: "none",
+                          background: "transparent",
+                          cursor: "pointer",
+                          color: "#64748b"
+                        }}
+                      >
+                        {showEmployeePassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <label style={formLabel}>Passwort wiederholen</label>
+                    <input
+                      type={showEmployeePassword ? "text" : "password"}
+                      value={newEmployeePasswordRepeat}
+                      onChange={(e) => setNewEmployeePasswordRepeat(e.target.value)}
+                      placeholder="Passwort erneut eingeben"
+                      style={input}
+                    />
                   </div>
         
                   <div>
