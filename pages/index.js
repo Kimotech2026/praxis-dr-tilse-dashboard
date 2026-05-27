@@ -1596,10 +1596,20 @@ export default function Home() {
               
                 {editingUserIndex !== null && (
                   <button
-                    onClick={() => setConfirmDeleteUserIndex(editingUserIndex)}
-                    style={deleteButton}
+                    onClick={() => {
+                      setConfirmDeleteUserIndex(editingUserIndex);
+                    }}
+                    style={{
+                      padding: "10px 14px",
+                      borderRadius: 10,
+                      border: "1px solid #fecaca",
+                      background: "#fef2f2",
+                      color: "#dc2626",
+                      cursor: "pointer",
+                      fontWeight: 500
+                    }}
                   >
-                    Mitarbeiter löschen
+                    Profil löschen
                   </button>
                 )}
               
