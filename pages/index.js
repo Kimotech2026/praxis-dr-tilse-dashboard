@@ -1920,9 +1920,9 @@ export default function Home() {
 }
 
 
-const layout = { display: "flex", height: "100vh", overflow: "hidden", background: "#f3f4f6", fontFamily: "Inter, sans-serif" };
+const layout = { display: "flex", height: "100vh", overflow: "hidden", background: "#f8fafc", fontFamily: "Inter, sans-serif" };
 const main = { flex: 1, padding: 24, overflow: "auto", boxSizing: "border-box" };
-const sidebar = { width: 240, height: "100vh", boxSizing: "border-box", flexShrink: 0, background: "#f1f5f9", color: "#1e293b", padding: 18, display: "flex", flexDirection: "column", justifyContent: "space-between" };
+const sidebar = { width: 240, height: "100vh", boxSizing: "border-box", flexShrink: 0, background: "#e2e8f0", color: "#1e293b", padding: 18, display: "flex", flexDirection: "column", justifyContent: "space-between" };
 const navItem = { padding: 12, color: "#475569", cursor: "pointer", borderRadius: 10, transition: "all 0.2s ease" };
 const activeNav = { padding: 12, background: "#e2e8f0", borderRadius: 10, color: "#0f172a", cursor: "pointer", transition: "all 0.2s ease" };
 const cards = { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 14, margin: "14px 0" };
