@@ -1131,37 +1131,29 @@ export default function Home() {
             )}
         
             {activeSettingsTab === "Dashboard" && (
-              <div style={{ ...settingsCard, alignItems: "flex-start" }}>
+              <div style={settingsCard}>
                 <div>
                   <h3 style={settingsTitle}>Startseite</h3>
                   <p style={settingsText}>Bereich, der beim Öffnen automatisch angezeigt wird.</p>
                 </div>
               
-                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                  
-                  <select
-                    value={settings.startPage}
-                    onChange={(e) => setSettings({ ...settings, startPage: e.target.value })}
-                    style={smallSelect}
-                  >
-                    <option>Anrufe</option>
-                    <option>Kalender</option>
-                  </select>
+                <select value={settings.startPage} onChange={(e) => setSettings({ ...settings, startPage: e.target.value })} style={smallSelect}>
+                  <option>Anrufe</option>
+                  <option>Kalender</option>
+                </select>
+              </div>
               
-                  <select
-                    value={entriesPerPage}
-                    onChange={(e) => {
-                      setEntriesPerPage(Number(e.target.value));
-                      setCurrentPage(1);
-                    }}
-                    style={smallSelect}
-                  >
-                    <option value={10}>10 Anrufe</option>
-                    <option value={25}>25 Anrufe</option>
-                    <option value={50}>50 Anrufe</option>
-                  </select>
-              
+              <div style={settingsCard}>
+                <div>
+                  <h3 style={settingsTitle}>Anrufseite</h3>
+                  <p style={settingsText}>Anzahl der Anrufe, die pro Seite angezeigt werden.</p>
                 </div>
+              
+                <select value={entriesPerPage} onChange={(e) => { setEntriesPerPage(Number(e.target.value)); setCurrentPage(1); }} style={smallSelect}>
+                  <option value={10}>10 Anrufe</option>
+                  <option value={25}>25 Anrufe</option>
+                  <option value={50}>50 Anrufe</option>
+                </select>
               </div>
             )}
 
