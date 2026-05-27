@@ -758,7 +758,7 @@ export default function Home() {
             </div>
             </div>   
                 
-            <div style={{ background: "white", padding: 18, borderRadius: 16, maxHeight: "calc(100vh - 450px)", overflowY: "auto" }}>
+            <div style={{ background: "white", padding: 18, borderRadius: 16 }}>
               <div style={headerRow}>
                 <span>Datum</span>
                 <span>Name</span>
@@ -766,7 +766,9 @@ export default function Home() {
                 <span>Arzt</span>
                 <span>Status</span>
               </div>
-              
+
+              <div style={{ maxHeight: "calc(100vh - 500px)", overflowY: "auto" }}>
+
               {paginatedData.map((row) => (
                   <div
                     key={row.callId}
@@ -879,6 +881,7 @@ export default function Home() {
                     )}
                   </div>
                 ))}
+              </div>
             </div>
             <div style={pagination}>
               {Array.from({ length: totalPages }, (_, i) => (
