@@ -1485,7 +1485,6 @@ export default function Home() {
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
                       {[
                         "Anrufe bearbeiten",
-                        "Kalender ansehen",
                         "Kalender verwalten",
                         "Kontakte ansehen",
                         "Kontakte bearbeiten",
@@ -1493,7 +1492,6 @@ export default function Home() {
                         "Praxisdaten ändern",
                         "Mitgliedschaft einsehen",
                         "Mitarbeiter verwalten",
-                        "Auswertungen ansehen"
                       ].map(permission => (
                         <label key={permission} style={checkOption}>
                           <input
