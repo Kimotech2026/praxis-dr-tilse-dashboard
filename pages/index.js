@@ -528,8 +528,6 @@ export default function Home() {
     );
   
   return (
-
-  return (
     <div style={layout}>
       <aside style={sidebar}>
        <div>
