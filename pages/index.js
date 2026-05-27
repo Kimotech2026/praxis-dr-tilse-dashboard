@@ -931,7 +931,7 @@ export default function Home() {
         {activePage === "Einstellungen" && (
           <div style={box}>
         
-            div style={tabBar}>
+            <div style={tabBar}>
               {(currentUser.accessLevel === "Admin"
                 ? ["Praxisdaten", "Benachrichtigungen", "Dashboard", "Profilverwaltung", "Konto"]
                 : ["Benachrichtigungen", "Dashboard", "Konto"]
