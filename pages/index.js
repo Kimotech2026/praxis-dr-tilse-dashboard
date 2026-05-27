@@ -756,7 +756,7 @@ export default function Home() {
             </div>
             </div>   
                 
-            <div style={{ background: "white", padding: 18, borderRadius: 16, maxHeight: "calc(100vh - 430px)", overflowY: "auto" }}>
+            <div style={{ background: "white", padding: 18, borderRadius: 16, maxHeight: "calc(100vh - 450px)", overflowY: "auto" }}>
               <div style={headerRow}>
                 <span>Datum</span>
                 <span>Name</span>
