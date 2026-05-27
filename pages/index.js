@@ -375,6 +375,9 @@ export default function Home() {
 
   const restrictedPermissions = ["Anrufe ansehen", "Kalender ansehen", "Dashboard verwalten"];
   
+  const hasPermission = (permission) => {
+    return currentUser?.permissions?.includes(permission) || currentUser?.accessLevel === "Admin";
+  };
   const handleAccessLevelChange = (level) => {
     setNewEmployeeAccessLevel(level);
   
@@ -534,7 +537,11 @@ export default function Home() {
         <h2>Praxis Dr. Tilse</h2>
          <nav>
           <p onClick={() => setActivePage("Anrufe")} onMouseEnter={(e) => activePage !== "Anrufe" && (e.currentTarget.style.background = "#1e293b")} onMouseLeave={(e) => activePage !== "Anrufe" && (e.currentTarget.style.background = "transparent")} style={{ ...(activePage === "Anrufe" ? activeNav : { ...navItem, cursor: "pointer" }), position: "relative" }}><Phone size={18} style={icon}/> Anrufe {data.filter(row => row.status === "Neu / Ungelesen").length > 0 && <span style={sidebarUnreadBadge}>{data.filter(row => row.status === "Neu / Ungelesen").length}</span>}</p>
-          <p onClick={() => setActivePage("Kontakte")} onMouseEnter={(e) => activePage !== "Kontakte" && (e.currentTarget.style.background = "#1e293b")} onMouseLeave={(e) => activePage !== "Kontakte" && (e.currentTarget.style.background = "transparent")} style={activePage === "Kontakte" ? activeNav : { ...navItem, cursor: "pointer" }}><Users size={18} style={icon}/> Kontakte</p>
+          {hasPermission("Kontakte ansehen") && (
+            <p onClick={() => setActivePage("Kontakte")} onMouseEnter={(e) => activePage !== "Kontakte" && (e.currentTarget.style.background = "#1e293b")} onMouseLeave={(e) => activePage !== "Kontakte" && (e.currentTarget.style.background = "transparent")} style={activePage === "Kontakte" ? activeNav : { ...navItem, cursor: "pointer" }}>
+              <Users size={18} style={icon}/> Kontakte
+            </p>
+          )}
           <p onClick={() => setActivePage("Kalender")} onMouseEnter={(e) => activePage !== "Kalender" && (e.currentTarget.style.background = "#1e293b")} onMouseLeave={(e) => activePage !== "Kalender" && (e.currentTarget.style.background = "transparent")} style={activePage === "Kalender" ? activeNav : { ...navItem, cursor: "pointer" }}><Calendar size={18} style={icon}/> Kalender</p>
         </nav>
         </div>
@@ -753,18 +760,22 @@ export default function Home() {
                       </span>
               
                       <span>{row.Arzt || "-"}</span>
-              
-                      <select
-                        value={row.status}
-                        onClick={(e) => e.stopPropagation()}
-                        onChange={(e) => updateStatus(row.callId, e.target.value)}
-                        style={selectStyle}
-                      >
-                        <option>Neu / Ungelesen</option>
-                        <option>Gelesen</option>
-                        <option>In Bearbeitung</option>
-                        <option>Erledigt</option>
-                      </select>
+                      
+                      {hasPermission("Anrufe bearbeiten") ? (
+                        <select
+                          value={row.status}
+                          onClick={(e) => e.stopPropagation()}
+                          onChange={(e) => updateStatus(row.callId, e.target.value)}
+                          style={selectStyle}
+                        >
+                          <option>Neu / Ungelesen</option>
+                          <option>Gelesen</option>
+                          <option>In Bearbeitung</option>
+                          <option>Erledigt</option>
+                        </select>
+                      ) : (
+                        <span style={{ color: "#64748b" }}>{row.status}</span>
+                      )}
                     </div>
               
                     {openIndex === row.callId && (
@@ -1315,12 +1326,14 @@ export default function Home() {
                 ))}
               </div>
             
-              <button
-                style={addButton}
-                onClick={() => setShowAddAppointment(true)}
-              >
-                + Termin hinzufügen
-              </button>
+              {hasPermission("Kalender verwalten") && (
+                <button
+                  style={addButton}
+                  onClick={() => setShowAddAppointment(true)}
+                >
+                  + Termin hinzufügen
+                </button>
+              )}
             
             </div>
         
