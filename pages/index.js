@@ -931,10 +931,11 @@ export default function Home() {
         {activePage === "Einstellungen" && (
           <div style={box}>
         
-            <div style={tabBar}>
-              {["Praxisdaten", "Benachrichtigungen", "Dashboard", "Profile", "Konto"]
-                .filter(tab => currentUser.accessLevel === "Admin" || tab !== "Praxisdaten")
-                .map(tab => (
+            div style={tabBar}>
+              {(currentUser.accessLevel === "Admin"
+                ? ["Praxisdaten", "Benachrichtigungen", "Dashboard", "Profilverwaltung", "Konto"]
+                : ["Benachrichtigungen", "Dashboard", "Konto"]
+              ).map(tab => (
                 <button
                   key={tab}
                   onClick={() => setActiveSettingsTab(tab)}
@@ -1158,7 +1159,7 @@ export default function Home() {
                       </div>
                     )}
 
-                    {currentUser.accessLevel === "Admin" && activeSettingsTab === "Profile" && (
+                    {currentUser.accessLevel === "Admin" && activeSettingsTab === "Profilverwaltung" && (
                       <div style={settingsGrid}>
                         
                         <div style={settingsCard}>
