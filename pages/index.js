@@ -318,9 +318,36 @@ export default function Home() {
     return dateMatch;
   });
 
+  const visibleCalls = filteredData.filter((row) => {
+    const statusMatch =
+      statusFilter === "Alle" ||
+      row.status === statusFilter ||
+      (statusFilter === "Neu / Ungelesen" && keepVisibleIds.includes(row.callId));
+  
+    const searchMatch =
+      (row.Name || "").toLowerCase().includes(search.toLowerCase()) ||
+      (row.Arzt || "").toLowerCase().includes(search.toLowerCase()) ||
+      (row.Anliegen || "").toLowerCase().includes(search.toLowerCase());
+  
+    const anliegenMatch =
+      anliegenFilter === "Alle" ||
+      (anliegenFilter === "Sonstige" && (!row.Anliegen || row.Anliegen === "-")) ||
+      (row.Anliegen || "").split(",").map(x => x.trim()).includes(anliegenFilter);
+  
+    const arztMatch =
+      arztFilter === "Alle" ||
+      (arztFilter === "Sonstige" && (!row.Arzt || row.Arzt === "-")) ||
+      (row.Arzt || "") === arztFilter;
+  
+    return statusMatch && searchMatch && anliegenMatch && arztMatch;
+  });
+  
   const entriesPerPage = Number(settings.entriesPerPage);
-  const totalPages = Math.ceil(filteredData.length / entriesPerPage);
-  const paginatedData = filteredData.slice(
+  const totalPages = Math.ceil(visibleCalls.length / entriesPerPage);
+  const paginatedData = visibleCalls.slice(
+    (currentPage - 1) * entriesPerPage,
+    currentPage * entriesPerPage
+  );
     (currentPage - 1) * entriesPerPage,
     currentPage * entriesPerPage
   );
@@ -673,7 +700,7 @@ export default function Home() {
               </div>
               
               {paginatedData
-                .filter((row) => {
+                .map((row) => (
                   const statusMatch =
                     statusFilter === "Alle" ||
                     row.status === statusFilter ||
