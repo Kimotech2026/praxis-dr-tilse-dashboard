@@ -1151,7 +1151,7 @@ export default function Home() {
 
                     {currentUser.accessLevel === "Admin" && activeSettingsTab === "Profilverwaltung" && (
                       <div style={settingsGrid}>
-                        
+                    
                         {users.map((user, index) => (
                           <div key={index} style={settingsCard}>
                             <div>
@@ -1174,26 +1174,26 @@ export default function Home() {
                             >
                               Bearbeiten
                             </button>
-
-                            <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 20 }}>
-                              <button
-                                onClick={() => {
-                                  setEditingUserIndex(null);
-                                  setNewEmployeeName("");
-                                  setNewEmployeeId("");
-                                  setNewEmployeePassword("");
-                                  setNewEmployeeRole("Mitarbeiterin");
-                                  setNewEmployeeAccessLevel("Eingeschränkt");
-                                  setSelectedPermissions([]);
-                                  setShowAddEmployee(true);
-                                }}
-                                style={addButton}
-                              >
-                                + Profil hinzufügen
-                              </button>
-                            </div>
                           </div>
                         ))}
+                    
+                        <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 10 }}>
+                          <button
+                            onClick={() => {
+                              setEditingUserIndex(null);
+                              setNewEmployeeName("");
+                              setNewEmployeeId("");
+                              setNewEmployeePassword("");
+                              setNewEmployeeRole("Mitarbeiterin");
+                              setNewEmployeeAccessLevel("Eingeschränkt");
+                              setSelectedPermissions([]);
+                              setShowAddEmployee(true);
+                            }}
+                            style={addButton}
+                          >
+                            + Profil hinzufügen
+                          </button>
+                        </div>
                     
                       </div>
                     )}
