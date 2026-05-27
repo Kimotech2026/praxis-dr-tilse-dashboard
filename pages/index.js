@@ -77,6 +77,8 @@ export default function Home() {
   const [confirmAction, setConfirmAction] = useState(null);
   const [editingUserIndex, setEditingUserIndex] = useState(null);
   const [selectedPermissions, setSelectedPermissions] = useState([]);
+  const [confirmDeleteUserIndex, setConfirmDeleteUserIndex] = useState(null);
+
   
   const [users, setUsers] = useState([
     {
@@ -403,6 +405,9 @@ export default function Home() {
     setNewEmployeePassword("");
     setShowAddEmployee(false);
     setSelectedPermissions([]);
+    setToastMessage("✓ Erfolgreich aktualisiert");
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 1800);
   };
 
   const handleAddContact = () => {
@@ -1457,11 +1462,7 @@ export default function Home() {
               
                 {editingUserIndex !== null && (
                   <button
-                    onClick={() => {
-                      setUsers(prev => prev.filter((_, i) => i !== editingUserIndex));
-                      setShowAddEmployee(false);
-                      setEditingUserIndex(null);
-                    }}
+                    onClick={() => setConfirmDeleteUserIndex(editingUserIndex)}
                     style={deleteButton}
                   >
                     Mitarbeiter löschen
@@ -1470,6 +1471,36 @@ export default function Home() {
               
                 <button onClick={handleAddEmployee} style={addButton}>
                   {editingUserIndex !== null ? "Änderungen speichern" : "Mitarbeiter hinzufügen"}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {confirmDeleteUserIndex !== null && (
+          <div style={modalOverlay}>
+            <div style={confirmModal}>
+              <h3 style={{ marginTop: 0 }}>Mitarbeiter löschen?</h3>
+              <p style={settingsText}>
+                Möchten Sie diesen Mitarbeiter wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.
+              </p>
+              <div style={modalActions}>
+                <button onClick={() => setConfirmDeleteUserIndex(null)} style={cancelButton}>
+                  Abbrechen
+                </button>
+                <button
+                  onClick={() => {
+                    setUsers(prev => prev.filter((_, i) => i !== confirmDeleteUserIndex));
+                    setConfirmDeleteUserIndex(null);
+                    setShowAddEmployee(false);
+                    setEditingUserIndex(null);
+                    setToastMessage("✓ Mitarbeiter gelöscht");
+                    setShowToast(true);
+                    setTimeout(() => setShowToast(false), 1800);
+                  }}
+                  style={deleteButton}
+                >
+                  Ja, löschen
                 </button>
               </div>
             </div>
