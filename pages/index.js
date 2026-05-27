@@ -1446,7 +1446,9 @@ export default function Home() {
           <div style={modalOverlay}>
             <div style={modal}>
               <div style={modalHeader}>
-                <h2 style={{ margin: 0 }}>Mitarbeiter hinzufügen</h2>
+                <h2 style={{ margin: 0 }}>
+                  {editingUserIndex !== null ? "Profil bearbeiten" : "Profil hinzufügen"}
+                </h2>
                 <button onClick={() => setShowAddEmployee(false)} style={closeButton}>×</button>
               </div>
         
