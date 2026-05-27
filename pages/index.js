@@ -368,7 +368,7 @@ export default function Home() {
   };
 
   const getPermissionsByAccessLevel = (level) => {
-    if (level === "Admin") return ["Kalender verwalten", "Erweiterte Einstellungen", "Praxisdaten ändern", "Mitgliedschaft einsehen", "Mitarbeiter verwalten"];
+    if (level === "Admin") return ["Kalender verwalten", "Erweiterte Einstellungen", "Praxisdaten ändern", "Mitgliedschaft einsehen", "Profile verwalten"];
     if (level === "Erweitert") return ["Anrufe bearbeiten", "Kalender verwalten", "Kontakte bearbeiten", "Auswertungen ansehen"];
     return ["Anrufe bearbeiten", "Kalender ansehen", "Kontakte ansehen"];
   };
@@ -388,7 +388,7 @@ export default function Home() {
         "Erweiterte Einstellungen",
         "Praxisdaten ändern",
         "Mitgliedschaft einsehen",
-        "Mitarbeiter verwalten"
+        "Profile verwalten"
       ]);
     }
   
@@ -1550,9 +1550,10 @@ export default function Home() {
                     <select value={newEmployeeRole} onChange={(e) => setNewEmployeeRole(e.target.value)} style={input}>
                       <option>Arzt</option>
                       <option>Ärztin</option>
+                      <option>Praxismanager</option>
+                      <option>Praxismanagerin</option>
                       <option>Mitarbeiterin</option>
                       <option>Mitarbeiter</option>
-                      <option>Praxismanagerin</option>
                     </select>
                   </div>
         
@@ -1581,7 +1582,7 @@ export default function Home() {
                         "Erweiterte Einstellungen",
                         "Praxisdaten ändern",
                         "Mitgliedschaft einsehen",
-                        "Mitarbeiter verwalten",
+                        "Profile verwalten",
                       ].map(permission => (
                         <label key={permission} style={checkOption}>
                           <input
@@ -1664,7 +1665,7 @@ export default function Home() {
                     setConfirmDeleteUserIndex(null);
                     setShowAddEmployee(false);
                     setEditingUserIndex(null);
-                    setToastMessage("✓ Mitarbeiter gelöscht");
+                    setToastMessage("✓ Profil gelöscht");
                     setShowToast(true);
                     setTimeout(() => setShowToast(false), 1800);
                   }}
