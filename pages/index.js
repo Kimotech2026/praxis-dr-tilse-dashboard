@@ -1159,18 +1159,22 @@ export default function Home() {
                     
                         {users.map((user, index) => (
                           <div key={index} style={settingsCard}>
-                            <div>
-                              <strong>{user.name}</strong>
-                              <p style={settingsText}>Funktion: {user.role}</p>
-
+                            <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                              <strong style={{ fontSize: 16 }}>{user.name}</strong>
+                            
+                              <span style={{ fontSize: 14, color: "#475569" }}>
+                                {user.role}
+                              </span>
+                            
                               <span
                                 style={{
+                                  marginTop: 4,
                                   display: "inline-block",
-                                  marginTop: 8,
                                   padding: "6px 10px",
                                   borderRadius: 999,
-                                  fontSize: 13,
+                                  fontSize: 12,
                                   fontWeight: 700,
+                                  width: "fit-content",
                                   background:
                                     user.accessLevel === "Admin"
                                       ? "#dcfce7"
@@ -1188,7 +1192,7 @@ export default function Home() {
                                 {user.accessLevel}
                               </span>
                             </div>
-                    
+                                                
                             <button
                               onClick={() => {
                                 setEditingUserIndex(index);
