@@ -45,7 +45,7 @@ export default function Home() {
   const [showAddAppointment, setShowAddAppointment] = useState(false);
   const [statusFilter, setStatusFilter] = useState("Alle");
   const [currentPage, setCurrentPage] = useState(1);
-  const [entriesPerPage, setEntriesPerPage] = useState(Number(localStorage.getItem("entriesPerPage")) || 10);
+  const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [keepVisibleIds, setKeepVisibleIds] = useState([]);
   const [search, setSearch] = useState("");  
   const [anliegenFilter, setAnliegenFilter] = useState("Alle");
@@ -104,6 +104,13 @@ export default function Home() {
     }
   ]);
 
+  useEffect(() => {
+    const savedEntries = localStorage.getItem("entriesPerPage");
+    if (savedEntries) {
+      setEntriesPerPage(Number(savedEntries));
+    }
+  }, []);
+  
   useEffect(() => {
     const saved = localStorage.getItem("users");
     if (saved) {
@@ -280,7 +287,7 @@ export default function Home() {
   };
   
   const saveSettings = () => {
-    localStorage.setItem("dashboardSettings", JSON.stringify(settings));
+    if (typeof window !== "undefined") localStorage.setItem("dashboardSettings", JSON.stringify(settings));
     setToastMessage("✓ Erfolgreich aktualisiert");
     setShowToast(true);
     setTimeout(() => setShowToast(false), 1800);
