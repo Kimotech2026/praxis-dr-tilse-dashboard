@@ -942,7 +942,7 @@ export default function Home() {
               </div>
             </div>
         
-            <div style={box}>
+            <div style={{ background: "white", padding: 18, borderRadius: 16, maxHeight: "calc(100vh - 300px)", overflowY: "auto" }}>
               <div style={contactHeaderRow}>
                 <span>Name</span>
                 <span>Telefonnummer</span>
