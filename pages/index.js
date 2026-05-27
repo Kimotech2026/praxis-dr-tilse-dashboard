@@ -1152,25 +1152,6 @@ export default function Home() {
                     {currentUser.accessLevel === "Admin" && activeSettingsTab === "Profilverwaltung" && (
                       <div style={settingsGrid}>
                         
-                        <div style={settingsCard}>
-                          <div>
-                            <h3 style={settingsTitle}>Profile verwalten</h3>
-                            <p style={settingsText}>Alle Mitarbeiter und Zugänge verwalten.</p>
-                          </div>
-                          <button onClick={() => {
-                            setEditingUserIndex(null);
-                            setNewEmployeeName("");
-                            setNewEmployeeId("");
-                            setNewEmployeePassword("");
-                            setNewEmployeeRole("Mitarbeiterin");
-                            setNewEmployeeAccessLevel("Eingeschränkt");
-                            setSelectedPermissions([]);
-                            setShowAddEmployee(true);
-                          }} style={addButton}>
-                            + Profil hinzufügen
-                          </button>
-                        </div>
-                    
                         {users.map((user, index) => (
                           <div key={index} style={settingsCard}>
                             <div>
@@ -1193,6 +1174,24 @@ export default function Home() {
                             >
                               Bearbeiten
                             </button>
+
+                            <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 20 }}>
+                              <button
+                                onClick={() => {
+                                  setEditingUserIndex(null);
+                                  setNewEmployeeName("");
+                                  setNewEmployeeId("");
+                                  setNewEmployeePassword("");
+                                  setNewEmployeeRole("Mitarbeiterin");
+                                  setNewEmployeeAccessLevel("Eingeschränkt");
+                                  setSelectedPermissions([]);
+                                  setShowAddEmployee(true);
+                                }}
+                                style={addButton}
+                              >
+                                + Profil hinzufügen
+                              </button>
+                            </div>
                           </div>
                         ))}
                     
@@ -1452,14 +1451,26 @@ export default function Home() {
               </div>
         
               <div style={modalActions}>
-                <button onClick={() => {
-                  setShowAddEmployee(false);
-                  setEditingUserIndex(null);
-                  setSelectedPermissions([]);
-                }} style={cancelButton}>
+                <button onClick={() => setShowAddEmployee(false)} style={cancelButton}>
                   Abbrechen
                 </button>
-                <button onClick={handleAddEmployee} style={addButton}>Mitarbeiter speichern</button>
+              
+                {editingUserIndex !== null && (
+                  <button
+                    onClick={() => {
+                      setUsers(prev => prev.filter((_, i) => i !== editingUserIndex));
+                      setShowAddEmployee(false);
+                      setEditingUserIndex(null);
+                    }}
+                    style={deleteButton}
+                  >
+                    Mitarbeiter löschen
+                  </button>
+                )}
+              
+                <button onClick={handleAddEmployee} style={addButton}>
+                  {editingUserIndex !== null ? "Änderungen speichern" : "Mitarbeiter hinzufügen"}
+                </button>
               </div>
             </div>
           </div>
