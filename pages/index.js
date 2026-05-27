@@ -942,31 +942,33 @@ export default function Home() {
               </div>
             </div>
         
-            <div style={{ background: "white", padding: 18, borderRadius: 16, maxHeight: "calc(100vh - 300px)", overflowY: "auto" }}>
-              <div style={contactHeaderRow}>
-                <span>Name</span>
-                <span>Telefonnummer</span>
-                <span>Geburtsdatum</span>
-                <span>Patientenstatus</span>
-                <span>Arzt</span>
-                <span>Anrufhistorie</span>
-              </div>
-        
-              {paginatedContacts.map((c, i) => (
-                <div key={i} style={contactRow}>
-                  <span style={{ fontWeight: 700 }}>{c.name}</span>
-                  <span>{c.phone || "-"}</span>
-                  <span>{c.birthdate || "-"}</span>
-                  <span>{c.existing}</span>
-                  <span>{c.doctor}</span>
-              
-                  <div style={{ display: "flex", gap: 6 }}>
-                    <button onClick={() => setSelectedContact(c)} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #bfdbfe", background: "#eff6ff", color: "#1d4ed8", cursor: "pointer", fontWeight: 600 }}>
-                      Historie
-                    </button>
-                  </div>
+            <div style={box}>
+              <div style={{ maxHeight: "calc(100vh - 420px)", overflowY: "auto" }}>
+                <div style={contactHeaderRow}>
+                  <span>Name</span>
+                  <span>Telefonnummer</span>
+                  <span>Geburtsdatum</span>
+                  <span>Patientenstatus</span>
+                  <span>Arzt</span>
+                  <span>Anrufhistorie</span>
                 </div>
-              ))}
+            
+                {paginatedContacts.map((c, i) => (
+                  <div key={i} style={contactRow}>
+                    <span style={{ fontWeight: 700 }}>{c.name}</span>
+                    <span>{c.phone || "-"}</span>
+                    <span>{c.birthdate || "-"}</span>
+                    <span>{c.existing}</span>
+                    <span>{c.doctor}</span>
+            
+                    <div style={{ display: "flex", gap: 6 }}>
+                      <button onClick={() => setSelectedContact(c)} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #bfdbfe", background: "#eff6ff", color: "#1d4ed8", cursor: "pointer", fontWeight: 600 }}>
+                        Historie
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
             
             <div style={pagination}>
