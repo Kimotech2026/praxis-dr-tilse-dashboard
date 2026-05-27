@@ -878,7 +878,7 @@ export default function Home() {
                   </div>
                 ))}
             </div>
-            <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 12 }}>
+            <div style={{ position: "sticky", bottom: 0, display: "flex", justifyContent: "center", gap: 8, marginTop: 10, padding: "10px 0", background: "#f5f7fb", zIndex: 5 }}>
               {Array.from({ length: totalPages }, (_, i) => (
                 <button
                   key={i}
@@ -1921,7 +1921,7 @@ const main = { flex: 1, padding: 32, overflow: "auto", boxSizing: "border-box" }
 const sidebar = { width: 190, flexShrink: 0, background: "#0f172a", color: "white", padding: 18, display: "flex", flexDirection: "column", justifyContent: "space-between" };
 const navItem = { padding: 12, color: "#cbd5e1", cursor: "pointer", borderRadius: 10, transition: "all 0.2s ease" };
 const activeNav = { padding: 12, background: "#2563eb", borderRadius: 10, color: "white", cursor: "pointer", transition: "all 0.2s ease" };
-const cards = { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20, margin: "30px 0" };
+const cards = { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 14, margin: "14px 0" };
 const card = { background: "white", padding: "10px 16px", borderRadius: 16, boxShadow: "0 8px 24px rgba(0,0,0,0.06)" };
 const box = { background: "white", padding: 24, borderRadius: 16 };
 const callCard = { padding: 16, border: "1px solid transparent", borderBottom: "1px solid #e5e7eb", cursor: "pointer", borderRadius: 14, transition: "all 0.2s ease", marginBottom: 8, background: "white" };
