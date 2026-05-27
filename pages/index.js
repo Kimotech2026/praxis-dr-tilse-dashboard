@@ -75,27 +75,37 @@ export default function Home() {
   const [newContactDoctor, setNewContactDoctor] = useState("Frau Dr. Tilse");
   const [editingContactIndex, setEditingContactIndex] = useState(null);
   const [confirmAction, setConfirmAction] = useState(null);
-
+  const [editingUserIndex, setEditingUserIndex] = useState(null);
+  const [selectedPermissions, setSelectedPermissions] = useState([]);
   
-  const [users, setUsers] = useState([
-    {
-      id: "arzt",
-      password: "1234",
-      name: "Dr. Tilse",
-      role: "Administrator",
-      accessLevel: "Admin",
-      permissions: ["Kalender verwalten", "Einstellungen ändern", "Praxisdaten ändern", "Mitgliedschaft einsehen", "Mitarbeiter verwalten"]
-    },
-    {
-      id: "mitarbeiterin",
-      password: "1234",
-      name: "Frau Meier",
-      role: "Mitarbeiterin",
-      accessLevel: "Eingeschränkt",
-      permissions: ["Anrufe bearbeiten", "Kalender ansehen", "Kontakte ansehen"]
-    }
-  ]);
+  const [users, setUsers] = useState(() => {
+    const saved = localStorage.getItem("users");
+    return saved
+      ? JSON.parse(saved)
+      : [
+          {
+            id: "arzt",
+            password: "1234",
+            name: "Dr. Tilse",
+            role: "Administrator",
+            accessLevel: "Admin",
+            permissions: ["Kalender verwalten", "Einstellungen ändern", "Praxisdaten ändern", "Mitgliedschaft einsehen", "Mitarbeiter verwalten"]
+          },
+          {
+            id: "mitarbeiterin",
+            password: "1234",
+            name: "Frau Meier",
+            role: "Mitarbeiterin",
+            accessLevel: "Eingeschränkt",
+            permissions: ["Anrufe bearbeiten", "Kalender ansehen", "Kontakte ansehen"]
+          }
+        ];
+  });
 
+  useEffect(() => {
+    localStorage.setItem("users", JSON.stringify(users));
+  }, [users]);
+    
   const [newEmployeeName, setNewEmployeeName] = useState("");
   const [newEmployeeId, setNewEmployeeId] = useState("");
   const [newEmployeePassword, setNewEmployeePassword] = useState("");
@@ -358,28 +368,39 @@ export default function Home() {
   
   const handleAddEmployee = () => {
     if (!newEmployeeName || !newEmployeeId || !newEmployeePassword) {
-      alert("Bitte Name, Benutzer-ID und Passwort ausfüllen.");
+      alert("Bitte alles ausfüllen.");
       return;
     }
   
-    setUsers(prev => [
-      ...prev,
-      {
-        id: newEmployeeId,
-        password: newEmployeePassword,
-        name: newEmployeeName,
-        role: newEmployeeRole,
-        accessLevel: newEmployeeAccessLevel,
-        permissions: getPermissionsByAccessLevel(newEmployeeAccessLevel)
-      }
-    ]);
+    const newUser = {
+      id: newEmployeeId,
+      password: newEmployeePassword,
+      name: newEmployeeName,
+      role: newEmployeeRole,
+      accessLevel: newEmployeeAccessLevel,
+      permissions: selectedPermissions
+    };
   
+    setUsers(prev => {
+      let updated;
+  
+      if (editingUserIndex !== null) {
+        updated = prev.map((u, i) =>
+          i === editingUserIndex ? newUser : u
+        );
+      } else {
+        updated = [...prev, newUser];
+      }
+  
+      return updated;
+    });
+  
+    setEditingUserIndex(null);
     setNewEmployeeName("");
     setNewEmployeeId("");
     setNewEmployeePassword("");
-    setNewEmployeeRole("Mitarbeiterin");
-    setNewEmployeeAccessLevel("Eingeschränkt");
     setShowAddEmployee(false);
+    setSelectedPermissions([]);
   };
 
   const handleAddContact = () => {
@@ -911,7 +932,7 @@ export default function Home() {
           <div style={box}>
         
             <div style={tabBar}>
-              {["Praxisdaten", "Benachrichtigungen", "Dashboard", "Konto"]
+              {["Praxisdaten", "Benachrichtigungen", "Dashboard", "Profile", "Konto"]
                 .filter(tab => currentUser.accessLevel === "Admin" || tab !== "Praxisdaten")
                 .map(tab => (
                 <button
@@ -1136,7 +1157,57 @@ export default function Home() {
                         </div>
                       </div>
                     )}
-        
+
+                    {currentUser.accessLevel === "Admin" && activeSettingsTab === "Profile" && (
+                      <div style={settingsGrid}>
+                        
+                        <div style={settingsCard}>
+                          <div>
+                            <h3 style={settingsTitle}>Profile verwalten</h3>
+                            <p style={settingsText}>Alle Mitarbeiter und Zugänge verwalten.</p>
+                          </div>
+                          <button onClick={() => {
+                            setEditingUserIndex(null);
+                            setNewEmployeeName("");
+                            setNewEmployeeId("");
+                            setNewEmployeePassword("");
+                            setNewEmployeeRole("Mitarbeiterin");
+                            setNewEmployeeAccessLevel("Eingeschränkt");
+                            setSelectedPermissions([]);
+                            setShowAddEmployee(true);
+                          }} style={addButton}>
+                            + Profil hinzufügen
+                          </button>
+                        </div>
+                    
+                        {users.map((user, index) => (
+                          <div key={index} style={settingsCard}>
+                            <div>
+                              <strong>{user.name}</strong>
+                              <p style={settingsText}>{user.id} • {user.accessLevel}</p>
+                            </div>
+                    
+                            <button
+                              onClick={() => {
+                                setEditingUserIndex(index);
+                                setNewEmployeeName(user.name);
+                                setNewEmployeeId(user.id);
+                                setNewEmployeePassword(user.password);
+                                setNewEmployeeRole(user.role);
+                                setNewEmployeeAccessLevel(user.accessLevel);
+                                setSelectedPermissions(user.permissions || []);
+                                setShowAddEmployee(true);
+                              }}
+                              style={addButton}
+                            >
+                              Bearbeiten
+                            </button>
+                          </div>
+                        ))}
+                    
+                      </div>
+                    )}
+                                          
                   </div>
                 )}
 
@@ -1351,11 +1422,52 @@ export default function Home() {
                       <option>Admin</option>
                     </select>
                   </div>
+
+                  <div style={{ gridColumn: "1 / -1" }}>
+                    <label style={formLabel}>Berechtigungen</label>
+                  
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                      {[
+                        "Anrufe bearbeiten",
+                        "Kalender ansehen",
+                        "Kalender verwalten",
+                        "Kontakte ansehen",
+                        "Kontakte bearbeiten",
+                        "Einstellungen ändern",
+                        "Praxisdaten ändern",
+                        "Mitgliedschaft einsehen",
+                        "Mitarbeiter verwalten",
+                        "Auswertungen ansehen"
+                      ].map(permission => (
+                        <label key={permission} style={checkOption}>
+                          <input
+                            type="checkbox"
+                            checked={selectedPermissions.includes(permission)}
+                            onChange={() => {
+                              setSelectedPermissions(prev =>
+                                prev.includes(permission)
+                                  ? prev.filter(p => p !== permission)
+                                  : [...prev, permission]
+                              );
+                            }}
+                          />
+                          {permission}
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                  
                 </div>
               </div>
         
               <div style={modalActions}>
-                <button onClick={() => setShowAddEmployee(false)} style={cancelButton}>Abbrechen</button>
+                <button onClick={() => {
+                  setShowAddEmployee(false);
+                  setEditingUserIndex(null);
+                  setSelectedPermissions([]);
+                }} style={cancelButton}>
+                  Abbrechen
+                </button>
                 <button onClick={handleAddEmployee} style={addButton}>Mitarbeiter speichern</button>
               </div>
             </div>
