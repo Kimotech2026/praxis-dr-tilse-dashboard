@@ -85,7 +85,7 @@ export default function Home() {
       id: "arzt",
       password: "1234",
       name: "Dr. Tilse",
-      role: "Administrator",
+      role: "Arzt",
       accessLevel: "Admin",
       permissions: ["Kalender verwalten", "Einstellungen ändern", "Praxisdaten ändern", "Mitgliedschaft einsehen", "Mitarbeiter verwalten"]
     },
