@@ -602,10 +602,10 @@ export default function Home() {
             <p style={{ color: "#667085" }}>Übersicht Ihrer von Anna geführten Anrufe.</p>
         
             <div style={cards}>
-              <div style={highlightCard}><p>Anrufe gesamt</p><h2><CountUp value={filteredData.length} /></h2></div>
-              <div style={card}><p>Termine</p><h2><CountUp value={kpiTermine} /></h2></div>
-              <div style={card}><p>Rezepte</p><h2><CountUp value={kpiRezepte} /></h2></div>
-              <div style={card}><p>Atteste</p><h2><CountUp value={kpiAtteste} /></h2></div>
+              <div style={highlightCard}><p>Anrufe gesamt</p><h2 style={{ margin: 0, fontSize: 22 }}><CountUp value={filteredData.length} /></h2></div>
+              <div style={card}><p>Termine</p><h2 style={{ margin: 0, fontSize: 22 }}><CountUp value={kpiTermine} /></h2></div>
+              <div style={card}><p>Rezepte</p><h2 style={{ margin: 0, fontSize: 22 }}><CountUp value={kpiRezepte} /></h2></div>
+              <div style={card}><p>Atteste</p><h2 style={{ margin: 0, fontSize: 22 }}><CountUp value={kpiAtteste} /></h2></div>
             </div>
 
             <div style={tabBar}>
@@ -1877,13 +1877,13 @@ const sidebar = { width: 190, flexShrink: 0, background: "#0f172a", color: "whit
 const navItem = { padding: 12, color: "#cbd5e1", cursor: "pointer", borderRadius: 10, transition: "all 0.2s ease" };
 const activeNav = { padding: 12, background: "#2563eb", borderRadius: 10, color: "white", cursor: "pointer", transition: "all 0.2s ease" };
 const cards = { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20, margin: "30px 0" };
-const card = { background: "white", padding: 24, borderRadius: 16, boxShadow: "0 8px 24px rgba(0,0,0,0.06)" };
+const card = { background: "white", padding: "10px 16px", borderRadius: 16, boxShadow: "0 8px 24px rgba(0,0,0,0.06)" };
 const box = { background: "white", padding: 24, borderRadius: 16 };
 const callCard = { padding: 16, border: "1px solid transparent", borderBottom: "1px solid #e5e7eb", cursor: "pointer", borderRadius: 14, transition: "all 0.2s ease", marginBottom: 8, background: "white" };
 const callCardOpen = { ...callCard, background: "#f8fafc", boxShadow: "0 10px 28px rgba(15,23,42,0.08)", border: "1px solid #dbeafe" };
 const callTop = { display: "grid", gridTemplateColumns: "90px 220px 360px 1fr 140px", gap: 12, alignItems: "center" };
 const badge = { width: 90, minWidth: 90, height: 28, flexShrink: 0, display: "inline-flex", justifyContent: "center", alignItems: "center", borderRadius: 999, fontSize: 13, fontWeight: 500 };
-const highlightCard = {  background: "linear-gradient(135deg, #2563eb, #1e40af)",  color: "white",  padding: 24,  borderRadius: 16,  boxShadow: "0 12px 30px rgba(37,99,235,0.30)"};
+const highlightCard = {  background: "linear-gradient(135deg, #2563eb, #1e40af)",  color: "white",  padding: "10px 16px",  borderRadius: 16,  boxShadow: "0 12px 30px rgba(37,99,235,0.30)"};
 const headerRow = { display: "grid", gridTemplateColumns: "90px 220px 360px 1fr 140px", gap: 12, fontSize: 13, color: "#667085", marginBottom: 10, padding: "0 16px" };
 const details = { marginTop: 16, padding: 16, background: "white", borderRadius: 14, border: "1px solid #e5e7eb", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 };
 const detailCard = { background: "white", padding: 14, borderRadius: 12 };
