@@ -78,29 +78,31 @@ export default function Home() {
   const [editingUserIndex, setEditingUserIndex] = useState(null);
   const [selectedPermissions, setSelectedPermissions] = useState([]);
   
-  const [users, setUsers] = useState(() => {
+  const [users, setUsers] = useState([
+    {
+      id: "arzt",
+      password: "1234",
+      name: "Dr. Tilse",
+      role: "Administrator",
+      accessLevel: "Admin",
+      permissions: ["Kalender verwalten", "Einstellungen ändern", "Praxisdaten ändern", "Mitgliedschaft einsehen", "Mitarbeiter verwalten"]
+    },
+    {
+      id: "mitarbeiterin",
+      password: "1234",
+      name: "Frau Meier",
+      role: "Mitarbeiterin",
+      accessLevel: "Eingeschränkt",
+      permissions: ["Anrufe bearbeiten", "Kalender ansehen", "Kontakte ansehen"]
+    }
+  ]);
+
+  useEffect(() => {
     const saved = localStorage.getItem("users");
-    return saved
-      ? JSON.parse(saved)
-      : [
-          {
-            id: "arzt",
-            password: "1234",
-            name: "Dr. Tilse",
-            role: "Administrator",
-            accessLevel: "Admin",
-            permissions: ["Kalender verwalten", "Einstellungen ändern", "Praxisdaten ändern", "Mitgliedschaft einsehen", "Mitarbeiter verwalten"]
-          },
-          {
-            id: "mitarbeiterin",
-            password: "1234",
-            name: "Frau Meier",
-            role: "Mitarbeiterin",
-            accessLevel: "Eingeschränkt",
-            permissions: ["Anrufe bearbeiten", "Kalender ansehen", "Kontakte ansehen"]
-          }
-        ];
-  });
+    if (saved) {
+      setUsers(JSON.parse(saved));
+    }
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("users", JSON.stringify(users));
