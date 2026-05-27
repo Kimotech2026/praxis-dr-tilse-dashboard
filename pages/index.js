@@ -1874,7 +1874,7 @@ export default function Home() {
 
 
 const layout = { display: "flex", height: "100vh", overflow: "hidden", background: "#f5f7fb", fontFamily: "Inter, sans-serif" };
-const main = { flex: 1, padding: 32, overflow: "hidden", boxSizing: "border-box" };
+const main = { flex: 1, padding: 32, overflow: "auto", boxSizing: "border-box" };
 const sidebar = { width: 190, flexShrink: 0, background: "#0f172a", color: "white", padding: 18, display: "flex", flexDirection: "column", justifyContent: "space-between" };
 const navItem = { padding: 12, color: "#cbd5e1", cursor: "pointer", borderRadius: 10, transition: "all 0.2s ease" };
 const activeNav = { padding: 12, background: "#2563eb", borderRadius: 10, color: "white", cursor: "pointer", transition: "all 0.2s ease" };
