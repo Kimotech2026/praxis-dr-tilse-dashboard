@@ -883,7 +883,7 @@ export default function Home() {
                 <button
                   key={i}
                   onClick={() => setCurrentPage(i + 1)}
-                  style={currentPage === i + 1 ? activeTab : tabItem}
+                  style={currentPage === i + 1 ? paginationActive : paginationButton}
                 >
                   {i + 1}
                 </button>
@@ -968,17 +968,7 @@ export default function Home() {
                 </div>
               ))}
             </div>
-                <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 18 }}>
-                  {Array.from({ length: totalContactPages }, (_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setCurrentPage(i + 1)}
-                      style={currentPage === i + 1 ? activeTab : tabItem}
-                    >
-                      {i + 1}
-                    </button>
-                  ))}
-                </div>
+                <div style={pagination}>
           </>
         )}
 
@@ -2043,3 +2033,6 @@ const timelineItem = { display: "grid", gridTemplateColumns: "120px 1fr", gap: 2
 const timelineLeft = { position: "relative", borderRight: "2px solid #bfdbfe", paddingRight: 18, display: "flex", flexDirection: "column", alignItems: "flex-end" };
 const timelineDot = { position: "absolute", right: -8, top: 6, width: 12, height: 12, borderRadius: "50%", background: "#2563eb", border: "2px solid white", boxShadow: "0 0 0 2px #bfdbfe" };
 const timelineContent = { background: "white", border: "1px solid #e5e7eb", borderRadius: 14, padding: 16, boxShadow: "0 6px 16px rgba(15,23,42,0.04)" };
+const pagination = { display: "flex", justifyContent: "center", gap: 8, marginTop: 16 };
+const paginationButton = { minWidth: 34, height: 34, borderRadius: 999, border: "1px solid #dbe1ea", background: "white", color: "#64748b", cursor: "pointer", fontWeight: 600 };
+const paginationActive = { minWidth: 34, height: 34, borderRadius: 999, border: "1px solid #2563eb", background: "#2563eb", color: "white", cursor: "pointer", fontWeight: 600 };
