@@ -878,7 +878,7 @@ export default function Home() {
                   </div>
                 ))}
             </div>
-            <div style={{ position: "sticky", bottom: 0, display: "flex", justifyContent: "center", gap: 8, marginTop: 10, padding: "10px 0", background: "#f5f7fb", zIndex: 5 }}>
+            <div style={{ position: "sticky", bottom: 0, display: "flex", justifyContent: "center", gap: 8, padding: "12px 0", background: "#f5f7fb", borderTop: "1px solid #e5e7eb", zIndex: 20 }}>
               {Array.from({ length: totalPages }, (_, i) => (
                 <button
                   key={i}
@@ -1917,7 +1917,7 @@ export default function Home() {
 
 
 const layout = { display: "flex", height: "100vh", overflow: "hidden", background: "#f5f7fb", fontFamily: "Inter, sans-serif" };
-const main = { flex: 1, padding: 32, overflow: "auto", boxSizing: "border-box" };
+const main = { flex: 1, padding: 32, overflow: "hidden", boxSizing: "border-box" };
 const sidebar = { width: 190, flexShrink: 0, background: "#0f172a", color: "white", padding: 18, display: "flex", flexDirection: "column", justifyContent: "space-between" };
 const navItem = { padding: 12, color: "#cbd5e1", cursor: "pointer", borderRadius: 10, transition: "all 0.2s ease" };
 const activeNav = { padding: 12, background: "#2563eb", borderRadius: 10, color: "white", cursor: "pointer", transition: "all 0.2s ease" };
