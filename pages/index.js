@@ -348,9 +348,6 @@ export default function Home() {
     (currentPage - 1) * entriesPerPage,
     currentPage * entriesPerPage
   );
-    (currentPage - 1) * entriesPerPage,
-    currentPage * entriesPerPage
-  );
   const kpiTermine = filteredData.filter(r => (r.Anliegen || "").split(",").map(x => x.trim()).includes("Termin")).length;
   const kpiRezepte = filteredData.filter(r => (r.Anliegen || "").split(",").map(x => x.trim()).includes("Rezept")).length;
   const kpiAtteste = filteredData.filter(r => (r.Anliegen || "").split(",").map(x => x.trim()).includes("Attest")).length;
@@ -699,38 +696,7 @@ export default function Home() {
                 <span>Status</span>
               </div>
               
-              {paginatedData
-                .map((row) => (
-                  const statusMatch =
-                    statusFilter === "Alle" ||
-                    row.status === statusFilter ||
-                    (statusFilter === "Neu / Ungelesen" && keepVisibleIds.includes(row.callId));
-                                
-                  const searchMatch =
-                    (row.Name || "").toLowerCase().includes(search.toLowerCase()) ||
-                    (row.Arzt || "").toLowerCase().includes(search.toLowerCase()) ||
-                    (row.Anliegen || "").toLowerCase().includes(search.toLowerCase());
-              
-                  const anliegenMatch =
-                    anliegenFilter === "Alle" ||
-                    (anliegenFilter === "Sonstige" && (!row.Anliegen || row.Anliegen === "-")) ||
-                    (row.Anliegen || "").split(",").map(x => x.trim()).includes(anliegenFilter);
-              
-                  const arztMatch =
-                    arztFilter === "Alle" ||
-                    (arztFilter === "Sonstige" && (!row.Arzt || row.Arzt === "-")) ||
-                    (row.Arzt || "") === arztFilter;
-              
-                  const dateMatch =
-                    (!startDate && !endDate) ||
-                    (() => {
-                      const rowDate = parseGermanDate(row.Datum);
-                      return rowDate && (!startDate || rowDate >= startDate) && (!endDate || rowDate <= endDate);
-                    })();
-              
-                  return statusMatch && searchMatch && anliegenMatch && arztMatch && dateMatch;
-                })
-                .map((row) => (
+              {paginatedData.map((row) => (
                   <div
                     key={row.callId}
                     style={{
