@@ -756,7 +756,7 @@ export default function Home() {
             </div>
             </div>   
                 
-            <div style={box}>
+            <div style={{ background: "white", padding: 18, borderRadius: 16, maxHeight: "calc(100vh - 390px)", overflowY: "auto" }}>
               <div style={headerRow}>
                 <span>Datum</span>
                 <span>Name</span>
@@ -878,7 +878,7 @@ export default function Home() {
                   </div>
                 ))}
             </div>
-            <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 18 }}>
+            <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 12 }}>
               {Array.from({ length: totalPages }, (_, i) => (
                 <button
                   key={i}
