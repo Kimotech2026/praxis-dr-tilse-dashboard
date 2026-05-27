@@ -1624,9 +1624,9 @@ export default function Home() {
         {confirmDeleteUserIndex !== null && (
           <div style={modalOverlay}>
             <div style={confirmModal}>
-              <h3 style={{ marginTop: 0 }}>Mitarbeiter löschen?</h3>
+              <h3 style={{ marginTop: 0 }}>Profil löschen?</h3>
               <p style={settingsText}>
-                Möchten Sie diesen Mitarbeiter wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.
+                Möchten Sie dieses Profil wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.
               </p>
               <div style={modalActions}>
                 <button onClick={() => setConfirmDeleteUserIndex(null)} style={cancelButton}>
