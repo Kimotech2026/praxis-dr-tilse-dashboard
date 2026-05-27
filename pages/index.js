@@ -1131,21 +1131,36 @@ export default function Home() {
             )}
         
             {activeSettingsTab === "Dashboard" && (
-              <div style={settingsGrid}>
-                <div style={{ ...settingsCard, alignItems: "flex-start" }}>
-                  <div>
-                    <h3 style={settingsTitle}>Startseite</h3>
-                    <p style={settingsText}>Bereich, der beim Öffnen automatisch angezeigt wird.</p>
-                  </div>
-                  <select value={settings.startPage} onChange={(e) => setSettings({ ...settings, startPage: e.target.value })} style={smallSelect}>
+              <div style={{ ...settingsCard, alignItems: "flex-start" }}>
+                <div>
+                  <h3 style={settingsTitle}>Startseite</h3>
+                  <p style={settingsText}>Bereich, der beim Öffnen automatisch angezeigt wird.</p>
+                </div>
+              
+                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                  
+                  <select
+                    value={settings.startPage}
+                    onChange={(e) => setSettings({ ...settings, startPage: e.target.value })}
+                    style={smallSelect}
+                  >
                     <option>Anrufe</option>
                     <option>Kalender</option>
                   </select>
-                  <select value={entriesPerPage} onChange={(e) => { setEntriesPerPage(Number(e.target.value)); setCurrentPage(1); }} style={smallSelect}><option value={10}>10 Anrufe</option><option value={25}>25 Anrufe</option><option value={50}>50 Anrufe</option></select>
-                </div>
-            
-                <div style={settingsActions}>
-                  <button onClick={saveSettings} style={smallSaveButton}>Speichern</button>
+              
+                  <select
+                    value={entriesPerPage}
+                    onChange={(e) => {
+                      setEntriesPerPage(Number(e.target.value));
+                      setCurrentPage(1);
+                    }}
+                    style={smallSelect}
+                  >
+                    <option value={10}>10 Anrufe</option>
+                    <option value={25}>25 Anrufe</option>
+                    <option value={50}>50 Anrufe</option>
+                  </select>
+              
                 </div>
               </div>
             )}
