@@ -756,7 +756,7 @@ export default function Home() {
             </div>
             </div>   
                 
-            <div style={{ background: "white", padding: 18, borderRadius: 16, maxHeight: "calc(100vh - 390px)", overflowY: "auto" }}>
+            <div style={{ background: "white", padding: 18, borderRadius: 16, maxHeight: "calc(100vh - 430px)", overflowY: "auto" }}>
               <div style={headerRow}>
                 <span>Datum</span>
                 <span>Name</span>
@@ -1917,7 +1917,7 @@ export default function Home() {
 
 
 const layout = { display: "flex", height: "100vh", overflow: "hidden", background: "#f5f7fb", fontFamily: "Inter, sans-serif" };
-const main = { flex: 1, padding: 24, overflow: "hidden", boxSizing: "border-box" };
+const main = { flex: 1, padding: 24, overflow: "auto", boxSizing: "border-box" };
 const sidebar = { width: 190, flexShrink: 0, background: "#0f172a", color: "white", padding: 18, display: "flex", flexDirection: "column", justifyContent: "space-between" };
 const navItem = { padding: 12, color: "#cbd5e1", cursor: "pointer", borderRadius: 10, transition: "all 0.2s ease" };
 const activeNav = { padding: 12, background: "#2563eb", borderRadius: 10, color: "white", cursor: "pointer", transition: "all 0.2s ease" };
