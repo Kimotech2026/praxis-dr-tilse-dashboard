@@ -1139,18 +1139,6 @@ export default function Home() {
                           </div>
                         </div>
         
-                        {currentUser.accessLevel === "Admin" && (
-                          <div style={settingsCard}>
-                            <div>
-                              <h3 style={settingsTitle}>Mitarbeiter hinzufügen</h3>
-                              <p style={settingsText}>Neue Nutzer mit Rolle, Zugriffsstufe und Berechtigungen anlegen.</p>
-                            </div>
-                            <button onClick={() => setShowAddEmployee(true)} style={addButton}>
-                              + Mitarbeiter hinzufügen
-                            </button>
-                          </div>
-                        )}
-        
                         <div style={settingsCard}>
                           <div>
                             <h3 style={settingsTitle}>Abmelden</h3>
