@@ -515,10 +515,9 @@ export default function Home() {
   
   if (!ready) return null;
 
-  if (!ready) return null;
-
   const employeeChanged =
-    originalEmployeeData &&
+    editingUserIndex !== null &&
+    originalEmployeeData !== null &&
     (
       newEmployeeName !== originalEmployeeData.name ||
       newEmployeeId !== originalEmployeeData.id ||
@@ -1638,9 +1637,15 @@ export default function Home() {
                   </button>
                 )}
               
-                {(editingUserIndex === null || employeeChanged) && (
+                {editingUserIndex === null && (
                   <button onClick={handleAddEmployee} style={addButton}>
-                    {editingUserIndex !== null ? "Änderungen speichern" : "Profil hinzufügen"}
+                    Profil hinzufügen
+                  </button>
+                )}
+                
+                {editingUserIndex !== null && employeeChanged && (
+                  <button onClick={handleAddEmployee} style={addButton}>
+                    Änderungen speichern
                   </button>
                 )}
               </div>
