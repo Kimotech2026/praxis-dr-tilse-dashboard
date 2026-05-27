@@ -631,6 +631,7 @@ export default function Home() {
           </p>
         )}
         <p onClick={() => { setActivePage("Einstellungen"); setActiveSettingsTab(currentUser.accessLevel === "Admin" ? "Praxisdaten" : "Benachrichtigungen"); }} style={activePage === "Einstellungen" ? activeNav : bottomItem}><Settings size={18} style={icon}/> Einstellungen</p>
+        <img src="/logo.png" style={sidebarLogo} />    
         </div>
         </aside>
   
@@ -2070,3 +2071,4 @@ const timelineContent = { background: "white", border: "1px solid #e5e7eb", bord
 const pagination = { display: "flex", justifyContent: "center", gap: 8, marginTop: 16 };
 const paginationButton = { minWidth: 34, height: 34, borderRadius: 999, border: "1px solid #dbe1ea", background: "white", color: "#64748b", cursor: "pointer", fontWeight: 600 };
 const paginationActive = { minWidth: 34, height: 34, borderRadius: 999, border: "1px solid #2563eb", background: "#2563eb", color: "white", cursor: "pointer", fontWeight: 600 };
+const sidebarLogo = {  width: 120,  margin: "18px auto 0",  display: "block",  opacity: 0.85};
