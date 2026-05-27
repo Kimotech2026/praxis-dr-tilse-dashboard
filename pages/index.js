@@ -1922,7 +1922,7 @@ export default function Home() {
 
 const layout = { display: "flex", height: "100vh", overflow: "hidden", background: "#f8fafc", fontFamily: "Inter, sans-serif" };
 const main = { flex: 1, padding: 24, overflow: "auto", boxSizing: "border-box" };
-const sidebar = { width: 240, height: "100vh", boxSizing: "border-box", flexShrink: 0, background: "#f8fafc", color: "#1e293b", padding: 18, display: "flex", flexDirection: "column", justifyContent: "space-between" };
+const sidebar = { width: 240, height: "100vh", boxSizing: "border-box", flexShrink: 0, background: "#f8fafc", color: "#1e293b", padding: 18, display: "flex", flexDirection: "column", justifyContent: "space-between", borderRight: "1px solid #e5e7eb" };
 const navItem = { padding: 12, color: "#475569", cursor: "pointer", borderRadius: 10, transition: "all 0.2s ease" };
 const activeNav = { padding: 12, background: "#dbeafe", borderRadius: 10, color: "#1d4ed8", cursor: "pointer", fontWeight: 600 };
 const cards = { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 14, margin: "14px 0" };
