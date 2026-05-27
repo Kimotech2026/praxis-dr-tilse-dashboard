@@ -87,7 +87,7 @@ export default function Home() {
       name: "Dr. Tilse",
       role: "Arzt",
       accessLevel: "Admin",
-      permissions: ["Kalender verwalten", "Einstellungen ändern", "Praxisdaten ändern", "Mitgliedschaft einsehen", "Mitarbeiter verwalten"]
+      permissions: ["Kalender verwalten", "Erweiterte Einstellungen", "Praxisdaten ändern", "Mitgliedschaft einsehen", "Mitarbeiter verwalten"]
     },
     {
       id: "mitarbeiterin",
@@ -365,7 +365,7 @@ export default function Home() {
   };
 
   const getPermissionsByAccessLevel = (level) => {
-    if (level === "Admin") return ["Kalender verwalten", "Einstellungen ändern", "Praxisdaten ändern", "Mitgliedschaft einsehen", "Mitarbeiter verwalten"];
+    if (level === "Admin") return ["Kalender verwalten", "Erweiterte Einstellungen", "Praxisdaten ändern", "Mitgliedschaft einsehen", "Mitarbeiter verwalten"];
     if (level === "Erweitert") return ["Anrufe bearbeiten", "Kalender verwalten", "Kontakte bearbeiten", "Auswertungen ansehen"];
     return ["Anrufe bearbeiten", "Kalender ansehen", "Kontakte ansehen"];
   };
@@ -377,16 +377,15 @@ export default function Home() {
   
     if (level === "Admin") {
       setSelectedPermissions([
+        "Anrufe ansehen",
         "Anrufe bearbeiten",
-        "Kalender ansehen",
         "Kalender verwalten",
         "Kontakte ansehen",
         "Kontakte bearbeiten",
-        "Einstellungen ändern",
+        "Erweiterte Einstellungen",
         "Praxisdaten ändern",
         "Mitgliedschaft einsehen",
-        "Mitarbeiter verwalten",
-        "Auswertungen ansehen"
+        "Mitarbeiter verwalten"
       ]);
     }
   
@@ -1490,7 +1489,7 @@ export default function Home() {
                         "Kalender verwalten",
                         "Kontakte ansehen",
                         "Kontakte bearbeiten",
-                        "Einstellungen ändern",
+                        "Erweiterte Einstellungen",
                         "Praxisdaten ändern",
                         "Mitgliedschaft einsehen",
                         "Mitarbeiter verwalten",
