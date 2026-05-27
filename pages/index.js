@@ -1920,7 +1920,7 @@ export default function Home() {
 }
 
 
-const layout = { display: "flex", height: "100vh", width: "100vw", overflow: "hidden", background: "#f5f7fb", fontFamily: "Inter, sans-serif", margin: 0 };
+const layout = { display: "flex", height: "100vh", overflow: "hidden", background: "#ffffff", fontFamily: "Inter, sans-serif" };
 const main = { flex: 1, padding: 24, overflow: "auto", boxSizing: "border-box" };
 const sidebar = { width: 240, height: "100vh", boxSizing: "border-box", flexShrink: 0, background: "#f1f5f9", color: "#1e293b", padding: 18, display: "flex", flexDirection: "column", justifyContent: "space-between" };
 const navItem = { padding: 12, color: "#475569", cursor: "pointer", borderRadius: 10, transition: "all 0.2s ease" };
