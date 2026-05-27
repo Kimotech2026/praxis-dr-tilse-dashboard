@@ -45,7 +45,7 @@ export default function Home() {
   const [showAddAppointment, setShowAddAppointment] = useState(false);
   const [statusFilter, setStatusFilter] = useState("Alle");
   const [currentPage, setCurrentPage] = useState(1);
-  const [entriesPerPage, setEntriesPerPage] = useState(10);
+  const [entriesPerPage, setEntriesPerPage] = useState(Number(localStorage.getItem("entriesPerPage")) || 10);
   const [keepVisibleIds, setKeepVisibleIds] = useState([]);
   const [search, setSearch] = useState("");  
   const [anliegenFilter, setAnliegenFilter] = useState("Alle");
@@ -1150,7 +1150,7 @@ export default function Home() {
                     <p style={settingsText}>Anzahl der Anrufe, die pro Seite angezeigt werden.</p>
                   </div>
             
-                  <select value={entriesPerPage} onChange={(e) => { setEntriesPerPage(Number(e.target.value)); setCurrentPage(1); }} style={smallSelect}>
+                  <select value={entriesPerPage} onChange={(e) => { setEntriesPerPage(Number(e.target.value)); localStorage.setItem("entriesPerPage", e.target.value); setCurrentPage(1); }} style={smallSelect}>
                     <option value={10}>10 Anrufe</option>
                     <option value={25}>25 Anrufe</option>
                     <option value={50}>50 Anrufe</option>
