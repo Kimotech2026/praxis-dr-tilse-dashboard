@@ -1132,7 +1132,7 @@ export default function Home() {
         
             {activeSettingsTab === "Dashboard" && (
               <div style={settingsGrid}>
-                <div style={settingsCard}>
+                <div style={{ ...settingsCard, alignItems: "flex-start" }}>
                   <div>
                     <h3 style={settingsTitle}>Startseite</h3>
                     <p style={settingsText}>Bereich, der beim Öffnen automatisch angezeigt wird.</p>
