@@ -1929,7 +1929,6 @@ const callCard = { padding: 16, border: "1px solid transparent", borderBottom: "
 const callCardOpen = { ...callCard, background: "#f8fafc", boxShadow: "0 10px 28px rgba(15,23,42,0.08)", border: "1px solid #dbeafe" };
 const callTop = { display: "grid", gridTemplateColumns: "90px 220px 360px 1fr 140px", gap: 12, alignItems: "center" };
 const badge = { width: 90, minWidth: 90, height: 28, flexShrink: 0, display: "inline-flex", justifyContent: "center", alignItems: "center", borderRadius: 999, fontSize: 13, fontWeight: 500 };
-const highlightCard = {  background: "linear-gradient(135deg, #2563eb, #1e40af)",  color: "white",  padding: "10px 16px",  borderRadius: 16,  boxShadow: "0 12px 30px rgba(37,99,235,0.30)"};
 const headerRow = { display: "grid", gridTemplateColumns: "90px 220px 360px 1fr 140px", gap: 12, fontSize: 13, color: "#667085", marginBottom: 10, padding: "0 16px" };
 const details = { marginTop: 16, padding: 16, background: "white", borderRadius: 14, border: "1px solid #e5e7eb", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 };
 const detailCard = { background: "white", padding: 14, borderRadius: 12 };
