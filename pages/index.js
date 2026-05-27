@@ -968,8 +968,15 @@ export default function Home() {
                 </div>
               ))}
             </div>
-                <div style={pagination}>
-          </>
+            
+            <div style={pagination}>
+              {Array.from({ length: totalContactPages }, (_, i) => (
+                <button key={i} onClick={() => setCurrentPage(i + 1)} style={currentPage === i + 1 ? paginationActive : paginationButton}>
+                  {i + 1}
+                </button>
+              ))}
+            </div>
+            </>
         )}
 
         {activePage === "Profil" && (
