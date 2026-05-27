@@ -44,6 +44,7 @@ export default function Home() {
   const [pendingPlan, setPendingPlan] = useState(null);
   const [showAddAppointment, setShowAddAppointment] = useState(false);
   const [statusFilter, setStatusFilter] = useState("Alle");
+  const [currentPage, setCurrentPage] = useState(1);
   const [keepVisibleIds, setKeepVisibleIds] = useState([]);
   const [search, setSearch] = useState("");  
   const [anliegenFilter, setAnliegenFilter] = useState("Alle");
@@ -316,7 +317,13 @@ export default function Home() {
   
     return dateMatch;
   });
-  
+
+  const entriesPerPage = Number(settings.entriesPerPage);
+  const totalPages = Math.ceil(filteredData.length / entriesPerPage);
+  const paginatedData = filteredData.slice(
+    (currentPage - 1) * entriesPerPage,
+    currentPage * entriesPerPage
+  );
   const kpiTermine = filteredData.filter(r => (r.Anliegen || "").split(",").map(x => x.trim()).includes("Termin")).length;
   const kpiRezepte = filteredData.filter(r => (r.Anliegen || "").split(",").map(x => x.trim()).includes("Rezept")).length;
   const kpiAtteste = filteredData.filter(r => (r.Anliegen || "").split(",").map(x => x.trim()).includes("Attest")).length;
@@ -665,7 +672,7 @@ export default function Home() {
                 <span>Status</span>
               </div>
               
-              {data
+              {paginatedData
                 .filter((row) => {
                   const statusMatch =
                     statusFilter === "Alle" ||
@@ -808,6 +815,17 @@ export default function Home() {
                     )}
                   </div>
                 ))}
+            </div>
+            <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 18 }}>
+              {Array.from({ length: totalPages }, (_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentPage(i + 1)}
+                  style={currentPage === i + 1 ? activeTab : tabItem}
+                >
+                  {i + 1}
+                </button>
+              ))}
             </div>
           </>
         )}
@@ -1874,7 +1892,7 @@ export default function Home() {
 
 
 const layout = { display: "flex", height: "100vh", overflow: "hidden", background: "#f5f7fb", fontFamily: "Inter, sans-serif" };
-const main = { flex: 1, padding: 32, overflow: "auto", boxSizing: "border-box" };
+const main = { flex: 1, padding: 32, overflow: "hidden", boxSizing: "border-box" };
 const sidebar = { width: 190, flexShrink: 0, background: "#0f172a", color: "white", padding: 18, display: "flex", flexDirection: "column", justifyContent: "space-between" };
 const navItem = { padding: 12, color: "#cbd5e1", cursor: "pointer", borderRadius: 10, transition: "all 0.2s ease" };
 const activeNav = { padding: 12, background: "#2563eb", borderRadius: 10, color: "white", cursor: "pointer", transition: "all 0.2s ease" };
