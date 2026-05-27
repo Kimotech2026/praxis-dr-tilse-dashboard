@@ -948,7 +948,7 @@ export default function Home() {
             </div>
         
             <div style={box}>
-              <div style={headerRow}>
+              <div style={contactHeaderRow}>
                 <span>Name</span>
                 <span>Telefonnummer</span>
                 <span>Geburtsdatum</span>
