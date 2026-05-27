@@ -602,10 +602,41 @@ export default function Home() {
             <p style={{ color: "#667085" }}>Übersicht Ihrer von Anna geführten Anrufe.</p>
         
             <div style={cards}>
-              <div style={highlightCard}><p>Anrufe gesamt</p><h2 style={{ margin: 0, fontSize: 22 }}><CountUp value={filteredData.length} /></h2></div>
-              <div style={card}><p>Termine</p><h2 style={{ margin: 0, fontSize: 22 }}><CountUp value={kpiTermine} /></h2></div>
-              <div style={card}><p>Rezepte</p><h2 style={{ margin: 0, fontSize: 22 }}><CountUp value={kpiRezepte} /></h2></div>
-              <div style={card}><p>Atteste</p><h2 style={{ margin: 0, fontSize: 22 }}><CountUp value={kpiAtteste} /></h2></div>
+              <div style={highlightCard}>
+                <p style={{ margin: 0, fontSize: 13, color: "#cbd5e1" }}>
+                  Anrufe gesamt
+                </p>
+                <h2 style={{ margin: 0, fontSize: 22 }}>
+                  <CountUp value={filteredData.length} />
+                </h2>
+              </div>
+            
+              <div style={card}>
+                <p style={{ margin: 0, fontSize: 13, color: "#64748b" }}>
+                  Termine
+                </p>
+                <h2 style={{ margin: 0, fontSize: 22 }}>
+                  <CountUp value={kpiTermine} />
+                </h2>
+              </div>
+            
+              <div style={card}>
+                <p style={{ margin: 0, fontSize: 13, color: "#64748b" }}>
+                  Rezepte
+                </p>
+                <h2 style={{ margin: 0, fontSize: 22 }}>
+                  <CountUp value={kpiRezepte} />
+                </h2>
+              </div>
+            
+              <div style={card}>
+                <p style={{ margin: 0, fontSize: 13, color: "#64748b" }}>
+                  Atteste
+                </p>
+                <h2 style={{ margin: 0, fontSize: 22 }}>
+                  <CountUp value={kpiAtteste} />
+                </h2>
+              </div>
             </div>
 
             <div style={tabBar}>
