@@ -348,6 +348,44 @@ export default function Home() {
     (currentPage - 1) * entriesPerPage,
     currentPage * entriesPerPage
   );
+
+  const allContacts = [...manualContacts, ...contacts]
+    .sort((a, b) => {
+      if (contactSort === "nameAZ") return a.name.localeCompare(b.name);
+      if (contactSort === "nameZA") return b.name.localeCompare(a.name);
+      return 0;
+    })
+    .filter(c => {
+      const searchValue = contactSearch.toLowerCase();
+  
+      const searchMatch =
+        (c.name || "").toLowerCase().includes(searchValue) ||
+        (c.phone || "").toLowerCase().includes(searchValue) ||
+        (c.birthdate || "").toLowerCase().includes(searchValue) ||
+        (c.existing || "").toLowerCase().includes(searchValue) ||
+        (c.doctor || "").toLowerCase().includes(searchValue);
+  
+      const doctorMatch =
+        contactDoctorFilter === "Alle" ||
+        c.doctor === contactDoctorFilter ||
+        (contactDoctorFilter === "Sonstige" && (!c.doctor || c.doctor === "-"));
+  
+      const existingMatch =
+        contactExistingFilter === "Alle" ||
+        (contactExistingFilter === "Neupatient" && (!c.existing || c.existing === "-")) ||
+        (c.existing || "").trim() === contactExistingFilter;
+  
+      return searchMatch && doctorMatch && existingMatch;
+    });
+  
+  const contactsPerPage = 10;
+  const totalContactPages = Math.max(1, Math.ceil(allContacts.length / contactsPerPage));
+  
+  const paginatedContacts = allContacts.slice(
+    (currentPage - 1) * contactsPerPage,
+    currentPage * contactsPerPage
+  );
+  
   const kpiTermine = filteredData.filter(r => (r.Anliegen || "").split(",").map(x => x.trim()).includes("Termin")).length;
   const kpiRezepte = filteredData.filter(r => (r.Anliegen || "").split(",").map(x => x.trim()).includes("Rezept")).length;
   const kpiAtteste = filteredData.filter(r => (r.Anliegen || "").split(",").map(x => x.trim()).includes("Attest")).length;
@@ -914,54 +952,33 @@ export default function Home() {
                 <span>Anrufhistorie</span>
               </div>
         
-              {[...manualContacts, ...contacts]
-                .sort((a, b) => { if (contactSort === "nameAZ") return a.name.localeCompare(b.name); if (contactSort === "nameZA") return b.name.localeCompare(a.name); return 0; })
-                
-                .filter(c => {
-                  const searchValue = contactSearch.toLowerCase();
-                  
-                  const searchMatch =
-                    (c.name || "").toLowerCase().includes(searchValue) ||
-                    (c.phone || "").toLowerCase().includes(searchValue) ||
-                    (c.birthdate || "").toLowerCase().includes(searchValue) ||
-                    (c.existing || "").toLowerCase().includes(searchValue) ||
-                    (c.doctor || "").toLowerCase().includes(searchValue);
-        
-                  const doctorMatch =
-                    contactDoctorFilter === "Alle" ||
-                    c.doctor === contactDoctorFilter ||
-                    (contactDoctorFilter === "Sonstige" && (!c.doctor || c.doctor === "-"));
-        
-                  const existingMatch =
-                    contactExistingFilter === "Alle" ||
-                    (contactExistingFilter === "Neupatient" && (!c.existing || c.existing === "-")) ||
-                    (c.existing || "").trim() === contactExistingFilter;
-        
-                  return searchMatch && doctorMatch && existingMatch;
-                })
-                
-                .map((c, i) => {
-                  const manualIndex = manualContacts.findIndex(m =>
-                    String(m.phone).replace(/\s/g, "") === String(c.phone).replace(/\s/g, "")
-                  );
-                                  
-                  return (
-                    <div key={i} style={contactRow}>
-                      <span style={{ fontWeight: 700 }}>{c.name}</span>
-                      <span>{c.phone || "-"}</span>
-                      <span>{c.birthdate || "-"}</span>
-                      <span>{c.existing}</span>
-                      <span>{c.doctor}</span>
-                
-                      <div style={{ display: "flex", gap: 6 }}>
-                        <button onClick={() => setSelectedContact(c)} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #bfdbfe", background: "#eff6ff", color: "#1d4ed8", cursor: "pointer", fontWeight: 600 }}>
-                          Historie
-                        </button>
-                      </div>
-                    </div>
-                  );
-              })}
+              {paginatedContacts.map((c, i) => (
+                <div key={i} style={contactRow}>
+                  <span style={{ fontWeight: 700 }}>{c.name}</span>
+                  <span>{c.phone || "-"}</span>
+                  <span>{c.birthdate || "-"}</span>
+                  <span>{c.existing}</span>
+                  <span>{c.doctor}</span>
+              
+                  <div style={{ display: "flex", gap: 6 }}>
+                    <button onClick={() => setSelectedContact(c)} style={{ padding: "6px 10px", borderRadius: 8, border: "1px solid #bfdbfe", background: "#eff6ff", color: "#1d4ed8", cursor: "pointer", fontWeight: 600 }}>
+                      Historie
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
+                <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 18 }}>
+                  {Array.from({ length: totalContactPages }, (_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setCurrentPage(i + 1)}
+                      style={currentPage === i + 1 ? activeTab : tabItem}
+                    >
+                      {i + 1}
+                    </button>
+                  ))}
+                </div>
           </>
         )}
 
