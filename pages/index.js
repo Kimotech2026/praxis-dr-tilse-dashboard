@@ -607,13 +607,13 @@ export default function Home() {
        <div>
         <h2>Praxis Dr. Tilse</h2>
          <nav>
-          <p onClick={() => setActivePage("Anrufe")} onMouseEnter={(e) => activePage !== "Anrufe" && (e.currentTarget.style.background = "#d1d5db")} onMouseLeave={(e) => activePage !== "Anrufe" && (e.currentTarget.style.background = "transparent")} style={{ ...(activePage === "Anrufe" ? activeNav : { ...navItem, cursor: "pointer" }), position: "relative" }}><Phone size={18} style={icon}/> Anrufe {data.filter(row => row.status === "Neu / Ungelesen").length > 0 && <span style={sidebarUnreadBadge}>{data.filter(row => row.status === "Neu / Ungelesen").length}</span>}</p>
+          <p onClick={() => setActivePage("Anrufe")} onMouseEnter={(e) => activePage !== "Anrufe" && (e.currentTarget.style.background = "#dbe1ea")} onMouseLeave={(e) => activePage !== "Anrufe" && (e.currentTarget.style.background = "transparent")} style={{ ...(activePage === "Anrufe" ? activeNav : { ...navItem, cursor: "pointer" }), position: "relative" }}><Phone size={18} style={icon}/> Anrufe {data.filter(row => row.status === "Neu / Ungelesen").length > 0 && <span style={sidebarUnreadBadge}>{data.filter(row => row.status === "Neu / Ungelesen").length}</span>}</p>
           {hasPermission("Kontakte ansehen") && (
-            <p onClick={() => setActivePage("Kontakte")} onMouseEnter={(e) => activePage !== "Kontakte" && (e.currentTarget.style.background = "#d1d5db")} onMouseLeave={(e) => activePage !== "Kontakte" && (e.currentTarget.style.background = "transparent")} style={activePage === "Kontakte" ? activeNav : { ...navItem, cursor: "pointer" }}>
+            <p onClick={() => setActivePage("Kontakte")} onMouseEnter={(e) => activePage !== "Kontakte" && (e.currentTarget.style.background = "#dbe1ea")} onMouseLeave={(e) => activePage !== "Kontakte" && (e.currentTarget.style.background = "transparent")} style={activePage === "Kontakte" ? activeNav : { ...navItem, cursor: "pointer" }}>
               <Users size={18} style={icon}/> Kontakte
             </p>
           )}
-          <p onClick={() => setActivePage("Kalender")} onMouseEnter={(e) => activePage !== "Kalender" && (e.currentTarget.style.background = "#d1d5db")} onMouseLeave={(e) => activePage !== "Kalender" && (e.currentTarget.style.background = "transparent")} style={activePage === "Kalender" ? activeNav : { ...navItem, cursor: "pointer" }}><Calendar size={18} style={icon}/> Kalender</p>
+          <p onClick={() => setActivePage("Kalender")} onMouseEnter={(e) => activePage !== "Kalender" && (e.currentTarget.style.background = "#dbe1ea")} onMouseLeave={(e) => activePage !== "Kalender" && (e.currentTarget.style.background = "transparent")} style={activePage === "Kalender" ? activeNav : { ...navItem, cursor: "pointer" }}><Calendar size={18} style={icon}/> Kalender</p>
         </nav>
         </div>
         <div style={bottomNav}>
