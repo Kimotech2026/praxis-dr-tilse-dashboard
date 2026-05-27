@@ -1161,7 +1161,32 @@ export default function Home() {
                           <div key={index} style={settingsCard}>
                             <div>
                               <strong>{user.name}</strong>
-                              <p style={settingsText}>{user.id} • {user.accessLevel}</p>
+                              <p style={settingsText}>Funktion: {user.role}</p>
+
+                              <span
+                                style={{
+                                  display: "inline-block",
+                                  marginTop: 8,
+                                  padding: "6px 10px",
+                                  borderRadius: 999,
+                                  fontSize: 13,
+                                  fontWeight: 700,
+                                  background:
+                                    user.accessLevel === "Admin"
+                                      ? "#dcfce7"
+                                      : user.accessLevel === "Erweitert"
+                                      ? "#dbeafe"
+                                      : "#fef3c7",
+                                  color:
+                                    user.accessLevel === "Admin"
+                                      ? "#166534"
+                                      : user.accessLevel === "Erweitert"
+                                      ? "#1d4ed8"
+                                      : "#92400e"
+                                }}
+                              >
+                                {user.accessLevel}
+                              </span>
                             </div>
                     
                             <button
