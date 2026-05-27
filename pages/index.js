@@ -1163,6 +1163,105 @@ export default function Home() {
               </div>
             )}
 
+            {currentUser.accessLevel === "Admin" && activeSettingsTab === "Praxisdaten" && (
+              <div style={settingsGrid}>
+                <div style={settingsCardColumn}>
+                  <div style={settingsTwoColumn}>
+                    <div>
+                      <h3 style={settingsTitle}>Praxisdaten</h3>
+                      <p style={settingsText}>Hier können Änderungswünsche zu den Stammdaten der Praxis eingetragen werden. Die Änderung wird durch unser Support-Team geprüft.</p>
+                    </div>
+                  
+                    <div style={settingsFormGrid}>
+                      <div>
+                        <label style={formLabel}>Praxisname</label>
+                        <input value={settings.practiceName} onChange={(e) => setSettings({ ...settings, practiceName: e.target.value })} style={input} />
+                      </div>
+                      
+                      <div>
+                        <label style={formLabel}>Adresse</label>
+                        <input value={settings.practiceAddress} onChange={(e) => setSettings({ ...settings, practiceAddress: e.target.value })} style={input} />
+                      </div>
+                      
+                      <div>
+                        <label style={formLabel}>E-Mail-Adresse</label>
+                        <input value={settings.practiceEmail} onChange={(e) => setSettings({ ...settings, practiceEmail: e.target.value })} style={input} />
+                      </div>
+                      
+                      <div>
+                        <label style={formLabel}>Telefonnummer</label>
+                        <input value={settings.practicePhone} onChange={(e) => setSettings({ ...settings, practicePhone: e.target.value })} style={input} />
+                      </div>
+                      
+                      <div>
+                        <label style={formLabel}>Webseite</label>
+                        <input value={settings.practiceWebsite} onChange={(e) => setSettings({ ...settings, practiceWebsite: e.target.value })} style={input} />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div style={settingsDivider}></div>
+                  
+                  <div style={settingsTwoColumn}>
+                    <div>
+                      <h3 style={settingsTitle}>Öffnungszeiten</h3>
+                      <p style={settingsText}>Pro Wochentag können zwei Zeitfenster ausgewählt werden, zum Beispiel vormittags und nachmittags.</p>
+                    </div>
+                  
+                    <div>
+                      {["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"].map(day => (
+                        <div key={day} style={openingRowDouble}>
+                          <span style={openingDay}>{day}</span>
+                      
+                          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                            {[0, 1].map(slotIndex => (
+                              <div key={slotIndex} style={{ display: "grid", gridTemplateColumns: "120px 70px 120px", gap: 10, alignItems: "center" }}>
+                                <select value={settings.practiceOpeningHours?.[day]?.[slotIndex]?.[0] || "Geschlossen"} onChange={(e) => updateOpeningHour(day, slotIndex, 0, e.target.value)} style={input}>
+                                  {timeOptions.map(t => <option key={t}>{t}</option>)}
+                                </select>
+                      
+                                <span style={{ textAlign: "center" }}>bis</span>
+                      
+                                <select value={settings.practiceOpeningHours?.[day]?.[slotIndex]?.[1] || "Geschlossen"} onChange={(e) => updateOpeningHour(day, slotIndex, 1, e.target.value)} style={input}>
+                                  {timeOptions.map(t => <option key={t}>{t}</option>)}
+                                </select>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+            
+                  <div style={infoBox}>Diese Änderung wird durch unser Support-Team geprüft. Die Daten werden erst nach Freigabe übernommen.</div>
+            
+                  <div style={settingsActions}>
+                    <button
+                      style={smallSaveButton}
+                      onClick={() => {
+                        const body = `
+            Praxisdaten-Änderungsanfrage:
+            
+            Praxisname: ${settings.practiceName}
+            Telefonnummer: ${settings.practicePhone}
+            E-Mail: ${settings.practiceEmail}
+            Webseite: ${settings.practiceWebsite}
+            Adresse: ${settings.practiceAddress}
+            Öffnungszeiten: ${settings.practiceOpeningHours || "-"}
+            `;
+                        setToastMessage("✓ Erfolgreich an Support gesendet");
+                        setShowToast(true);
+                        setTimeout(() => {
+                          setShowToast(false);
+                        }, 1800);
+                      }}
+                    >
+                      Änderung an Support senden
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
                     {activeSettingsTab === "Konto" && (
                       <div style={settingsGrid}>
                         <div style={settingsCard}>
