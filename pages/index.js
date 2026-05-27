@@ -948,16 +948,16 @@ export default function Home() {
             </div>
         
             <div style={box}>
-              <div style={{ maxHeight: "calc(100vh - 420px)", overflowY: "auto" }}>
-                <div style={contactHeaderRow}>
-                  <span>Name</span>
-                  <span>Telefonnummer</span>
-                  <span>Geburtsdatum</span>
-                  <span>Patientenstatus</span>
-                  <span>Arzt</span>
-                  <span>Anrufhistorie</span>
-                </div>
+              <div style={headerRow}>
+                <span>Name</span>
+                <span>Telefonnummer</span>
+                <span>Geburtsdatum</span>
+                <span>Patientenstatus</span>
+                <span>Arzt</span>
+                <span>Anrufhistorie</span>
+              </div>
             
+              <div style={{ maxHeight: "calc(100vh - 420px)", overflowY: "auto" }}>
                 {paginatedContacts.map((c, i) => (
                   <div key={i} style={contactRow}>
                     <span style={{ fontWeight: 700 }}>{c.name}</span>
