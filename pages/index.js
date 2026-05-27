@@ -45,6 +45,7 @@ export default function Home() {
   const [showAddAppointment, setShowAddAppointment] = useState(false);
   const [statusFilter, setStatusFilter] = useState("Alle");
   const [currentPage, setCurrentPage] = useState(1);
+  const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [keepVisibleIds, setKeepVisibleIds] = useState([]);
   const [search, setSearch] = useState("");  
   const [anliegenFilter, setAnliegenFilter] = useState("Alle");
@@ -344,7 +345,6 @@ export default function Home() {
     return statusMatch && searchMatch && anliegenMatch && arztMatch;
   });
   
-  const entriesPerPage = 10;
   const totalPages = Math.max(1, Math.ceil(visibleCalls.length / entriesPerPage));
   const paginatedData = visibleCalls.slice(
     (currentPage - 1) * entriesPerPage,
@@ -1141,6 +1141,7 @@ export default function Home() {
                     <option>Anrufe</option>
                     <option>Kalender</option>
                   </select>
+                  <select value={entriesPerPage} onChange={(e) => { setEntriesPerPage(Number(e.target.value)); setCurrentPage(1); }} style={smallSelect}><option value={10}>10 Anrufe</option><option value={25}>25 Anrufe</option><option value={50}>50 Anrufe</option></select>
                 </div>
             
                 <div style={settingsActions}>
