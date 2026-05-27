@@ -38,7 +38,7 @@ export default function Home() {
   const [activePage, setActivePage] = useState("");
   const [ready, setReady] = useState(false);  const [activeCalendar, setActiveCalendar] = useState("Frau Dr. Tilse");
   const [activeSettingsTab, setActiveSettingsTab] = useState("Praxisdaten");  
-  const [settings, setSettings] = useState({ startPage: "Anrufe", emailNewCalls: true, dailySummary: false, compactView: false, entriesPerPage: "25", highlightCallbacks: true, showCalendarFirst: false, autoOpenNewCalls: true, practiceNotes: "", practiceName: "Praxis Dr. Tilse", practiceAddress: "Königstraße 12, 23552 Lübeck", practiceEmail: "info@praxis-tilse.de", practiceWebsite: "www.praxis-tilse.de", practicePhone: "0451 / 123456", practiceOpeningHours: { Montag: [["07:00", "12:00"], ["14:00", "16:00"]], Dienstag: [["07:00", "12:00"], ["14:00", "16:00"]], Mittwoch: [["07:00", "12:00"], ["14:00", "16:00"]], Donnerstag: [["07:00", "12:00"], ["14:00", "16:00"]], Freitag: [["07:00", "12:00"], ["Geschlossen", "Geschlossen"]], Samstag: [["Geschlossen", "Geschlossen"], ["Geschlossen", "Geschlossen"]] } });  
+  const [settings, setSettings] = useState({ startPage: "Anrufe", emailNewCalls: true, dailySummary: false, compactView: false, highlightCallbacks: true, showCalendarFirst: false, autoOpenNewCalls: true, practiceNotes: "", practiceName: "Praxis Dr. Tilse", practiceAddress: "Königstraße 12, 23552 Lübeck", practiceEmail: "info@praxis-tilse.de", practiceWebsite: "www.praxis-tilse.de", practicePhone: "0451 / 123456", practiceOpeningHours: { Montag: [["07:00", "12:00"], ["14:00", "16:00"]], Dienstag: [["07:00", "12:00"], ["14:00", "16:00"]], Mittwoch: [["07:00", "12:00"], ["14:00", "16:00"]], Donnerstag: [["07:00", "12:00"], ["14:00", "16:00"]], Freitag: [["07:00", "12:00"], ["Geschlossen", "Geschlossen"]], Samstag: [["Geschlossen", "Geschlossen"], ["Geschlossen", "Geschlossen"]] } });  
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("✓ Erfolgreich aktualisiert");
   const [pendingPlan, setPendingPlan] = useState(null);
@@ -342,8 +342,8 @@ export default function Home() {
     return statusMatch && searchMatch && anliegenMatch && arztMatch;
   });
   
-  const entriesPerPage = Number(settings.entriesPerPage);
-  const totalPages = Math.ceil(visibleCalls.length / entriesPerPage);
+  const entriesPerPage = 10;
+  const totalPages = Math.max(1, Math.ceil(visibleCalls.length / entriesPerPage));
   const paginatedData = visibleCalls.slice(
     (currentPage - 1) * entriesPerPage,
     currentPage * entriesPerPage
@@ -1091,19 +1091,6 @@ export default function Home() {
                   </select>
                 </div>
             
-                <div style={settingsCard}>
-                  <div>
-                    <h3 style={settingsTitle}>Einträge pro Seite</h3>
-                    <p style={settingsText}>Wie viele Anrufe angezeigt werden sollen.</p>
-                  </div>
-                  <select value={settings.entriesPerPage} onChange={(e) => setSettings({ ...settings, entriesPerPage: e.target.value })} style={smallSelect}>
-                    <option>10</option>
-                    <option>25</option>
-                    <option>50</option>
-                    <option>100</option>
-                  </select>
-                </div>
-                      
                 <div style={settingsActions}>
                   <button onClick={saveSettings} style={smallSaveButton}>Speichern</button>
                 </div>
@@ -1885,7 +1872,7 @@ export default function Home() {
 
 
 const layout = { display: "flex", height: "100vh", overflow: "hidden", background: "#f5f7fb", fontFamily: "Inter, sans-serif" };
-const main = { flex: 1, padding: 32, overflow: "hidden", boxSizing: "border-box" };
+const main = { flex: 1, padding: 32, overflow: "auto", boxSizing: "border-box" };
 const sidebar = { width: 190, flexShrink: 0, background: "#0f172a", color: "white", padding: 18, display: "flex", flexDirection: "column", justifyContent: "space-between" };
 const navItem = { padding: 12, color: "#cbd5e1", cursor: "pointer", borderRadius: 10, transition: "all 0.2s ease" };
 const activeNav = { padding: 12, background: "#2563eb", borderRadius: 10, color: "white", cursor: "pointer", transition: "all 0.2s ease" };
