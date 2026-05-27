@@ -80,7 +80,8 @@ export default function Home() {
   const [confirmDeleteUserIndex, setConfirmDeleteUserIndex] = useState(null);
   const [newEmployeePasswordRepeat, setNewEmployeePasswordRepeat] = useState("");
   const [showEmployeePassword, setShowEmployeePassword] = useState(false);
-  
+  const [passwordError, setPasswordError] = useState("");
+
   const [users, setUsers] = useState([
     {
       id: "arzt",
@@ -406,8 +407,10 @@ export default function Home() {
     }
 
     if (newEmployeePassword !== newEmployeePasswordRepeat) {
-      alert("Die Passwörter stimmen nicht überein.");
+      setPasswordError("Passwörter stimmen nicht überein");
       return;
+    } else {
+      setPasswordError("");
     }
     
     const newUser = {
@@ -439,6 +442,7 @@ export default function Home() {
     setNewEmployeePassword("");
     setShowAddEmployee(false);
     setSelectedPermissions([]);
+    setPasswordError("");
     setNewEmployeePasswordRepeat("");
     setShowEmployeePassword(false);  
     setToastMessage("✓ Erfolgreich aktualisiert");
@@ -1258,6 +1262,7 @@ export default function Home() {
                               setNewEmployeeRole("Mitarbeiterin");
                               setNewEmployeeAccessLevel("Eingeschränkt");
                               setSelectedPermissions([]);
+                              setPasswordError("");
                               setShowAddEmployee(true);
                             }}
                             style={addButton}
@@ -1493,10 +1498,25 @@ export default function Home() {
                     <input
                       type={showEmployeePassword ? "text" : "password"}
                       value={newEmployeePasswordRepeat}
-                      onChange={(e) => setNewEmployeePasswordRepeat(e.target.value)}
+                      onChange={(e) => {
+                        setNewEmployeePasswordRepeat(e.target.value);
+                  
+                        if (passwordError) {
+                          setPasswordError("");
+                        }
+                      }}
                       placeholder="Passwort erneut eingeben"
-                      style={input}
+                      style={{
+                        ...input,
+                        border: passwordError ? "1px solid #dc2626" : input.border
+                      }}
                     />
+                  
+                    {passwordError && (
+                      <p style={{ color: "#dc2626", fontSize: 13, marginTop: 6 }}>
+                        {passwordError}
+                      </p>
+                    )}
                   </div>
         
                   <div>
