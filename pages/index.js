@@ -77,6 +77,7 @@ export default function Home() {
   const [confirmAction, setConfirmAction] = useState(null);
   const [editingUserIndex, setEditingUserIndex] = useState(null);
   const [selectedPermissions, setSelectedPermissions] = useState([]);
+  const [originalEmployeeData, setOriginalEmployeeData] = useState(null);
   const [confirmDeleteUserIndex, setConfirmDeleteUserIndex] = useState(null);
   const [newEmployeePasswordRepeat, setNewEmployeePasswordRepeat] = useState("");
   const [showEmployeePassword, setShowEmployeePassword] = useState(false);
@@ -513,7 +514,22 @@ export default function Home() {
   }
   
   if (!ready) return null;
+
+  if (!ready) return null;
+
+  const employeeChanged =
+    originalEmployeeData &&
+    (
+      newEmployeeName !== originalEmployeeData.name ||
+      newEmployeeId !== originalEmployeeData.id ||
+      newEmployeePassword !== originalEmployeeData.password ||
+      newEmployeeRole !== originalEmployeeData.role ||
+      newEmployeeAccessLevel !== originalEmployeeData.accessLevel ||
+      JSON.stringify([...selectedPermissions].sort()) !== JSON.stringify([...originalEmployeeData.permissions].sort())
+    );
   
+  return (
+
   return (
     <div style={layout}>
       <aside style={sidebar}>
@@ -1243,6 +1259,14 @@ export default function Home() {
                                 setNewEmployeeRole(user.role);
                                 setNewEmployeeAccessLevel(user.accessLevel);
                                 setSelectedPermissions(user.permissions || []);
+                                setOriginalEmployeeData({
+                                  name: user.name,
+                                  id: user.id,
+                                  password: user.password,
+                                  role: user.role,
+                                  accessLevel: user.accessLevel,
+                                  permissions: user.permissions || []
+                                });
                                 setShowAddEmployee(true);
                               }}
                               style={addButton}
@@ -1613,9 +1637,11 @@ export default function Home() {
                   </button>
                 )}
               
-                <button onClick={handleAddEmployee} style={addButton}>
-                  {editingUserIndex !== null ? "Änderungen speichern" : "Mitarbeiter hinzufügen"}
-                </button>
+                {(editingUserIndex === null || employeeChanged) && (
+                  <button onClick={handleAddEmployee} style={addButton}>
+                    {editingUserIndex !== null ? "Änderungen speichern" : "Profil hinzufügen"}
+                  </button>
+                )}
               </div>
             </div>
           </div>
