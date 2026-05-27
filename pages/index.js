@@ -369,6 +369,35 @@ export default function Home() {
     if (level === "Erweitert") return ["Anrufe bearbeiten", "Kalender verwalten", "Kontakte bearbeiten", "Auswertungen ansehen"];
     return ["Anrufe bearbeiten", "Kalender ansehen", "Kontakte ansehen"];
   };
+
+  const restrictedPermissions = ["Anrufe ansehen", "Kalender ansehen", "Dashboard verwalten"];
+  
+  const handleAccessLevelChange = (level) => {
+    setNewEmployeeAccessLevel(level);
+  
+    if (level === "Admin") {
+      setSelectedPermissions([
+        "Anrufe bearbeiten",
+        "Kalender ansehen",
+        "Kalender verwalten",
+        "Kontakte ansehen",
+        "Kontakte bearbeiten",
+        "Einstellungen ändern",
+        "Praxisdaten ändern",
+        "Mitgliedschaft einsehen",
+        "Mitarbeiter verwalten",
+        "Auswertungen ansehen"
+      ]);
+    }
+  
+    if (level === "Eingeschränkt") {
+      setSelectedPermissions(restrictedPermissions);
+    }
+  
+    if (level === "Erweitert") {
+      setSelectedPermissions([]);
+    }
+  };
   
   const handleAddEmployee = () => {
     if (!newEmployeeName || !newEmployeeId || !newEmployeePassword) {
@@ -1440,7 +1469,11 @@ export default function Home() {
         
                   <div>
                     <label style={formLabel}>Zugriffsstufe</label>
-                    <select value={newEmployeeAccessLevel} onChange={(e) => setNewEmployeeAccessLevel(e.target.value)} style={input}>
+                    <select
+                      value={newEmployeeAccessLevel}
+                      onChange={(e) => handleAccessLevelChange(e.target.value)}
+                      style={input}
+                    >
                       <option>Eingeschränkt</option>
                       <option>Erweitert</option>
                       <option>Admin</option>
@@ -1468,11 +1501,20 @@ export default function Home() {
                             type="checkbox"
                             checked={selectedPermissions.includes(permission)}
                             onChange={() => {
-                              setSelectedPermissions(prev =>
-                                prev.includes(permission)
+                              setSelectedPermissions(prev => {
+                                const updated = prev.includes(permission)
                                   ? prev.filter(p => p !== permission)
-                                  : [...prev, permission]
-                              );
+                                  : [...prev, permission];
+                            
+                                if (
+                                  newEmployeeAccessLevel === "Eingeschränkt" &&
+                                  !restrictedPermissions.includes(permission)
+                                ) {
+                                  setNewEmployeeAccessLevel("Erweitert");
+                                }
+                            
+                                return updated;
+                              });
                             }}
                           />
                           {permission}
