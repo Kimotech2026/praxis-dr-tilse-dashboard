@@ -223,6 +223,9 @@ export default function Home() {
     
         return {
           ...row,
+          Bestandspatient: row.Bestandspatient || row.Patientenstatus || "-",
+          Zusammenfassung: row.Zusammenfassung || row.Gesprächszusammenfassung || "-",
+          Anliegen: row.Anliegen || row.Kategorie || "-",
           callId,
           status: savedStatuses[callId] || "Neu / Ungelesen",
         };
