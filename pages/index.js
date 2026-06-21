@@ -2,6 +2,12 @@ import { useEffect, useState } from "react";
 import { Phone, Users, Calendar, User, CreditCard, Settings, Filter, Shield, Star, Crown, ArrowUpDown, Eye, EyeOff } from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
 
 function CountUp({ value }) {
   const [count, setCount] = useState(0);
@@ -194,24 +200,38 @@ export default function Home() {
   };
 
   useEffect(() => {
-    fetch("https://opensheet.elk.sh/1AFGmKqR2typaxKARBprS81ArcBUqXg1RX8sXwNyO1oY/Tabellenblatt1")
-      .then((res) => res.json())
-      .then((sheetData) => {
-  
-        const savedStatuses = JSON.parse(localStorage.getItem("callStatuses") || "{}");
-  
-        const calls = [...sheetData].reverse().map((row, index) => {
-          const callId = btoa(row.Name + row.Datum + row.Uhrzeit);
-  
-          return {
-            ...row,
-            callId,
-            status: savedStatuses[callId] || "Neu / Ungelesen"
-          };
-        });
-  
-        setData(calls);
+    const loadData = async () => {
+      const { data: sheetData, error } = await supabase
+        .from("anrufe")
+        .select("*");
+    
+      if (error) {
+        console.error(error);
+        return;
+      }
+    
+      const savedStatuses = JSON.parse(
+        localStorage.getItem("callStatuses") || "{}"
+      );
+    
+      const calls = [...sheetData].reverse().map((row) => {
+        const callId = btoa(
+          (row.Name || "") +
+          (row.Datum || "") +
+          (row.Uhrzeit || "")
+        );
+    
+        return {
+          ...row,
+          callId,
+          status: savedStatuses[callId] || "Neu / Ungelesen",
+        };
       });
+    
+      setData(calls);
+    };
+    
+    loadData();
   }, []);
 
   useEffect(() => { const saved = JSON.parse(localStorage.getItem("manualContacts") || "[]"); setManualContacts(saved); }, []);
